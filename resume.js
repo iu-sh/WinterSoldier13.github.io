@@ -152,5 +152,7 @@ function clear_console() {
 }
 
 $("html").click(function () {
-  $("#command").focus();
+  if (!document.body.classList.contains('immersive-mode')) {
+      $("#command").focus();
+  }
 });
