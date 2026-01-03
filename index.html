@@ -52,22 +52,71 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="resume.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="immersive.css" media="screen" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'monospace'],
+                    },
                     colors: {
-                        neutral: {
-                            900: '#171717',
-                            800: '#262626',
+                        // Material 3 Dark Theme "Funky" Palette
+                        md: {
+                            sys: {
+                                surface: '#0f0f0f',
+                                'surface-container': '#1f1f1f',
+                                'surface-container-high': '#2b2b2b',
+                                'on-surface': '#e3e3e3',
+                                'on-surface-variant': '#c4c7c5',
+                                primary: '#d0bcff', // Light Purple
+                                'on-primary': '#381e72',
+                                'primary-container': '#4f378b',
+                                'on-primary-container': '#eaddff',
+                                secondary: '#b6c4ff', // Light Blue/Indigo
+                                'on-secondary': '#1c2d60',
+                                'secondary-container': '#334479',
+                                'on-secondary-container': '#dbe1ff',
+                                tertiary: '#ffb7cd', // Funky Pink
+                                'on-tertiary': '#491d2e',
+                                'tertiary-container': '#633344',
+                                'on-tertiary-container': '#ffd9e3',
+                                error: '#ffb4ab',
+                                'outline': '#8e918f',
+                                'outline-variant': '#444746'
+                            }
                         }
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                    borderRadius: {
+                        'xs': '4px',
+                        'sm': '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '24px', // M3 Medium
+                        '2xl': '32px', // M3 Large
+                        '3xl': '48px', // M3 Extra Large
+                        'full': '9999px',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'loop-scroll': 'loop-scroll 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'loop-scroll': {
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-50%)' },
+                        }
                     }
                 }
             }
