@@ -545,20 +545,7 @@ function initScrollSpy() {
 function parseData() {
     // 1. SKILLS
     const skillsUl = document.querySelector('#skills ul');
-    let skills = [];
-    if (skillsUl) {
-        const listItems = skillsUl.querySelectorAll('li');
-        listItems.forEach(li => {
-            const text = li.innerText;
-            const parts = text.split('-');
-            if(parts.length > 1) {
-                const items = parts[1].split(',').map(s => s.trim().replace('.', ''));
-                skills = [...skills, ...items];
-            } else {
-                skills.push(text.trim());
-            }
-        });
-    }
+    let skills = ["TypeScript", "Python", "Go", "C++", "Java", "Distributed System", "GoogleCloudPlatform", "Linux", "Distributed Storage", "Backend Development"];
 
     // 2. PROJECTS
     const projects = [];
