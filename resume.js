@@ -151,14 +151,6 @@ function clear_console() {
   document.getElementById("suggestion").value = "";
 }
 
-$("html").click(function (e) {
-  // Don't auto-focus if interacting with clickable elements
-  if ($(e.target).closest('a, button, input').length) {
-    return;
-  }
-
-  // Only focus command line if terminal view is active or not yet defined
-  if ($("#terminal-view").length === 0 || $("#terminal-view").is(":visible")) {
-    $("#command").focus();
-  }
+$("html").click(function () {
+  $("#command").focus();
 });
