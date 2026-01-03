@@ -18,15 +18,165 @@
     const SCREEN_RADIUS = 800; // Match CSS
     const MOBILE_SCREEN_RADIUS = 500;
 
-    document.addEventListener("DOMContentLoaded", () => {
-        // Check if preference exists (optional, user didn't ask for persistence but it's good UX)
-        // For now, always show popup as requested "popup first as soon as the site loads"
+    // HTML Template for the Immersive Interface
+    const IMPRESSIVE_HTML = `
+    <!-- Mode Selection Popup -->
+    <div id="mode-popup">
+        <div class="popup-content">
+            <h2>Select Interface Mode</h2>
+            <div class="mode-buttons">
+                <button class="mode-btn" onclick="selectMode('terminal')">Terminal Mode</button>
+                <button class="mode-btn" onclick="selectMode('immersive')">Immersive Mode (3D)</button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Immersive 3D View -->
+    <div id="immersive-view">
+        <div id="scene-container">
+            <div class="bg-grid"></div>
+            <div class="bg-grid ceiling"></div>
+            <div id="world">
+
+                <!-- Main Tutorial Screen -->
+                <div id="screen-tutorial" class="screen">
+                    <div class="screen-header">
+                        <span>SYSTEM // MAIN_MENU</span>
+                        <span>STATUS: ONLINE</span>
+                    </div>
+                    <div class="screen-content">
+                        <h3>WELCOME TO THE MAINFRAME</h3>
+                        <p>You have accessed the immersive interface.</p>
+                        <br>
+                        <h4>NAVIGATION INSTRUCTIONS:</h4>
+                        <ul>
+                            <li><strong>LOOK AROUND:</strong> Click and drag your mouse (or touch and drag) to rotate the view.</li>
+                            <li><strong>SELECT SECTION:</strong> Click on any screen to ZOOM IN and access its data.</li>
+                            <li><strong>RETURN:</strong> Right-click anywhere (or use on-screen back button) to ZOOM OUT.</li>
+                        </ul>
+                        <br>
+                        <p style="color: yellow; text-align: center;">-- SELECT A SCREEN TO BEGIN --</p>
+                    </div>
+                </div>
+
+                <!-- About Screen -->
+                <div id="screen-about" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">ABOUT</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // ABOUT_ME</span>
+                        <span>[ENCRYPTED]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #about -->
+                    </div>
+                </div>
+
+                <!-- Projects Screen -->
+                <div id="screen-projects" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">PROJECTS</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // PROJECTS</span>
+                        <span>[CLASSIFIED]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #projects -->
+                    </div>
+                </div>
+
+                <!-- Experience Screen -->
+                <div id="screen-experience" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">EXPERIENCE</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // WORK_LOG</span>
+                        <span>[RESTRICTED]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #experience -->
+                    </div>
+                </div>
+
+                <!-- Skills Screen -->
+                <div id="screen-skills" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">SKILLS</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // ABILITIES</span>
+                        <span>[LOADING...]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #skills -->
+                    </div>
+                </div>
+
+                <!-- Education Screen -->
+                <div id="screen-education" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">EDUCATION</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // ACADEMICS</span>
+                        <span>[VERIFIED]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #education -->
+                    </div>
+                </div>
+
+                <!-- Contact Screen -->
+                <div id="screen-contact" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">CONTACT</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // COMMS</span>
+                        <span>[OPEN]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #contact -->
+                    </div>
+                </div>
+
+                 <!-- Achievements Screen -->
+                 <div id="screen-achievements" class="screen">
+                    <div class="screen-overlay">
+                        <div class="screen-title-big">AWARDS</div>
+                    </div>
+                    <div class="screen-header">
+                        <span>FILE // MEDALS</span>
+                        <span>[HONORS]</span>
+                    </div>
+                    <div class="screen-content">
+                        <!-- Content will be injected from #achievements -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    `;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        injectInterface();
+
+        // Show popup
         showPopup();
 
         setupInteractions();
         animate();
     });
+
+    function injectInterface() {
+        const container = document.createElement('div');
+        container.innerHTML = IMPRESSIVE_HTML;
+        document.body.prepend(container);
+    }
 
     function showPopup() {
         const popup = document.getElementById('mode-popup');
@@ -45,13 +195,16 @@
         }, 500);
 
         if (mode === 'terminal') {
-            terminalView.style.display = 'block';
-            immersiveView.style.display = 'none';
+            if (terminalView) terminalView.style.display = 'block';
+            if (immersiveView) immersiveView.style.display = 'none';
+
             // Resume.js logic is already running, just ensuring focus
-            $("#command").focus();
+            if (window.jQuery && window.jQuery("#command")) {
+                window.jQuery("#command").focus();
+            }
         } else {
-            terminalView.style.display = 'none';
-            immersiveView.style.display = 'block';
+            if (terminalView) terminalView.style.display = 'none';
+            if (immersiveView) immersiveView.style.display = 'block';
 
             // Initialize Immersive Mode
             initImmersiveMode();
@@ -91,35 +244,39 @@
     }
 
     function setupInteractions() {
-        const immersiveView = document.getElementById('immersive-view');
+        // Need to wait for injection
+        setTimeout(() => {
+            const immersiveView = document.getElementById('immersive-view');
+            if (!immersiveView) return;
 
-        // Mouse / Touch Rotation
-        immersiveView.addEventListener('mousedown', startDrag);
-        immersiveView.addEventListener('touchstart', startDrag);
+            // Mouse / Touch Rotation
+            immersiveView.addEventListener('mousedown', startDrag);
+            immersiveView.addEventListener('touchstart', startDrag);
 
-        window.addEventListener('mousemove', drag);
-        window.addEventListener('touchmove', drag);
+            window.addEventListener('mousemove', drag);
+            window.addEventListener('touchmove', drag);
 
-        window.addEventListener('mouseup', endDrag);
-        window.addEventListener('touchend', endDrag);
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('touchend', endDrag);
 
-        // Right click to back
-        immersiveView.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            if (isZoomed) {
-                zoomOut();
-            }
-        });
-
-        // Screen Clicks
-        const screens = document.querySelectorAll('.screen');
-        screens.forEach(screen => {
-            screen.addEventListener('click', (e) => {
-                if (!isDragging && !isZoomed) {
-                    zoomIn(screen);
+            // Right click to back
+            immersiveView.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                if (isZoomed) {
+                    zoomOut();
                 }
             });
-        });
+
+            // Screen Clicks
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.addEventListener('click', (e) => {
+                    if (!isDragging && !isZoomed) {
+                        zoomIn(screen);
+                    }
+                });
+            });
+        }, 100);
     }
 
     function startDrag(e) {
@@ -160,9 +317,6 @@
         screen.classList.add('active');
 
         // Calculate rotation needed to face this screen
-        // We parse the transform from CSS or calculate based on ID
-        // Simplified: use data attributes or known angles
-
         let angle = 0;
         const id = screen.id;
 
@@ -178,7 +332,6 @@
         }
 
         // Animate World to center this screen
-        // We rotate the world opposite to the screen's position
         const world = document.getElementById('world');
         const radius = window.innerWidth < 768 ? MOBILE_SCREEN_RADIUS : SCREEN_RADIUS;
 
@@ -191,9 +344,6 @@
         currentRotationY = angle;
 
         // Translate world forward to bring screen close
-        // The screen is at Z = radius. We want it at Z = 0 (camera).
-        // So we move world Z = -radius + offset (e.g., 200px from camera)
-
         world.style.transform = `translateZ(${radius - 150}px) rotateX(0deg) rotateY(${angle}deg)`;
 
         // Hide overlay
@@ -212,7 +362,7 @@
             if(overlay) overlay.style.opacity = '1';
         }
 
-        // Reset World Transform (keep current rotation but remove translation)
+        // Reset World Transform
         const world = document.getElementById('world');
         world.style.transform = `translateZ(0px) rotateX(${currentRotationX}deg) rotateY(${currentRotationY}deg)`;
     }
