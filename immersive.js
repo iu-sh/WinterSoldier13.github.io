@@ -49,7 +49,17 @@ function switchToImmersive() {
     const container = document.createElement('div');
     container.id = 'immersive-view';
     // Use the class list from the prompt
-    container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#0f0f0f] text-[#e3e3e3] font-sans min-h-screen';
+    container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#0f0f0f] text-[#e3e3e3] font-sans min-h-screen relative';
+
+    // Add animated background
+    const bgContainer = document.createElement('div');
+    bgContainer.className = 'fixed inset-0 z-0 overflow-hidden pointer-events-none';
+    bgContainer.innerHTML = `
+        <div class="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-r from-[#2c003e] to-[#000000] blur-[100px] opacity-40 animate-float"></div>
+        <div class="absolute top-[30%] -right-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-l from-[#1a0b2e] to-[#000000] blur-[120px] opacity-30 animate-float" style="animation-delay: -3s"></div>
+        <div class="absolute -bottom-[20%] left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-[#0f172a] to-[#000000] blur-[100px] opacity-40 animate-float" style="animation-delay: -5s"></div>
+    `;
+    container.appendChild(bgContainer);
 
     // Clear body content (hide terminal) but keep scripts
     // Actually, safer to just append and let it cover with high z-index or hide the other elements
@@ -61,7 +71,7 @@ function switchToImmersive() {
         // We'll just style the container to hide the old stuff.
         const style = document.createElement('style');
         style.textContent = `
-            body > div:not(#immersive-view):not(#mode-popup) { display: none !important; }
+            body > div:not(#immersive-view):not(#mode-popup):not(#booking-popup) { display: none !important; }
             body { background-color: #0f0f0f !important; overflow: auto !important; }
             /* Custom scrollbar hiding */
             .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -72,7 +82,9 @@ function switchToImmersive() {
     document.body.appendChild(container);
 
     // 4. Render Content
-    const content = `
+    const contentWrapper = document.createElement('div');
+    contentWrapper.className = 'relative z-10';
+    contentWrapper.innerHTML = `
         ${renderNavRail()}
         ${renderHero(data)}
         ${renderMarquee(data)}
@@ -82,11 +94,12 @@ function switchToImmersive() {
         ${renderFooter(data)}
     `;
 
-    container.innerHTML = content;
+    container.appendChild(contentWrapper);
 
     // 5. Initialize Interactions
     initInteractions();
     lucide.createIcons();
+    initScrollSpy();
 }
 
 function injectDependencies() {
@@ -178,7 +191,7 @@ function renderNavRail() {
         <a href="#immersive-projects" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
             <i data-lucide="code-2" class="w-6 h-6"></i>
         </a>
-        <a href="#immersive-contact" class="p-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity shadow-lg">
+        <a href="#immersive-contact" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
             <i data-lucide="mail" class="w-6 h-6"></i>
         </a>
     </nav>
@@ -208,7 +221,7 @@ function renderHero(data) {
 
             <p class="font-sans text-xl md:text-2xl text-md-sys-on-surface-variant max-w-2xl leading-relaxed mb-10">
                 ${data.about.intro || "Software Engineer & Electronics Tinkerer. I break things until they work."}
-                <span class="block mt-2 text-md-sys-outline">@WinterSoldier13 on GitHub</span>
+                <span class="block mt-2 text-md-sys-outline">@iu-sh on GitHub</span>
             </p>
 
             <div class="flex flex-wrap gap-4">
@@ -247,7 +260,7 @@ function renderAbout(data) {
     <section id="immersive-about" class="px-6 lg:px-24 py-20 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="order-2 md:order-1">
-                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-md-sys-on-surface">The Homie Logic.</h2>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-md-sys-on-surface">Who am I?</h2>
                 <div class="space-y-6 text-lg text-md-sys-on-surface-variant font-light">
                     <p>
                         ${data.about.fullBio || "I'm not just a coder; I'm a builder."}
@@ -277,7 +290,7 @@ function renderAbout(data) {
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
                         <div class="text-green-400">$ whoami</div>
-                        <div class="text-gray-300 mb-2">Ayush / WinterSoldier13</div>
+                        <div class="text-gray-300 mb-2">Ayush / iu-sh</div>
                         <div class="text-green-400">$ cat bio.txt</div>
                         <div class="text-gray-300">
                             > Engineer.<br>
@@ -391,6 +404,7 @@ function renderProjects(data) {
 }
 
 function renderFooter(data) {
+    const resumeLink = "https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing";
     return `
     <footer id="immersive-contact" class="px-6 lg:px-24 py-20 relative bg-md-sys-surface">
         <div class="max-w-4xl mx-auto text-center">
@@ -402,9 +416,13 @@ function renderFooter(data) {
                     <i data-lucide="mail"></i>
                     Send Email
                 </a>
-                <a href="${data.bookTime}" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 border border-md-sys-outline-variant bg-md-sys-surface-container text-md-sys-on-surface rounded-full text-lg font-bold hover:bg-md-sys-tertiary hover:text-md-sys-on-tertiary transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200">
+                <button id="btn-book-time" data-link="${data.bookTime}" class="inline-flex items-center gap-3 px-8 py-4 border border-md-sys-outline-variant bg-md-sys-surface-container text-md-sys-on-surface rounded-full text-lg font-bold hover:bg-md-sys-tertiary hover:text-md-sys-on-tertiary transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200">
                     <i data-lucide="calendar"></i>
                     Book a Time
+                </button>
+                <a href="${resumeLink}" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 border border-md-sys-outline-variant bg-md-sys-surface-container text-md-sys-on-surface rounded-full text-lg font-bold hover:bg-md-sys-secondary hover:text-md-sys-on-secondary transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200">
+                    <i data-lucide="file-text"></i>
+                    Resume
                 </a>
             </div>
 
@@ -418,7 +436,7 @@ function renderFooter(data) {
             </div>
 
             <div class="mt-20 text-md-sys-outline text-sm">
-                <p>&copy; 2026 Ayush / WinterSoldier13. Built with <span class="text-md-sys-tertiary">♥</span> and Tailwind.</p>
+                <p>&copy; 2026 Ayush / iu-sh. Built with <span class="text-md-sys-tertiary">♥</span> and Tailwind.</p>
             </div>
         </div>
     </footer>
@@ -439,6 +457,88 @@ function initInteractions() {
                 });
             }
         });
+    });
+
+    // Book a time Popup
+    const bookBtn = document.getElementById('btn-book-time');
+    if (bookBtn) {
+        bookBtn.addEventListener('click', () => {
+            const link = bookBtn.getAttribute('data-link');
+            const popupHtml = `
+            <div id="booking-popup" class="fixed inset-0 bg-black/80 z-[10000] flex flex-col justify-center items-center font-sans">
+                <div class="bg-md-sys-surface-container p-8 rounded-3xl text-center max-w-md w-[90%] border border-md-sys-outline-variant shadow-2xl animate-[float_0.5s_ease-out]">
+                    <div class="w-16 h-16 bg-md-sys-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-md-sys-primary">
+                        <i data-lucide="alert-circle" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-md-sys-on-surface mb-4">Before you proceed</h3>
+                    <p class="text-md-sys-on-surface-variant mb-8 leading-relaxed">
+                        Please make sure you have notified me at least <strong>48h in advance</strong> through email before booking a time slot.
+                    </p>
+                    <div class="flex gap-4">
+                        <button id="btn-cancel-booking" class="flex-1 py-3 rounded-full border border-md-sys-outline-variant text-md-sys-on-surface hover:bg-md-sys-surface-container-high transition-colors font-medium">
+                            Cancel
+                        </button>
+                        <a href="${link}" target="_blank" id="btn-confirm-booking" class="flex-1 py-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity font-bold flex items-center justify-center">
+                            Continue
+                        </a>
+                    </div>
+                </div>
+            </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', popupHtml);
+            lucide.createIcons();
+
+            document.getElementById('btn-cancel-booking').addEventListener('click', () => {
+                document.getElementById('booking-popup').remove();
+            });
+            document.getElementById('btn-confirm-booking').addEventListener('click', () => {
+                document.getElementById('booking-popup').remove();
+            });
+        });
+    }
+}
+
+function initScrollSpy() {
+    const sections = ['immersive-home', 'immersive-about', 'immersive-experience', 'immersive-projects', 'immersive-contact'];
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '-50% 0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all
+                navLinks.forEach(link => {
+                    link.classList.remove('bg-md-sys-primary', 'text-md-sys-on-primary', 'shadow-lg');
+                    link.classList.add('text-md-sys-on-surface-variant', 'hover:bg-md-sys-surface-container');
+                    if (link.getAttribute('href') === '#immersive-contact') {
+                         // Keep special styling for contact but reset if needed
+                         // actually the original code had contact always highlighted?
+                         // The original code was:
+                         // <a href="#immersive-contact" class="p-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity shadow-lg">
+                         // We should treat contact same as others for scroll spy or keep it special?
+                         // Request: "The pill shaped menu list that lives on the website does not highlight the section that the user is currently viewing."
+                         // So we should probably standardize them.
+                    }
+                });
+
+                // Add active class to current
+                const activeLink = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+                if (activeLink) {
+                    activeLink.classList.remove('text-md-sys-on-surface-variant', 'hover:bg-md-sys-surface-container');
+                    activeLink.classList.add('bg-md-sys-primary', 'text-md-sys-on-primary', 'shadow-lg');
+                }
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
     });
 }
 
@@ -498,8 +598,18 @@ function parseData() {
         if (ps.length > 0) {
             fullBio = ps[0].innerText;
             // Try to find Status line in the text
-            const statusMatch = fullBio.match(/CURRENT STATUS: (.*?)(\n|$)/);
-            if (statusMatch) status = statusMatch[1];
+            // Handle newlines by replacing them with spaces for regex matching
+            const flatBio = fullBio.replace(/\n/g, ' ');
+            const statusMatch = flatBio.match(/CURRENT STATUS: (.*?)(\s{2,}|$)/);
+            // Alternatively, just grab until the next label or end
+            // The structure is "CURRENT STATUS: ... \n Recent:"
+            const statusMatch2 = fullBio.match(/CURRENT STATUS:([\s\S]*?)Recent:/);
+
+            if (statusMatch2) {
+                 status = statusMatch2[1].trim().replace(/\n/g, ' ');
+            } else if (statusMatch) {
+                 status = statusMatch[1].trim();
+            }
 
             // First sentence as intro
             intro = fullBio.split('.')[0] + '.';
