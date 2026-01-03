@@ -13,8 +13,8 @@ function initModeSelection() {
             <button id="btn-terminal" class="w-full py-4 px-6 mb-4 rounded-full border-2 border-[#3ffb57] text-[#3ffb57] font-mono hover:bg-[#3ffb57]/10 transition-all font-bold">
                 Terminal (Recommended for Developers)
             </button>
-            <button id="btn-immersive" class="w-full py-4 px-6 rounded-full bg-lime-400 text-neutral-900 font-bold hover:bg-lime-300 transition-all shadow-lg shadow-lime-400/20">
-                UI View (Modern & Expressive)
+            <button id="btn-immersive" class="w-full py-4 px-6 rounded-full bg-[#d0bcff] text-[#381e72] font-bold hover:bg-[#eaddff] transition-all shadow-lg shadow-[#d0bcff]/20">
+                Immersive UI (Modern & Expressive)
             </button>
         </div>
     </div>
@@ -39,305 +39,407 @@ function initModeSelection() {
 function switchToImmersive() {
     document.body.classList.add('immersive-mode');
 
-    // Create Main Container
-    const container = document.createElement('div');
-    container.id = 'immersive-view';
-    container.className = 'min-h-screen bg-[#121212] text-neutral-100 font-sans selection:bg-lime-400 selection:text-black overflow-x-hidden relative';
-    document.body.appendChild(container);
+    // 1. Inject Fonts and Tailwind Config
+    injectDependencies();
 
-    // 1. Background Elements
-    const bgHtml = `
-      <div class="fixed inset-0 opacity-20 pointer-events-none z-0"
-           style="background-image: url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E&quot;)">
-      </div>
-      <div class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-lime-400/20 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-      <div class="fixed bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-violet-500/20 rounded-full blur-[100px] pointer-events-none"></div>
-    `;
-    container.insertAdjacentHTML('beforeend', bgHtml);
-
-    // 2. Main Content Wrapper
-    const mainHtml = `
-      <main class="relative z-10 max-w-7xl mx-auto px-4 pb-32 pt-8 md:pt-16" id="immersive-content">
-      </main>
-    `;
-    container.insertAdjacentHTML('beforeend', mainHtml);
-
-    // 3. Render Sections
-    renderSections();
-
-    // 4. Render Navigation
-    renderNavigation();
-
-    // 5. Initialize Icons
-    lucide.createIcons();
-}
-
-function renderSections() {
-    const main = document.getElementById('immersive-content');
+    // 2. Parse Data
     const data = parseData();
 
-    // --- HOME SECTION ---
-    const homeSection = document.createElement('section');
-    homeSection.id = 'section-home';
-    homeSection.className = `transition-opacity duration-500 ${activeTab === 'home' ? 'opacity-100 block' : 'opacity-0 hidden'}`;
+    // 3. Create Main Container (overlaying everything)
+    const container = document.createElement('div');
+    container.id = 'immersive-view';
+    // Use the class list from the prompt
+    container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#0f0f0f] text-[#e3e3e3] font-sans min-h-screen';
 
-    homeSection.innerHTML = `
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Hero Card -->
-        <div class="lg:col-span-8 bg-neutral-900/80 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-[2.5rem] flex flex-col justify-between min-h-[400px] hover:border-lime-400/50 transition-colors duration-300 group">
-          <div>
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-lime-400/10 text-lime-400 font-medium mb-6 border border-lime-400/20">
-              <i data-lucide="terminal" width="16" height="16"></i>
-              <span>System Online</span>
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">
-              Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-lime-300 to-emerald-400">Ayush</span>.
-            </h1>
-            <p class="text-xl md:text-2xl text-neutral-400 max-w-2xl leading-relaxed">
-              ${data.about.intro || "A Software Engineer who loves to tinker with electronics. I build bridges between code and circuits."}
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-4 mt-8">
-            <button onclick="changeTab('projects')" class="px-8 py-4 bg-lime-400 text-neutral-900 rounded-full font-bold hover:bg-lime-300 transition-transform active:scale-95 flex items-center gap-2">
-              View My Work <i data-lucide="code" width="20" height="20"></i>
-            </button>
-            <button onclick="changeTab('contact')" class="px-8 py-4 bg-neutral-800 text-white rounded-full font-bold hover:bg-neutral-700 transition-transform active:scale-95 border border-white/10">
-              Contact Me
-            </button>
-          </div>
-        </div>
-
-        <!-- Profile Image Card -->
-        <div class="lg:col-span-4 bg-violet-200 rounded-[2.5rem] overflow-hidden relative group min-h-[400px]">
-          <img
-            src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=1000&auto=format&fit=crop"
-            alt="Ayush"
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-violet-900/80 to-transparent flex flex-col justify-end p-8">
-            <div class="bg-white/10 backdrop-blur-md p-4 rounded-3xl border border-white/20">
-              <div class="flex items-center gap-3 text-white">
-                <div class="p-2 bg-lime-400 rounded-full text-black">
-                  <i data-lucide="cpu" width="20" height="20"></i>
-                </div>
-                <div>
-                  <p class="text-xs font-bold uppercase tracking-wider opacity-80">Current Status</p>
-                  <p class="font-semibold text-sm">${data.about.status || "Building Cool Stuff"}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tech Stack -->
-        <div class="lg:col-span-12 bg-neutral-800/50 border border-white/5 p-8 rounded-[2rem]">
-           <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-             <i data-lucide="zap" class="text-yellow-400"></i> Technical Arsenal
-           </h3>
-           <div class="flex flex-wrap gap-3">
-             ${data.skills.map(skill => `
-               <span class="px-5 py-3 bg-neutral-900 rounded-2xl border border-white/10 hover:border-lime-400/50 hover:text-lime-400 transition-colors cursor-default">
-                 ${skill}
-               </span>
-             `).join('')}
-           </div>
-        </div>
-      </div>
-    `;
-    main.appendChild(homeSection);
-
-    // --- PROJECTS SECTION ---
-    const projectsSection = document.createElement('section');
-    projectsSection.id = 'section-projects';
-    projectsSection.className = `transition-opacity duration-500 ${activeTab === 'projects' ? 'opacity-100 block' : 'opacity-0 hidden'}`;
-
-    projectsSection.innerHTML = `
-       <h2 class="text-6xl font-bold mb-12 text-center md:text-left">Selected <span class="text-lime-400">Works</span></h2>
-       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          ${data.projects.map((project, idx) => {
-            // Generate deterministic colors based on index
-            const colors = ['bg-lime-200', 'bg-violet-200', 'bg-orange-200', 'bg-cyan-200'];
-            const color = colors[idx % colors.length];
-            return `
-            <div class="group relative bg-neutral-900 rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-lime-400/30 transition-all duration-300">
-              <div class="h-64 ${color} overflow-hidden relative flex items-center justify-center">
-                 <!-- Placeholder image generator -->
-                 <img
-                   src="https://placehold.co/600x400/202020/FFF?text=${encodeURIComponent(project.title)}"
-                   alt="${project.title}"
-                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rotate-0 group-hover:rotate-1"
-                 />
-                 <div class="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono border border-white/20">
-                   v1.0.0
-                 </div>
-              </div>
-              <div class="p-8">
-                <div class="flex flex-wrap gap-2 mb-4">
-                  ${project.tags.map(tag => `
-                    <span class="text-xs font-bold uppercase tracking-wider text-lime-400 bg-lime-400/10 px-3 py-1 rounded-lg">
-                      ${tag}
-                    </span>
-                  `).join('')}
-                </div>
-                <h3 class="text-3xl font-bold mb-3"><a href="${project.link}" target="_blank" class="hover:underline">${project.title}</a></h3>
-                <div class="text-neutral-400 mb-6 text-sm line-clamp-3">
-                    <ul>
-                    ${project.details.map(d => `<li>• ${d}</li>`).join('')}
-                    </ul>
-                </div>
-                <a href="${project.link}" target="_blank" class="flex items-center gap-2 text-white font-semibold group-hover:translate-x-2 transition-transform">
-                  View Source <i data-lucide="external-link" width="16" height="16"></i>
-                </a>
-              </div>
-            </div>
-            `;
-          }).join('')}
-       </div>
-    `;
-    main.appendChild(projectsSection);
-
-    // --- ABOUT SECTION ---
-    const aboutSection = document.createElement('section');
-    aboutSection.id = 'section-about';
-    aboutSection.className = `transition-opacity duration-500 ${activeTab === 'about' ? 'opacity-100 block' : 'opacity-0 hidden'}`;
-
-    aboutSection.innerHTML = `
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-lime-400 p-8 md:p-12 rounded-[2.5rem] text-black flex flex-col justify-center">
-          <h2 class="text-5xl font-bold mb-6">About Me</h2>
-          <p class="text-xl leading-relaxed font-medium opacity-90">
-             ${data.about.fullBio || "I'm a developer who doesn't just write code, I understand the hardware it runs on."}
-          </p>
-        </div>
-        <div class="space-y-6">
-           <div class="bg-neutral-800 p-8 rounded-[2.5rem] border border-white/10 hover:bg-neutral-800/80 transition-colors">
-              <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                <i data-lucide="terminal" class="text-violet-400"></i> Experience
-              </h3>
-              <ul class="space-y-4 text-neutral-300">
-                ${data.experience.map(job => `
-                <li class="border-l-2 border-violet-400 pl-4">
-                  <strong class="text-white block">${job.role}</strong>
-                  <span class="text-sm opacity-60">${job.duration}</span>
-                  <div class="text-xs text-lime-400 mt-1">${job.tech}</div>
-                </li>
-                `).join('')}
-              </ul>
-           </div>
-           <div onclick="document.querySelector('#download a').click()" class="bg-neutral-900 p-8 rounded-[2.5rem] border border-white/10 flex items-center justify-between group cursor-pointer hover:border-lime-400 transition-colors">
-              <div>
-                <h3 class="text-2xl font-bold">Resume</h3>
-                <p class="text-neutral-400">Download my full CV</p>
-              </div>
-              <div class="bg-lime-400 p-4 rounded-full text-black group-hover:scale-110 transition-transform">
-                <i data-lucide="download" width="24" height="24"></i>
-              </div>
-           </div>
-        </div>
-      </div>
-    `;
-    main.appendChild(aboutSection);
-
-    // --- CONTACT SECTION ---
-    const contactSection = document.createElement('section');
-    contactSection.id = 'section-contact';
-    contactSection.className = `transition-opacity duration-500 ${activeTab === 'contact' ? 'opacity-100 block' : 'opacity-0 hidden'}`;
-
-    contactSection.innerHTML = `
-      <div class="bg-gradient-to-br from-violet-900 to-fuchsia-900 p-8 md:p-20 rounded-[3rem] text-center relative overflow-hidden">
-         <div class="absolute top-0 left-0 w-full h-full opacity-30 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-         <div class="relative z-10">
-           <h2 class="text-5xl md:text-7xl font-bold mb-8">Let's Build Something</h2>
-           <p class="text-xl md:text-2xl opacity-90 mb-12 max-w-2xl mx-auto">
-             Got a project involving React, embedded systems, or just want to discuss the latest tech? Hit me up.
-           </p>
-           <div class="flex flex-wrap justify-center gap-4">
-             <a href="${data.contact.email}" class="bg-white text-violet-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-lime-400 hover:text-black transition-colors flex items-center gap-2">
-               <i data-lucide="mail" width="20"></i> Email Me
-             </a>
-             <a href="${data.contact.linkedin}" target="_blank" class="bg-black/30 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg hover:bg-black/50 transition-colors flex items-center gap-2">
-               <i data-lucide="linkedin" width="20"></i> LinkedIn
-             </a>
-             <a href="${data.contact.github}" target="_blank" class="bg-black/30 backdrop-blur-sm text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg hover:bg-black/50 transition-colors flex items-center gap-2">
-               <i data-lucide="github" width="20"></i> GitHub
-             </a>
-           </div>
-         </div>
-      </div>
-    `;
-    main.appendChild(contactSection);
-}
-
-function renderNavigation() {
-    const navItems = [
-        { id: 'home', icon: 'layout-grid', label: 'Home' },
-        { id: 'projects', icon: 'code', label: 'Work' },
-        { id: 'about', icon: 'user', label: 'About' },
-        { id: 'contact', icon: 'send', label: 'Contact' },
-    ];
-
-    const nav = document.createElement('div');
-    nav.className = 'fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50';
-
-    let navHtml = `
-      <nav class="bg-neutral-900/90 backdrop-blur-xl border border-white/10 p-2 rounded-full shadow-2xl shadow-black/50 flex items-center gap-2">
-    `;
-
-    navItems.forEach(item => {
-        navHtml += `
-          <button
-            onclick="changeTab('${item.id}')"
-            id="nav-btn-${item.id}"
-            class="relative px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 ${activeTab === item.id ? 'bg-lime-400 text-black font-bold shadow-lg shadow-lime-400/20' : 'text-neutral-400 hover:text-white hover:bg-white/5'}"
-          >
-            <i data-lucide="${item.icon}" width="20" height="20"></i>
-            <span class="${activeTab === item.id ? 'block' : 'hidden md:block'} text-sm">${item.label}</span>
-          </button>
+    // Clear body content (hide terminal) but keep scripts
+    // Actually, safer to just append and let it cover with high z-index or hide the other elements
+    // But to prevent scroll interactions with terminal, let's hide the terminal container
+    const terminalContainer = document.querySelector('#resume-container')?.parentElement; // div wrapping resume-container
+    if (terminalContainer) {
+        // We can't easily remove it because we need the data.
+        // We extracted data already.
+        // We'll just style the container to hide the old stuff.
+        const style = document.createElement('style');
+        style.textContent = `
+            body > div:not(#immersive-view):not(#mode-popup) { display: none !important; }
+            body { background-color: #0f0f0f !important; overflow: auto !important; }
+            /* Custom scrollbar hiding */
+            .no-scrollbar::-webkit-scrollbar { display: none; }
+            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         `;
-    });
+        document.head.appendChild(style);
+    }
+    document.body.appendChild(container);
 
-    navHtml += `</nav>`;
-    nav.innerHTML = navHtml;
-    document.getElementById('immersive-view').appendChild(nav);
+    // 4. Render Content
+    const content = `
+        ${renderNavRail()}
+        ${renderHero(data)}
+        ${renderMarquee(data)}
+        ${renderAbout(data)}
+        ${renderExperience(data)}
+        ${renderProjects(data)}
+        ${renderFooter(data)}
+    `;
+
+    container.innerHTML = content;
+
+    // 5. Initialize Interactions
+    initInteractions();
+    lucide.createIcons();
 }
 
-// Global function to be called from onclick
-window.changeTab = function(tabId) {
-    activeTab = tabId;
+function injectDependencies() {
+    // Fonts
+    const fontLink = document.createElement('link');
+    fontLink.href = "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap";
+    fontLink.rel = "stylesheet";
+    document.head.appendChild(fontLink);
 
-    // Update Sections
-    ['home', 'projects', 'about', 'contact'].forEach(id => {
-        const el = document.getElementById(`section-${id}`);
-        if (id === tabId) {
-            el.classList.remove('hidden', 'opacity-0');
-            el.classList.add('block', 'opacity-100');
-        } else {
-            el.classList.add('hidden', 'opacity-0');
-            el.classList.remove('block', 'opacity-100');
+    // Tailwind Config
+    // We update the global config. The CDN script observes this.
+    window.tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Outfit', 'sans-serif'],
+                    display: ['Space Grotesk', 'monospace'],
+                },
+                colors: {
+                    // Material 3 Dark Theme "Funky" Palette
+                    md: {
+                        sys: {
+                            surface: '#0f0f0f',
+                            'surface-container': '#1f1f1f',
+                            'surface-container-high': '#2b2b2b',
+                            'on-surface': '#e3e3e3',
+                            'on-surface-variant': '#c4c7c5',
+                            primary: '#d0bcff', // Light Purple
+                            'on-primary': '#381e72',
+                            'primary-container': '#4f378b',
+                            'on-primary-container': '#eaddff',
+                            secondary: '#b6c4ff', // Light Blue/Indigo
+                            'on-secondary': '#1c2d60',
+                            'secondary-container': '#334479',
+                            'on-secondary-container': '#dbe1ff',
+                            tertiary: '#ffb7cd', // Funky Pink
+                            'on-tertiary': '#491d2e',
+                            'tertiary-container': '#633344',
+                            'on-tertiary-container': '#ffd9e3',
+                            error: '#ffb4ab',
+                            'outline': '#8e918f',
+                            'outline-variant': '#444746'
+                        }
+                    }
+                },
+                borderRadius: {
+                    'xs': '4px',
+                    'sm': '8px',
+                    'md': '12px',
+                    'lg': '16px',
+                    'xl': '24px',
+                    '2xl': '32px',
+                    '3xl': '48px',
+                    'full': '9999px',
+                },
+                animation: {
+                    'float': 'float 6s ease-in-out infinite',
+                    'spin-slow': 'spin 12s linear infinite',
+                    'loop-scroll': 'loop-scroll 20s linear infinite',
+                },
+                keyframes: {
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(-10px)' },
+                    },
+                    'loop-scroll': {
+                        from: { transform: 'translateX(0)' },
+                        to: { transform: 'translateX(-50%)' },
+                    }
+                }
+            }
         }
+    };
+}
+
+function renderNavRail() {
+    return `
+    <nav class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-md-sys-surface-container-high/90 backdrop-blur-md border border-md-sys-outline-variant px-2 py-2 rounded-full shadow-2xl flex gap-1 items-center">
+        <a href="#immersive-home" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
+            <i data-lucide="home" class="w-6 h-6"></i>
+        </a>
+        <a href="#immersive-about" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
+            <i data-lucide="user" class="w-6 h-6"></i>
+        </a>
+        <a href="#immersive-experience" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
+            <i data-lucide="briefcase" class="w-6 h-6"></i>
+        </a>
+        <a href="#immersive-projects" class="p-3 rounded-full hover:bg-md-sys-surface-container transition-colors text-md-sys-on-surface-variant hover:text-md-sys-primary">
+            <i data-lucide="code-2" class="w-6 h-6"></i>
+        </a>
+        <a href="#immersive-contact" class="p-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity shadow-lg">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+        </a>
+    </nav>
+    `;
+}
+
+function renderHero(data) {
+    return `
+    <section id="immersive-home" class="min-h-screen flex flex-col justify-center px-6 lg:px-24 pt-20 relative overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-md-sys-primary/10 rounded-full blur-[100px] animate-float"></div>
+        <div class="absolute bottom-[10%] left-[-10%] w-[400px] h-[400px] bg-md-sys-secondary/10 rounded-full blur-[80px] animate-float" style="animation-delay: 2s;"></div>
+
+        <div class="z-10 max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-md-sys-outline-variant bg-md-sys-surface-container mb-6">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                <span class="text-sm font-medium tracking-wide text-md-sys-on-surface-variant">${data.about.status || "ONLINE / BUILDING"}</span>
+            </div>
+
+            <h1 class="font-display text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] tracking-tighter mb-8 text-md-sys-on-surface">
+                Yo, I'm <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-md-sys-primary via-md-sys-tertiary to-md-sys-secondary">Ayush.</span>
+            </h1>
+
+            <p class="font-sans text-xl md:text-2xl text-md-sys-on-surface-variant max-w-2xl leading-relaxed mb-10">
+                ${data.about.intro || "Software Engineer & Electronics Tinkerer. I break things until they work."}
+                <span class="block mt-2 text-md-sys-outline">@WinterSoldier13 on GitHub</span>
+            </p>
+
+            <div class="flex flex-wrap gap-4">
+                <a href="#immersive-projects" class="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-full bg-md-sys-primary px-8 font-medium text-md-sys-on-primary transition-all duration-300 hover:bg-white hover:text-black hover:ring-2 hover:ring-white hover:ring-offset-2 hover:ring-offset-md-sys-surface">
+                    <span class="mr-2">See my work</span>
+                    <i data-lucide="arrow-down-right" class="w-5 h-5 transition-transform group-hover:rotate-45"></i>
+                </a>
+                <a href="${data.contact.github}" target="_blank" class="inline-flex h-14 items-center justify-center rounded-full border border-md-sys-outline bg-transparent px-8 font-medium text-md-sys-on-surface transition-colors hover:bg-md-sys-surface-container hover:border-md-sys-primary">
+                    <i data-lucide="github" class="w-5 h-5 mr-2"></i>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+    `;
+}
+
+function renderMarquee(data) {
+    const skillsList = data.skills.join(' <span class="text-md-sys-primary mx-8">*</span> ');
+    // Repeat the list a few times for the loop
+    const fullContent = `${skillsList} <span class="text-md-sys-primary mx-8">*</span> ${skillsList} <span class="text-md-sys-primary mx-8">*</span> ${skillsList}`;
+
+    return `
+    <div class="w-full bg-md-sys-surface-container py-12 rotate-[-2deg] scale-105 transform origin-left border-y border-md-sys-outline-variant mb-20">
+        <div class="flex overflow-hidden group">
+            <div class="flex animate-loop-scroll whitespace-nowrap group-hover:paused text-4xl md:text-6xl font-display font-bold text-md-sys-on-surface-variant/20">
+                <span class="mx-8">${fullContent}</span>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function renderAbout(data) {
+    return `
+    <section id="immersive-about" class="px-6 lg:px-24 py-20 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-md-sys-on-surface">The Homie Logic.</h2>
+                <div class="space-y-6 text-lg text-md-sys-on-surface-variant font-light">
+                    <p>
+                        ${data.about.fullBio || "I'm not just a coder; I'm a builder."}
+                    </p>
+                    <p>
+                        Currently focused on <strong class="text-md-sys-tertiary">Distributed Systems</strong> and <strong class="text-md-sys-secondary">Backend Engineering</strong>.
+                    </p>
+
+                    <!-- Tech Pills -->
+                    <div class="flex flex-wrap gap-3 mt-8">
+                        ${data.skills.slice(0, 10).map(s => `
+                            <span class="px-4 py-2 rounded-lg bg-md-sys-surface-container-high border border-md-sys-outline-variant text-sm font-medium hover:border-md-sys-primary transition-colors cursor-default">${s}</span>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Funky visual element -->
+            <div class="order-1 md:order-2 relative">
+                <div class="aspect-square bg-gradient-to-br from-md-sys-surface-container to-md-sys-surface-container-high rounded-[3rem] border border-md-sys-outline-variant flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-md-sys-primary/5 opacity-20"></div>
+                    <!-- Terminal Window Mockup -->
+                    <div class="w-3/4 h-3/4 bg-[#1a1b26] rounded-xl shadow-2xl p-4 font-mono text-sm overflow-hidden border border-md-sys-outline-variant group-hover:scale-105 transition-transform duration-500">
+                        <div class="flex gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-green-400">$ whoami</div>
+                        <div class="text-gray-300 mb-2">Ayush / WinterSoldier13</div>
+                        <div class="text-green-400">$ cat bio.txt</div>
+                        <div class="text-gray-300">
+                            > Engineer.<br>
+                            > Tinkerer.<br>
+                            > Problem Solver.<br>
+                            > Loading more caffeine...<span class="animate-pulse">_</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    `;
+}
+
+function renderExperience(data) {
+    return `
+    <section id="immersive-experience" class="px-6 lg:px-24 py-20 max-w-7xl mx-auto">
+        <h2 class="font-display text-4xl md:text-5xl font-bold mb-16 text-md-sys-on-surface">Experience Logs</h2>
+        <div class="relative border-l-2 border-md-sys-outline-variant ml-4 md:ml-12 space-y-16">
+            ${data.experience.map(job => `
+            <div class="relative pl-8 md:pl-12 group">
+                 <!-- Dot on line -->
+                 <div class="absolute -left-[9px] top-0 w-4 h-4 bg-md-sys-surface border-2 border-md-sys-primary rounded-full group-hover:bg-md-sys-primary transition-colors"></div>
+
+                 <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
+                    <h3 class="text-2xl font-display font-bold text-md-sys-on-surface">${job.role}</h3>
+                    <span class="hidden sm:inline text-md-sys-outline-variant">•</span>
+                    <span class="text-lg font-medium text-md-sys-secondary">${job.company}</span>
+                 </div>
+
+                 <span class="inline-block px-3 py-1 rounded bg-md-sys-surface-container-high text-xs font-mono text-md-sys-primary mb-4 border border-md-sys-outline-variant">
+                    ${job.duration}
+                 </span>
+
+                 <div class="bg-md-sys-surface-container p-6 rounded-2xl border border-md-sys-outline-variant hover:border-md-sys-primary transition-colors group-hover:shadow-lg shadow-md-sys-primary/5">
+                      <div class="text-md-sys-tertiary text-sm font-mono mb-4 border-b border-md-sys-outline-variant/30 pb-2">
+                        <i data-lucide="cpu" class="w-4 h-4 inline mr-1"></i> ${job.tech}
+                      </div>
+                      <ul class="space-y-2 text-md-sys-on-surface-variant">
+                          ${job.details.map(d => `<li class="flex items-start"><span class="mr-2 mt-1.5 w-1.5 h-1.5 bg-md-sys-secondary rounded-full flex-shrink-0"></span><span>${d}</span></li>`).join('')}
+                      </ul>
+                 </div>
+            </div>
+            `).join('')}
+        </div>
+    </section>
+    `;
+}
+
+function renderProjects(data) {
+    return `
+    <section id="immersive-projects" class="px-6 lg:px-24 py-20 bg-md-sys-surface-container rounded-t-[3rem] md:rounded-t-[5rem] mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                <div>
+                    <h2 class="font-display text-4xl md:text-6xl font-bold text-md-sys-on-surface">Selected Works</h2>
+                    <p class="text-md-sys-on-surface-variant mt-2 text-xl">What I've been cooking.</p>
+                </div>
+                <a href="${data.contact.github}" target="_blank" class="px-6 py-3 rounded-full bg-md-sys-tertiary-container text-md-sys-on-tertiary-container font-medium hover:bg-md-sys-tertiary hover:text-md-sys-on-tertiary transition-colors">
+                    View GitHub Profile
+                </a>
+            </div>
+
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${data.projects.map((project, idx) => {
+                    // Pattern: Large (2col), Tall (row-span), Standard, Wide
+                    // Simplification:
+                    // idx 0: Large (col-span-2)
+                    // idx 1: Standard
+                    // idx 2: Standard
+                    // idx 3: Large
+                    const isLarge = idx % 4 === 0 || idx % 4 === 3;
+                    const colClass = isLarge ? 'md:col-span-2 aspect-[2/1]' : 'aspect-square';
+                    const bgClass = idx % 2 === 0 ? 'bg-md-sys-surface-container-high' : 'bg-md-sys-secondary-container';
+                    const textClass = idx % 2 === 0 ? 'text-white' : 'text-md-sys-on-secondary-container';
+
+                    return `
+                    <div class="group relative ${colClass} ${bgClass} rounded-[2rem] overflow-hidden border border-md-sys-outline-variant hover:border-md-sys-primary transition-colors cursor-pointer p-8 flex flex-col justify-between">
+
+                        <div class="relative z-20">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                ${project.tags.slice(0,3).map(tag => `
+                                    <span class="px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-black/20 backdrop-blur-sm ${textClass}">${tag}</span>
+                                `).join('')}
+                            </div>
+                            <h3 class="text-3xl font-display font-bold ${textClass} mb-2">${project.title}</h3>
+                            <p class="${textClass} opacity-80 line-clamp-3 text-sm">${project.details[0] || ''}</p>
+                        </div>
+
+                        <div class="absolute top-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black p-3 rounded-full">
+                            <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                        </div>
+
+                        <div class="mt-4 z-20">
+                             <a href="${project.link}" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold ${textClass} hover:underline">
+                                View Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                             </a>
+                        </div>
+
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
+                    </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    </section>
+    `;
+}
+
+function renderFooter(data) {
+    return `
+    <footer id="immersive-contact" class="px-6 lg:px-24 py-20 relative bg-md-sys-surface">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-display text-5xl md:text-7xl font-bold mb-8 text-md-sys-on-surface">Let's build something crazy.</h2>
+            <p class="text-xl text-md-sys-on-surface-variant mb-10">Have a project or just want to talk tech? Hit me up.</p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="${data.contact.email}" class="inline-flex items-center gap-3 px-8 py-4 bg-md-sys-primary text-md-sys-on-primary rounded-full text-lg font-bold hover:bg-md-sys-on-primary hover:text-md-sys-primary transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1 duration-200">
+                    <i data-lucide="mail"></i>
+                    Send Email
+                </a>
+                <a href="${data.bookTime}" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 border border-md-sys-outline-variant bg-md-sys-surface-container text-md-sys-on-surface rounded-full text-lg font-bold hover:bg-md-sys-tertiary hover:text-md-sys-on-tertiary transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-200">
+                    <i data-lucide="calendar"></i>
+                    Book a Time
+                </a>
+            </div>
+
+            <div class="mt-20 flex justify-center gap-8">
+                <a href="${data.contact.github}" target="_blank" class="text-md-sys-on-surface-variant hover:text-md-sys-primary transition-colors">
+                    <i data-lucide="github" class="w-8 h-8"></i>
+                </a>
+                <a href="${data.contact.linkedin}" target="_blank" class="text-md-sys-on-surface-variant hover:text-md-sys-secondary transition-colors">
+                    <i data-lucide="linkedin" class="w-8 h-8"></i>
+                </a>
+            </div>
+
+            <div class="mt-20 text-md-sys-outline text-sm">
+                <p>&copy; 2026 Ayush / WinterSoldier13. Built with <span class="text-md-sys-tertiary">♥</span> and Tailwind.</p>
+            </div>
+        </div>
+    </footer>
+    `;
+}
+
+function initInteractions() {
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            // Support both old and new IDs for smoother transition if mixed
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                targetEl.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-
-    // Update Nav Buttons
-    ['home', 'projects', 'about', 'contact'].forEach(id => {
-        const btn = document.getElementById(`nav-btn-${id}`);
-        const span = btn.querySelector('span');
-
-        if (id === tabId) {
-            btn.className = "relative px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 bg-lime-400 text-black font-bold shadow-lg shadow-lime-400/20";
-            span.classList.remove('hidden');
-            span.classList.add('block');
-        } else {
-            btn.className = "relative px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 text-neutral-400 hover:text-white hover:bg-white/5";
-            span.classList.remove('block');
-            span.classList.add('hidden', 'md:block');
-        }
-    });
-
-    // Refresh icons just in case
-    lucide.createIcons();
-
-    // Scroll to top
-    window.scrollTo(0, 0);
 }
 
 function parseData() {
@@ -345,11 +447,9 @@ function parseData() {
     const skillsUl = document.querySelector('#skills ul');
     let skills = [];
     if (skillsUl) {
-        // Text based parsing: "Languages - TypeScript, ..."
         const listItems = skillsUl.querySelectorAll('li');
         listItems.forEach(li => {
             const text = li.innerText;
-            // Extract everything after the dash if present
             const parts = text.split('-');
             if(parts.length > 1) {
                 const items = parts[1].split(',').map(s => s.trim().replace('.', ''));
@@ -359,8 +459,6 @@ function parseData() {
             }
         });
     }
-    // Limit to some distinct ones for display
-    skills = skills.length ? skills : ["JavaScript", "React", "Node.js", "Python", "C++", "Electronics"];
 
     // 2. PROJECTS
     const projects = [];
@@ -395,16 +493,16 @@ function parseData() {
     let status = "";
     let fullBio = "";
     if (aboutDiv) {
-        // Very basic text extraction
-        const paragraphs = aboutDiv.querySelectorAll('p');
-        if (paragraphs.length > 0) {
-            fullBio = paragraphs[0].innerText;
-            // Try to extract status
+        // Extract plain text from paragraphs
+        const ps = aboutDiv.querySelectorAll('p');
+        if (ps.length > 0) {
+            fullBio = ps[0].innerText;
+            // Try to find Status line in the text
             const statusMatch = fullBio.match(/CURRENT STATUS: (.*?)(\n|$)/);
             if (statusMatch) status = statusMatch[1];
 
-            // Short intro
-            intro = paragraphs[0].innerText.split('\n')[1] || "Software Engineer";
+            // First sentence as intro
+            intro = fullBio.split('.')[0] + '.';
         }
     }
 
@@ -414,18 +512,38 @@ function parseData() {
     if (expDiv) {
         const expUls = expDiv.querySelectorAll('ul');
         expUls.forEach(ul => {
-            if (ul.parentElement === expDiv) {
+            if (ul.parentElement === expDiv) { // Direct children ULs
                 const roleLi = ul.querySelector('li strong');
-                const detailLis = ul.querySelectorAll('ul li');
+                const innerUl = ul.querySelector('ul');
 
-                let role = roleLi ? roleLi.innerText : "Engineer";
+                let roleStr = roleLi ? roleLi.innerText : "";
+                let company = "";
+                let role = roleStr;
+
+                // Try to split Role - Company
+                if (roleStr.includes('-')) {
+                    const parts = roleStr.split('-');
+                    // Heuristic: "Google, Munich - Software Engineer"
+                    if (parts.length >= 2) {
+                        company = parts[0].trim();
+                        role = parts.slice(1).join('-').trim();
+                    }
+                }
+
                 let duration = "";
                 let tech = "";
+                let details = [];
 
-                if (detailLis.length > 0) duration = detailLis[0].innerText;
-                if (detailLis.length > 1) tech = detailLis[1].innerText;
+                if (innerUl) {
+                    const listItems = innerUl.querySelectorAll('li');
+                    listItems.forEach((li, idx) => {
+                        if (idx === 0) duration = li.innerText;
+                        else if (idx === 1 && li.innerText.includes('TechStack')) tech = li.innerText.replace('TechStack:', '').trim();
+                        else details.push(li.innerText);
+                    });
+                }
 
-                experience.push({ role, duration, tech });
+                experience.push({ role, company, duration, tech, details });
             }
         });
     }
@@ -433,8 +551,8 @@ function parseData() {
     // 5. CONTACT
     const contactDiv = document.querySelector('#contact p');
     let email = "mailto:ayushsingh1315@gmail.com";
-    let linkedin = "https://www.linkedin.com/in/winter-soldier/";
-    let github = "https://github.com/WinterSoldier13";
+    let linkedin = "#";
+    let github = "#";
 
     if (contactDiv) {
         const links = contactDiv.querySelectorAll('a');
@@ -445,5 +563,13 @@ function parseData() {
         });
     }
 
-    return { skills, projects, about: { intro, status, fullBio }, experience, contact: { email, linkedin, github } };
+    // 6. BOOK A TIME
+    const bookDiv = document.querySelector('#book-a-time');
+    let bookTime = "#";
+    if (bookDiv) {
+        const a = bookDiv.querySelector('a');
+        if(a) bookTime = a.href;
+    }
+
+    return { skills, projects, about: { intro, status, fullBio }, experience, contact: { email, linkedin, github }, bookTime };
 }
