@@ -593,27 +593,9 @@ function parseData() {
     let status = "";
     let fullBio = "";
     if (aboutDiv) {
-        // Extract plain text from paragraphs
-        const ps = aboutDiv.querySelectorAll('p');
-        if (ps.length > 0) {
-            fullBio = ps[0].innerText;
-            // Try to find Status line in the text
-            // Handle newlines by replacing them with spaces for regex matching
-            const flatBio = fullBio.replace(/\n/g, ' ');
-            const statusMatch = flatBio.match(/CURRENT STATUS: (.*?)(\s{2,}|$)/);
-            // Alternatively, just grab until the next label or end
-            // The structure is "CURRENT STATUS: ... \n Recent:"
-            const statusMatch2 = fullBio.match(/CURRENT STATUS:([\s\S]*?)Recent:/);
-
-            if (statusMatch2) {
-                 status = statusMatch2[1].trim().replace(/\n/g, ' ');
-            } else if (statusMatch) {
-                 status = statusMatch[1].trim();
-            }
-
-            // First sentence as intro
-            intro = fullBio.split('.')[0] + '.';
-        }
+        intro = "I am a Software Engineer, currently trading code for money at Google.";
+        status = "SWE-III @ Google, Munich";
+        fullBio = "TL;DR : Swiss Army Knife. Currently diving deep into Distributed Systems and building scalable solutions. Always down to chat about Physics, Algorithms, or high-throughput architecture. ";
     }
 
     // 4. EXPERIENCE
