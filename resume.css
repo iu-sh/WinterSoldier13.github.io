@@ -219,6 +219,15 @@ pre.ascii {
   font-weight: bold;
 }
 
+pre.ascii-error {
+  color: var(--red);
+  font-weight: bold;
+  font-size: 0.7rem; /* Reduce font size to fit */
+  line-height: 1.1;
+  overflow-x: auto; /* Scroll if still too wide */
+  white-space: pre;
+}
+
 /* Sections */
 .welcome {
   margin-left: 0;
@@ -259,6 +268,69 @@ ul {
 li::marker {
     color: var(--pink);
 }
+
+/* Beautified Experience & Projects */
+#experience > div > ul,
+#projects > div > ul > li { /* Projects uses li as the main block wrapper inside a single ul */
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-left: 3px solid var(--comment);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 0 8px 8px 0;
+  list-style-type: none; /* Remove default bullet for the block wrapper */
+}
+
+/* Fix structure for nested lists in Experience */
+#experience > div > ul > li:first-child strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+}
+
+/* Inner details list */
+#experience > div > ul > ul,
+#projects > div > ul > li > ul {
+  padding-left: 1rem;
+  list-style-type: none; /* Custom markers */
+}
+
+#experience > div > ul > ul > li,
+#projects > div > ul > li > ul > li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+#experience > div > ul > ul > li::before,
+#projects > div > ul > li > ul > li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--pink);
+}
+
+/* Special styling for Project headers since they are inside an li */
+#projects > div > ul > li.proj_name {
+  list-style: none; /* Ensure no bullet on the container li */
+}
+
+#projects > div > ul > li.proj_name > strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+#projects > div > ul > li.proj_name > span {
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+  font-family: var(--font-main);
+  color: var(--orange);
+}
+
 
 /* Mobile Responsiveness */
 @media only screen and (max-width: 768px) {
