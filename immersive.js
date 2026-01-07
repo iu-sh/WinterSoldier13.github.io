@@ -7,14 +7,14 @@ let activeTab = 'home';
 function initModeSelection() {
     // Create Popup HTML
     const popupHtml = `
-    <div id="mode-popup" class="fixed inset-0 bg-black/95 z-[9999] flex flex-col justify-center items-center font-sans">
-        <div class="bg-neutral-900 p-8 rounded-3xl text-center max-w-md w-[90%] border border-white/10 shadow-[0_0_40px_rgba(163,230,53,0.1)]">
-            <h2 class="text-3xl font-bold text-white mb-8">Select Interface</h2>
-            <button id="btn-terminal" class="w-full py-4 px-6 mb-4 rounded-full border-2 border-[#3ffb57] text-[#3ffb57] font-mono hover:bg-[#3ffb57]/10 transition-all font-bold">
-                Terminal (Recommended for Developers)
+    <div id="mode-popup" class="fixed inset-0 bg-[#282a36]/95 z-[9999] flex flex-col justify-center items-center font-sans backdrop-blur-sm">
+        <div class="bg-[#282a36] p-8 rounded-3xl text-center max-w-md w-[90%] border border-[#bd93f9]/30 shadow-[0_0_50px_rgba(189,147,249,0.2)]">
+            <h2 class="text-3xl font-bold text-[#f8f8f2] mb-8 font-display">Select Interface</h2>
+            <button id="btn-terminal" class="w-full py-4 px-6 mb-4 rounded-full border-2 border-[#50fa7b] text-[#50fa7b] font-mono hover:bg-[#50fa7b]/10 transition-all font-bold tracking-wide">
+                > Terminal_Mode
             </button>
-            <button id="btn-immersive" class="w-full py-4 px-6 rounded-full bg-[#d0bcff] text-[#381e72] font-bold hover:bg-[#eaddff] transition-all shadow-lg shadow-[#d0bcff]/20">
-                Immersive UI (Modern & Expressive)
+            <button id="btn-immersive" class="w-full py-4 px-6 rounded-full bg-[#bd93f9] text-[#282a36] font-bold hover:bg-[#ff79c6] transition-all shadow-lg shadow-[#bd93f9]/20 tracking-wide">
+                Immersive UI (Gui)
             </button>
         </div>
     </div>
@@ -49,15 +49,15 @@ function switchToImmersive() {
     const container = document.createElement('div');
     container.id = 'immersive-view';
     // Use the class list from the prompt
-    container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#0f0f0f] text-[#e3e3e3] font-sans min-h-screen relative';
+    container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#282a36] text-[#f8f8f2] font-sans min-h-screen relative';
 
     // Add animated background
     const bgContainer = document.createElement('div');
     bgContainer.className = 'fixed inset-0 z-0 overflow-hidden pointer-events-none';
     bgContainer.innerHTML = `
-        <div class="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-r from-[#2c003e] to-[#000000] blur-[100px] opacity-40 animate-float"></div>
-        <div class="absolute top-[30%] -right-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-l from-[#1a0b2e] to-[#000000] blur-[120px] opacity-30 animate-float" style="animation-delay: -3s"></div>
-        <div class="absolute -bottom-[20%] left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-[#0f172a] to-[#000000] blur-[100px] opacity-40 animate-float" style="animation-delay: -5s"></div>
+        <div class="absolute -top-[20%] -left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-r from-[#4d3e6b] to-[#282a36] blur-[100px] opacity-40 animate-float"></div>
+        <div class="absolute top-[30%] -right-[20%] w-[70%] h-[70%] rounded-full bg-gradient-to-l from-[#365c69] to-[#282a36] blur-[120px] opacity-30 animate-float" style="animation-delay: -3s"></div>
+        <div class="absolute -bottom-[20%] left-[20%] w-[80%] h-[80%] rounded-full bg-gradient-to-t from-[#6b3352] to-[#282a36] blur-[100px] opacity-40 animate-float" style="animation-delay: -5s"></div>
     `;
     container.appendChild(bgContainer);
 
@@ -72,7 +72,7 @@ function switchToImmersive() {
         const style = document.createElement('style');
         style.textContent = `
             body > div:not(#immersive-view):not(#mode-popup):not(#booking-popup) { display: none !important; }
-            body { background-color: #0f0f0f !important; overflow: auto !important; }
+            body { background-color: #282a36 !important; overflow: auto !important; }
             /* Custom scrollbar hiding */
             .no-scrollbar::-webkit-scrollbar { display: none; }
             .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -120,29 +120,29 @@ function injectDependencies() {
                     display: ['Space Grotesk', 'monospace'],
                 },
                 colors: {
-                    // Material 3 Dark Theme "Funky" Palette
+                    // Dracula Theme Palette
                     md: {
                         sys: {
-                            surface: '#0f0f0f',
-                            'surface-container': '#1f1f1f',
-                            'surface-container-high': '#2b2b2b',
-                            'on-surface': '#e3e3e3',
-                            'on-surface-variant': '#c4c7c5',
-                            primary: '#d0bcff', // Light Purple
-                            'on-primary': '#381e72',
-                            'primary-container': '#4f378b',
-                            'on-primary-container': '#eaddff',
-                            secondary: '#b6c4ff', // Light Blue/Indigo
-                            'on-secondary': '#1c2d60',
-                            'secondary-container': '#334479',
-                            'on-secondary-container': '#dbe1ff',
-                            tertiary: '#ffb7cd', // Funky Pink
-                            'on-tertiary': '#491d2e',
-                            'tertiary-container': '#633344',
-                            'on-tertiary-container': '#ffd9e3',
-                            error: '#ffb4ab',
-                            'outline': '#8e918f',
-                            'outline-variant': '#444746'
+                            surface: '#282a36',
+                            'surface-container': '#44475a',
+                            'surface-container-high': '#44475a',
+                            'on-surface': '#f8f8f2',
+                            'on-surface-variant': '#d1d5db',
+                            primary: '#bd93f9', // Purple
+                            'on-primary': '#282a36',
+                            'primary-container': '#4d3e6b',
+                            'on-primary-container': '#e0cffc',
+                            secondary: '#8be9fd', // Cyan
+                            'on-secondary': '#282a36',
+                            'secondary-container': '#365c69',
+                            'on-secondary-container': '#c2f0fc',
+                            tertiary: '#ff79c6', // Pink
+                            'on-tertiary': '#282a36',
+                            'tertiary-container': '#6b3352',
+                            'on-tertiary-container': '#ffcfe8',
+                            error: '#ff5555',
+                            'outline': '#6272a4',
+                            'outline-variant': '#44475a'
                         }
                     }
                 },

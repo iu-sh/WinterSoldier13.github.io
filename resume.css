@@ -1,7 +1,139 @@
+:root {
+  --bg-color: #282a36;
+  --fg-color: #f8f8f2;
+  --current-line: #44475a;
+  --comment: #6272a4;
+  --cyan: #8be9fd;
+  --green: #50fa7b;
+  --orange: #ffb86c;
+  --pink: #ff79c6;
+  --purple: #bd93f9;
+  --red: #ff5555;
+  --yellow: #f1fa8c;
+  --font-main: 'Fira Code', monospace;
+
+  /* Mac Window Colors */
+  --win-bg: #282a36;
+  --win-header: #383a59; /* Slightly lighter than bg */
+  --win-close: #ff5f56;
+  --win-minimize: #ffbd2e;
+  --win-maximize: #27c93f;
+  --win-shadow: rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: #1a1b26; /* Darker background for the desktop behind terminal */
+  background-image: radial-gradient(circle at 50% 50%, #2a2b3d 0%, #1a1b26 100%);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  color: var(--fg-color);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Terminal Window Structure */
+.terminal-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 1000px;
+    background-color: var(--win-bg);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px var(--win-shadow);
+    overflow: hidden;
+    border: 1px solid #3e4153;
+}
+
+.terminal-titlebar {
+    background-color: var(--current-line);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #1a1b26;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.control.close { background-color: var(--win-close); }
+.control.minimize { background-color: var(--win-minimize); }
+.control.maximize { background-color: var(--win-maximize); }
+
+.terminal-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--comment);
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.terminal-body {
+    padding: 20px;
+    min-height: 500px; /* Ensure some height */
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Scrollbar styling for terminal body */
+.terminal-body::-webkit-scrollbar {
+  width: 10px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--current-line);
+  border-radius: 5px;
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--comment);
+}
+
+
+/* Existing Styles Adjusted */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--pink);
+}
+
 #input-container {
   display: inline-block;
   position: relative;
-  width: calc(100% - 300px); /* Adjust based on prompt width */
+  width: calc(100% - 350px); /* Adjusted for prompt length */
   vertical-align: top;
 }
 
@@ -11,7 +143,7 @@
   background-color: transparent;
   outline-width: 0;
   font-size: 16px !important;
-  font-family: 'Fira Code', monospace;
+  font-family: var(--font-main);
   text-transform: lowercase;
   position: absolute;
   top: 0;
@@ -22,23 +154,27 @@
 }
 
 #command {
-  color: #fff;
+  color: var(--fg-color);
   z-index: 2;
 }
 
 #suggestion {
-  color: #555;
+  color: var(--comment);
   z-index: 1;
 }
 
-#command-line span {
+#command-line span, .prompt-text {
   display: inline-block;
   margin-right: 10px;
+  color: var(--green);
 }
+
 #command-line {
   display: inline-block;
   width: 100%;
 }
+
+/* Hide content sections by default */
 #about,
 #achievements,
 #book-a-time,
@@ -54,41 +190,95 @@
 #skills {
   display: none;
 }
+
 #resume-container {
-  padding: 15px;
+  padding: 0; /* Reset padding as it is now inside terminal-body */
+  margin: 0 auto;
 }
-#contact a {
-  color: #d9d813;
+
+/* Specific text colors matching Dracula */
+.text-green { color: var(--green) !important; }
+.text-pink { color: var(--pink) !important; }
+.text-yellow { color: var(--yellow) !important; }
+.text-cyan { color: var(--cyan) !important; }
+.text-purple { color: var(--purple) !important; }
+.text-orange { color: var(--orange) !important; }
+.text-comment { color: var(--comment) !important; }
+.text-red { color: var(--red) !important; }
+
+/* Bold helper */
+.bold { font-weight: bold; }
+
+/* ASCII Art */
+pre.ascii {
+  color: var(--purple);
+  font-weight: bold;
 }
-#book-a-time a {
-  color: #d9d813;
-}
-#download a {
-  color: #d9d813;
-}
+
+/* Sections */
 .welcome {
-  margin-left: 15px;
+  margin-left: 0;
+  margin-bottom: 20px;
+  color: var(--fg-color);
 }
-.available_commads {
-  flex: 1;
+
+.table {
+  color: var(--fg-color);
 }
+
 .borderless td,
 .borderless th {
   border: none;
-  color: #fff;
-}
-.proj_name a,
-.proj_name strong {
-  color: #59c6c3;
-}
-.proj_name a {
-  text-decoration: underline;
-}
-.proj_name span {
-  color: #2ebfb5;
+  color: var(--fg-color);
+  padding: 5px 10px;
 }
 
+.proj_name a,
+.proj_name strong {
+  color: var(--cyan);
+}
+
+.proj_name a:hover {
+  color: var(--pink);
+}
+
+.proj_name span {
+  color: var(--orange);
+  font-size: 0.9em;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+li::marker {
+    color: var(--pink);
+}
+
+/* Mobile Responsiveness */
 @media only screen and (max-width: 768px) {
+  body {
+      padding: 0;
+      align-items: flex-start; /* Allow scroll on mobile if content is tall */
+  }
+
+  .terminal-container {
+      padding: 10px;
+      height: 100vh; /* Full height on mobile */
+  }
+
+  .terminal-window {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .terminal-body {
+      flex: 1;
+      min-height: 0; /* Allow flex shrink */
+  }
+
   pre.ascii {
     font-size: 2vw;
     line-height: 1.2;
@@ -107,17 +297,16 @@
   }
 
   .welcome {
-    margin-left: 0;
     font-size: 14px;
   }
 
-  #resume-container {
-    padding: 10px;
-  }
-
-  #command-line span {
+  #command-line span, .prompt-text {
     display: block;
     margin-bottom: 5px;
+  }
+
+  #input-container {
+      width: 100%;
   }
 
   #command {
