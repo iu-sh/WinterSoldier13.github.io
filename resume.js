@@ -78,7 +78,7 @@ function run_command() {
   var new_command_line = document.createElement("div");
   new_div.appendChild(new_command_line);
   new_command_line.innerHTML =
-    '<span style = "color:#3ffb57">guest@TheFlyingDutchman $</span> ' + cmd_val;
+    '<span class="prompt-text">guest@TheFlyingDutchman $</span> ' + cmd_val;
 
   if (cmd_val !== "") {
     if (result) {
