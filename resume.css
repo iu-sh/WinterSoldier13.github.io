@@ -46,7 +46,7 @@ body {
 
 .terminal-window {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px; /* Increased by 20% from 1000px */
     background-color: var(--win-bg);
     border-radius: 12px;
     box-shadow: 0 20px 60px var(--win-shadow);
@@ -92,10 +92,11 @@ body {
 }
 
 .terminal-body {
-    padding: 20px;
-    min-height: 500px; /* Ensure some height */
-    max-height: 80vh;
+    padding: 24px; /* Slightly increased padding */
+    min-height: 600px; /* Increased height */
+    max-height: 85vh;
     overflow-y: auto;
+    font-size: 1.1rem; /* Slightly larger text */
 }
 
 /* Scrollbar styling for terminal body */
@@ -206,13 +207,25 @@ a:hover {
 .text-comment { color: var(--comment) !important; }
 .text-red { color: var(--red) !important; }
 
-/* Bold helper */
+/* Utility Classes */
 .bold { font-weight: bold; }
+.italic { font-style: italic; }
+.no-margin { margin: 0; }
+.hidden { display: none; }
 
 /* ASCII Art */
 pre.ascii {
   color: var(--purple);
   font-weight: bold;
+}
+
+pre.ascii-error {
+  color: var(--red);
+  font-weight: bold;
+  font-size: 0.7rem; /* Reduce font size to fit */
+  line-height: 1.1;
+  overflow-x: auto; /* Scroll if still too wide */
+  white-space: pre;
 }
 
 /* Sections */
@@ -255,6 +268,69 @@ ul {
 li::marker {
     color: var(--pink);
 }
+
+/* Beautified Experience & Projects */
+#experience > div > ul,
+#projects > div > ul > li { /* Projects uses li as the main block wrapper inside a single ul */
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-left: 3px solid var(--comment);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 0 8px 8px 0;
+  list-style-type: none; /* Remove default bullet for the block wrapper */
+}
+
+/* Fix structure for nested lists in Experience */
+#experience > div > ul > li:first-child strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+}
+
+/* Inner details list */
+#experience > div > ul > ul,
+#projects > div > ul > li > ul {
+  padding-left: 1rem;
+  list-style-type: none; /* Custom markers */
+}
+
+#experience > div > ul > ul > li,
+#projects > div > ul > li > ul > li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+#experience > div > ul > ul > li::before,
+#projects > div > ul > li > ul > li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--pink);
+}
+
+/* Special styling for Project headers since they are inside an li */
+#projects > div > ul > li.proj_name {
+  list-style: none; /* Ensure no bullet on the container li */
+}
+
+#projects > div > ul > li.proj_name > strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+#projects > div > ul > li.proj_name > span {
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+  font-family: var(--font-main);
+  color: var(--orange);
+}
+
 
 /* Mobile Responsiveness */
 @media only screen and (max-width: 768px) {

@@ -94,8 +94,9 @@ function run_command() {
   document.getElementById("suggestion").value = "";
   cmd_index = cmd_list.length - 1;
 
-  var scrollingElement = document.scrollingElement || document.body;
-  scrollingElement.scrollTop = scrollingElement.scrollHeight;
+  // Auto-scroll to the bottom of the terminal body
+  var terminalBody = document.querySelector(".terminal-body");
+  terminalBody.scrollTop = terminalBody.scrollHeight;
 }
 
 function cycle_command(direction) {
@@ -149,6 +150,12 @@ function clear_console() {
   document.getElementById("executed_commands").innerHTML = "<div></div>";
   document.getElementById("command").value = "";
   document.getElementById("suggestion").value = "";
+
+  // Hide the banner and welcome message
+  var ascii = document.querySelector(".ascii");
+  var head = document.getElementById("head");
+  if (ascii) ascii.style.display = "none";
+  if (head) head.style.display = "none";
 }
 
 $("html").click(function () {
