@@ -127,7 +127,7 @@ function injectDependencies() {
                             'surface-container': '#44475a',
                             'surface-container-high': '#44475a',
                             'on-surface': '#f8f8f2',
-                            'on-surface-variant': '#6272a4',
+                            'on-surface-variant': '#d1d5db',
                             primary: '#bd93f9', // Purple
                             'on-primary': '#282a36',
                             'primary-container': '#4d3e6b',

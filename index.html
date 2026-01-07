@@ -88,9 +88,22 @@
 
 <body>
     <h1 style="display:none;">Ayush Singh - iu-sh - Software Engineer at Google</h1>
-    <div>
-        <div>
-            <pre class="ascii">
+
+    <!-- Mac-like Terminal Window Wrapper -->
+    <div class="terminal-container">
+        <div class="terminal-window">
+            <div class="terminal-titlebar">
+                <div class="window-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+                <div class="terminal-title">guest@TheFlyingDutchman:~</div>
+            </div>
+
+            <div class="terminal-body">
+                <div>
+                    <pre class="ascii">
 
 
                 ___   ____    ____  __    __       _______. __    __  
@@ -108,29 +121,33 @@
           
 </pre>
 
-            <div id="head">
-                <p class="welcome">Hello World!<br>(Type "<strong class="bold text-pink">help</strong>" to
-                    know all the commands).<br>
-                This website is best viewed on a PC
-                </p>
-            </div>
+                    <div id="head">
+                        <p class="welcome">Hello World!<br>(Type "<strong class="bold text-pink">help</strong>" to
+                            know all the commands).<br>
+                        This website is best viewed on a PC
+                        </p>
+                    </div>
 
-            <div id="resume-container">
-                <div id="executed_commands">
-                    <div></div>
-                </div>
+                    <div id="resume-container">
+                        <div id="executed_commands">
+                            <div></div>
+                        </div>
 
-                <div id="command-line">
-                    <span class="prompt-text">guest@TheFlyingDutchman:-$</span>
-                    <div id="input-container">
-                         <input type="text" id="suggestion" disabled />
-                         <input type="text" autofocus="autofocus" id="command" />
+                        <div id="command-line">
+                            <span class="prompt-text">guest@TheFlyingDutchman $</span>
+                            <div id="input-container">
+                                 <input type="text" id="suggestion" disabled />
+                                 <input type="text" autofocus="autofocus" id="command" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="about">
+    <!-- Hidden Content Sections -->
+    <div id="about">
             <div>
                 <p>
                     Hey there! I am <span class="text-green bold">Ayush Singh</span>, I am a Software Engineer, currently trading code for money at <span
