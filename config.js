@@ -22,6 +22,11 @@ const CONFIG = {
         welcomeMessage: 'Hello World! Type "<strong class="text-yellow">help</strong>" to see available commands. This website is best viewed on a PC.'
     },
 
+    audioOverview: {
+        url: "ayush_resume.mp3",
+        label: "Listen to two experts discuss my resume"
+    },
+
     resumeDownloadUrl: "https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing",
 
     about: {
@@ -240,6 +245,7 @@ I pick up new tech stacks faster than I finish my coffee. Outside of work, I cha
         { name: "contact", description: "How to reach me?" },
         { name: "book-a-time", description: "Schedule a meeting" },
         { name: "download", description: "Download resume (PDF)" },
+        { name: "listen", description: "Listen to two experts discuss my resume" },
         { name: "clear", description: "Clear this window" }
     ],
 

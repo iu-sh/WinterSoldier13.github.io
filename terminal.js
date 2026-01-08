@@ -367,6 +367,9 @@ function runCommand() {
         } else if (cmdVal === "download") {
             window.open(CONFIG.resumeDownloadUrl, "_blank");
             responseContent = "<p class='text-yellow'>Opening resume...</p>";
+        } else if (cmdVal === "listen") {
+            window.open(CONFIG.audioOverview.url, "_blank");
+            responseContent = `<p class='text-yellow'>Playing audio: ${CONFIG.audioOverview.label}...</p>`;
         } else if (available_cmd.includes(cmdVal)) {
             const contentElement = document.getElementById(cmdVal);
             if (contentElement) {
