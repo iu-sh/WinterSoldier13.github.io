@@ -113,7 +113,7 @@ function renderHero(data) {
                 ${data.audioOverview ? `
                 <a href="${data.audioOverview.url}" target="_blank" class="inline-flex h-14 items-center justify-center rounded-full border border-md-sys-outline bg-transparent px-8 font-medium text-md-sys-on-surface transition-colors hover:bg-md-sys-surface-container hover:border-md-sys-primary">
                     <i data-lucide="headphones" class="w-5 h-5 mr-2"></i>
-                    Overview
+                   Listen to two experts discuss my journey 
                 </a>
                 ` : ''}
                 <a href="${data.contact.github}" target="_blank" class="inline-flex h-14 items-center justify-center rounded-full border border-md-sys-outline bg-transparent px-8 font-medium text-md-sys-on-surface transition-colors hover:bg-md-sys-surface-container hover:border-md-sys-primary">
