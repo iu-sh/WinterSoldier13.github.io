@@ -5,28 +5,80 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="immersive.css" media="screen" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'monospace'],
+                    },
                     colors: {
-                        neutral: {
-                            900: '#171717',
-                            800: '#262626',
+                        // Dracula Theme Palette
+                        md: {
+                            sys: {
+                                surface: '#282a36',
+                                'surface-container': '#44475a',
+                                'surface-container-high': '#44475a',
+                                'on-surface': '#f8f8f2',
+                                'on-surface-variant': '#d1d5db',
+                                primary: '#bd93f9', // Purple
+                                'on-primary': '#282a36',
+                                'primary-container': '#4d3e6b',
+                                'on-primary-container': '#e0cffc',
+                                secondary: '#8be9fd', // Cyan
+                                'on-secondary': '#282a36',
+                                'secondary-container': '#365c69',
+                                'on-secondary-container': '#c2f0fc',
+                                tertiary: '#ff79c6', // Pink
+                                'on-tertiary': '#282a36',
+                                'tertiary-container': '#6b3352',
+                                'on-tertiary-container': '#ffcfe8',
+                                error: '#ff5555',
+                                'outline': '#6272a4',
+                                'outline-variant': '#44475a'
+                            }
                         }
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                    borderRadius: {
+                        'xs': '4px',
+                        'sm': '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '24px',
+                        '2xl': '32px',
+                        '3xl': '48px',
+                        'full': '9999px',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'loop-scroll': 'loop-scroll 20s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'loop-scroll': {
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-50%)' },
+                        }
                     }
                 }
             }
-        }
+        };
     </script>
 </head>
-<body class="bg-[#282a36]">
+<body class="bg-[#282a36] text-[#f8f8f2]">
     <script src="config.js"></script>
     <script src="immersive.js"></script>
 </body>

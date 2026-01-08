@@ -9,8 +9,8 @@ let activeTab = 'home';
 function switchToImmersive() {
     document.body.classList.add('immersive-mode');
 
-    // 1. Inject Fonts and Tailwind Config
-    injectDependencies();
+    // 1. (Skip) Dependencies injected in HTML head now.
+    // injectDependencies();
 
     // 2. Parse Data from CONFIG
     const data = parseDataFromConfig();
@@ -19,6 +19,7 @@ function switchToImmersive() {
     const container = document.createElement('div');
     container.id = 'immersive-view';
     // Use the class list from the prompt
+    // Removed redundant bg color since body handles it, but kept for safety/specificity
     container.className = 'antialiased selection:bg-md-sys-primary selection:text-md-sys-on-primary overflow-x-hidden bg-[#282a36] text-[#f8f8f2] font-sans min-h-screen relative';
 
     // Add animated background
@@ -54,80 +55,6 @@ function switchToImmersive() {
         lucide.createIcons();
     }
     initScrollSpy();
-}
-
-function injectDependencies() {
-    // Fonts
-    const fontLink = document.createElement('link');
-    fontLink.href = "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap";
-    fontLink.rel = "stylesheet";
-    document.head.appendChild(fontLink);
-
-    // Tailwind Config
-    // We update the global config. The CDN script observes this.
-    window.tailwind.config = {
-        darkMode: 'class',
-        theme: {
-            extend: {
-                fontFamily: {
-                    sans: ['Outfit', 'sans-serif'],
-                    display: ['Space Grotesk', 'monospace'],
-                },
-                colors: {
-                    // Dracula Theme Palette
-                    md: {
-                        sys: {
-                            surface: '#282a36',
-                            'surface-container': '#44475a',
-                            'surface-container-high': '#44475a',
-                            'on-surface': '#f8f8f2',
-                            'on-surface-variant': '#d1d5db',
-                            primary: '#bd93f9', // Purple
-                            'on-primary': '#282a36',
-                            'primary-container': '#4d3e6b',
-                            'on-primary-container': '#e0cffc',
-                            secondary: '#8be9fd', // Cyan
-                            'on-secondary': '#282a36',
-                            'secondary-container': '#365c69',
-                            'on-secondary-container': '#c2f0fc',
-                            tertiary: '#ff79c6', // Pink
-                            'on-tertiary': '#282a36',
-                            'tertiary-container': '#6b3352',
-                            'on-tertiary-container': '#ffcfe8',
-                            error: '#ff5555',
-                            'outline': '#6272a4',
-                            'outline-variant': '#44475a'
-                        }
-                    }
-                },
-                borderRadius: {
-                    'xs': '4px',
-                    'sm': '8px',
-                    'md': '12px',
-                    'lg': '16px',
-                    'xl': '24px',
-                    '2xl': '32px',
-                    '3xl': '48px',
-                    'full': '9999px',
-                },
-                animation: {
-                    'float': 'float 6s ease-in-out infinite',
-                    'spin-slow': 'spin 12s linear infinite',
-                    'loop-scroll': 'loop-scroll 20s linear infinite',
-                },
-                keyframes: {
-                    float: {
-                        '0%, 100%': { transform: 'translateY(0)' },
-                        '50%': { transform: 'translateY(-10px)' },
-                    },
-                    'loop-scroll': {
-                        from: { transform: 'translateX(0)' },
-                        to: { transform: 'translateX(-50%)' },
-                    }
-                }
-            }
-        }
-    };
 }
 
 function renderNavRail() {
