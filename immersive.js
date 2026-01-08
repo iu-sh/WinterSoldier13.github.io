@@ -42,7 +42,7 @@ function switchToImmersive() {
     // 1. Inject Fonts and Tailwind Config
     injectDependencies();
 
-    // 2. Parse Data
+    // 2. Parse Data (Now from CONFIG)
     const data = parseData();
 
     // 3. Create Main Container (overlaying everything)
@@ -61,24 +61,17 @@ function switchToImmersive() {
     `;
     container.appendChild(bgContainer);
 
-    // Clear body content (hide terminal) but keep scripts
-    // Actually, safer to just append and let it cover with high z-index or hide the other elements
-    // But to prevent scroll interactions with terminal, let's hide the terminal container
-    const terminalContainer = document.querySelector('#resume-container')?.parentElement; // div wrapping resume-container
-    if (terminalContainer) {
-        // We can't easily remove it because we need the data.
-        // We extracted data already.
-        // We'll just style the container to hide the old stuff.
-        const style = document.createElement('style');
-        style.textContent = `
-            body > div:not(#immersive-view):not(#mode-popup):not(#booking-popup) { display: none !important; }
-            body { background-color: #282a36 !important; overflow: auto !important; }
-            /* Custom scrollbar hiding */
-            .no-scrollbar::-webkit-scrollbar { display: none; }
-            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        `;
-        document.head.appendChild(style);
-    }
+    // Hide the terminal window
+    const style = document.createElement('style');
+    style.textContent = `
+        body > div:not(#immersive-view):not(#mode-popup):not(#booking-popup) { display: none !important; }
+        body { background-color: #282a36 !important; overflow: auto !important; }
+        /* Custom scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    `;
+    document.head.appendChild(style);
+
     document.body.appendChild(container);
 
     // 4. Render Content
@@ -404,7 +397,7 @@ function renderProjects(data) {
 }
 
 function renderFooter(data) {
-    const resumeLink = "https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing";
+    const resumeLink = CONFIG.resumeDownloadUrl || "#";
     return `
     <footer id="immersive-contact" class="px-6 lg:px-24 py-20 relative bg-md-sys-surface">
         <div class="max-w-4xl mx-auto text-center">
@@ -412,7 +405,7 @@ function renderFooter(data) {
             <p class="text-xl text-md-sys-on-surface-variant mb-10">Have a project or just want to talk tech? Hit me up.</p>
 
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="${data.contact.email}" class="inline-flex items-center gap-3 px-8 py-4 bg-md-sys-primary text-md-sys-on-primary rounded-full text-lg font-bold hover:bg-md-sys-on-primary hover:text-md-sys-primary transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1 duration-200">
+                <a href="mailto:${data.contact.email}" class="inline-flex items-center gap-3 px-8 py-4 bg-md-sys-primary text-md-sys-on-primary rounded-full text-lg font-bold hover:bg-md-sys-on-primary hover:text-md-sys-primary transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1 duration-200">
                     <i data-lucide="mail"></i>
                     Send Email
                 </a>
@@ -515,15 +508,6 @@ function initScrollSpy() {
                 navLinks.forEach(link => {
                     link.classList.remove('bg-md-sys-primary', 'text-md-sys-on-primary', 'shadow-lg');
                     link.classList.add('text-md-sys-on-surface-variant', 'hover:bg-md-sys-surface-container');
-                    if (link.getAttribute('href') === '#immersive-contact') {
-                         // Keep special styling for contact but reset if needed
-                         // actually the original code had contact always highlighted?
-                         // The original code was:
-                         // <a href="#immersive-contact" class="p-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity shadow-lg">
-                         // We should treat contact same as others for scroll spy or keep it special?
-                         // Request: "The pill shaped menu list that lives on the website does not highlight the section that the user is currently viewing."
-                         // So we should probably standardize them.
-                    }
                 });
 
                 // Add active class to current
@@ -544,111 +528,75 @@ function initScrollSpy() {
 
 function parseData() {
     // 1. SKILLS
-    const skillsUl = document.querySelector('#skills ul');
-    let skills = ["TypeScript", "Python", "Go", "C++", "Java", "Distributed System", "GoogleCloudPlatform", "Linux", "Distributed Storage", "Backend Development"];
+    const skills = [];
+    if (CONFIG.skills) {
+        CONFIG.skills.forEach(s => {
+             // Split string items
+             const items = s.items.split(',').map(i => i.trim());
+             skills.push(...items);
+        });
+    }
 
     // 2. PROJECTS
     const projects = [];
-    const projContainer = document.querySelector('#projects > div > ul');
-    if (projContainer) {
-        const projLis = projContainer.querySelectorAll('li.proj_name');
-        projLis.forEach(li => {
-            const anchor = li.querySelector('a');
-            const span = li.querySelector('span');
-            const detailsUl = li.querySelector('ul');
-
-            const title = anchor ? anchor.innerText : "Project";
-            const link = anchor ? anchor.href : "#";
-
-            let tags = [];
-            if (span) {
-                tags = span.innerText.split('|').map(s => s.trim()).filter(s => s !== "");
-            }
-
-            let details = [];
-            if (detailsUl) {
-                detailsUl.querySelectorAll('li').forEach(d => details.push(d.innerText));
-            }
-
-            projects.push({ title, link, tags, details });
+    if (CONFIG.projects) {
+        CONFIG.projects.forEach(p => {
+             projects.push({
+                 title: p.name,
+                 link: p.url || "#",
+                 tags: p.tags,
+                 details: p.description
+             });
         });
     }
 
     // 3. ABOUT
-    const aboutDiv = document.querySelector('#about > div');
-    let intro = "";
-    let status = "";
-    let fullBio = "";
-    if (aboutDiv) {
-        intro = "I am a Software Engineer, currently trading code for money at Google.";
-        status = "SWE-III @ Google, Munich";
-        fullBio = "TL;DR : Swiss Army Knife. Currently diving deep into Distributed Systems and building scalable solutions. Always down to chat about Physics, Algorithms, or high-throughput architecture. ";
-    }
+    const about = {
+        intro: "I am a " + CONFIG.about.role + ", currently at " + CONFIG.about.team + ".",
+        status: CONFIG.about.currentStatus.role + " @ " + CONFIG.about.currentStatus.location,
+        fullBio: CONFIG.about.bio
+    };
 
     // 4. EXPERIENCE
     const experience = [];
-    const expDiv = document.querySelector('#experience > div');
-    if (expDiv) {
-        const expUls = expDiv.querySelectorAll('ul');
-        expUls.forEach(ul => {
-            if (ul.parentElement === expDiv) { // Direct children ULs
-                const roleLi = ul.querySelector('li strong');
-                const innerUl = ul.querySelector('ul');
+    if (CONFIG.experience) {
+        CONFIG.experience.forEach(e => {
+             // e.title is "Company - Role" or similar?
+             // CONFIG had: "Google, Munich - Software Engineer - III"
+             let role = e.title;
+             let company = "";
+             if (e.title.includes('-')) {
+                 const parts = e.title.split('-');
+                 company = parts[0].trim();
+                 role = parts.slice(1).join('-').trim();
+             }
 
-                let roleStr = roleLi ? roleLi.innerText : "";
-                let company = "";
-                let role = roleStr;
+             let tech = "";
+             // Extract tech from highlights if present
+             const techHighlight = e.highlights.find(h => h.label === "TechStack");
+             if (techHighlight) tech = techHighlight.detail;
 
-                // Try to split Role - Company
-                if (roleStr.includes('-')) {
-                    const parts = roleStr.split('-');
-                    // Heuristic: "Google, Munich - Software Engineer"
-                    if (parts.length >= 2) {
-                        company = parts[0].trim();
-                        role = parts.slice(1).join('-').trim();
-                    }
-                }
+             const details = e.highlights.filter(h => h.label !== "TechStack").map(h => h.detail);
 
-                let duration = "";
-                let tech = "";
-                let details = [];
-
-                if (innerUl) {
-                    const listItems = innerUl.querySelectorAll('li');
-                    listItems.forEach((li, idx) => {
-                        if (idx === 0) duration = li.innerText;
-                        else if (idx === 1 && li.innerText.includes('TechStack')) tech = li.innerText.replace('TechStack:', '').trim();
-                        else details.push(li.innerText);
-                    });
-                }
-
-                experience.push({ role, company, duration, tech, details });
-            }
+             experience.push({
+                 role: role,
+                 company: company,
+                 duration: e.period,
+                 tech: tech,
+                 details: details
+             });
         });
     }
 
     // 5. CONTACT
-    const contactDiv = document.querySelector('#contact p');
-    let email = "mailto:ayushsingh1315@gmail.com";
-    let linkedin = "#";
-    let github = "#";
+    const contact = {
+        email: CONFIG.contact.email.address,
+        linkedin: CONFIG.contact.social.linkedin.url,
+        github: CONFIG.contact.social.github.url
+    };
 
-    if (contactDiv) {
-        const links = contactDiv.querySelectorAll('a');
-        links.forEach(a => {
-            if(a.href.includes('mailto')) email = a.href;
-            if(a.innerText.includes('LinkedIn')) linkedin = a.href;
-            if(a.innerText.includes('Github')) github = a.href;
-        });
-    }
+    // 6. BOOK TIME
+    const bookTime = CONFIG.bookATime.url;
 
-    // 6. BOOK A TIME
-    const bookDiv = document.querySelector('#book-a-time');
-    let bookTime = "#";
-    if (bookDiv) {
-        const a = bookDiv.querySelector('a');
-        if(a) bookTime = a.href;
-    }
-
-    return { skills, projects, about: { intro, status, fullBio }, experience, contact: { email, linkedin, github }, bookTime };
+    return { skills, projects, about, experience, contact, bookTime };
 }
