@@ -1,0 +1,392 @@
+:root {
+  --bg-color: #282a36;
+  --fg-color: #f8f8f2;
+  --current-line: #44475a;
+  --comment: #6272a4;
+  --cyan: #8be9fd;
+  --green: #50fa7b;
+  --orange: #ffb86c;
+  --pink: #ff79c6;
+  --purple: #bd93f9;
+  --red: #ff5555;
+  --yellow: #f1fa8c;
+  --font-main: 'Fira Code', monospace;
+
+  /* Mac Window Colors */
+  --win-bg: #282a36;
+  --win-header: #383a59; /* Slightly lighter than bg */
+  --win-close: #ff5f56;
+  --win-minimize: #ffbd2e;
+  --win-maximize: #27c93f;
+  --win-shadow: rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: #1a1b26; /* Darker background for the desktop behind terminal */
+  background-image: radial-gradient(circle at 50% 50%, #2a2b3d 0%, #1a1b26 100%);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  color: var(--fg-color);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Terminal Window Structure */
+.terminal-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 1200px; /* Increased by 20% from 1000px */
+    background-color: var(--win-bg);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px var(--win-shadow);
+    overflow: hidden;
+    border: 1px solid #3e4153;
+}
+
+.terminal-titlebar {
+    background-color: var(--current-line);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid #1a1b26;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.control.close { background-color: var(--win-close); }
+.control.minimize { background-color: var(--win-minimize); }
+.control.maximize { background-color: var(--win-maximize); }
+
+.terminal-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--comment);
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.terminal-body {
+    padding: 24px; /* Slightly increased padding */
+    min-height: 600px; /* Increased height */
+    max-height: 85vh;
+    overflow-y: auto;
+    font-size: 1.1rem; /* Slightly larger text */
+}
+
+/* Scrollbar styling for terminal body */
+.terminal-body::-webkit-scrollbar {
+  width: 10px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--current-line);
+  border-radius: 5px;
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--comment);
+}
+
+
+/* Existing Styles Adjusted */
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--pink);
+}
+
+#input-container {
+  display: inline-block;
+  position: relative;
+  width: calc(100% - 350px); /* Adjusted for prompt length */
+  vertical-align: top;
+}
+
+#command, #suggestion {
+  display: inline-block;
+  border: 0;
+  background-color: transparent;
+  outline-width: 0;
+  font-size: 16px !important;
+  font-family: var(--font-main);
+  text-transform: lowercase;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#command {
+  color: var(--fg-color);
+  z-index: 2;
+}
+
+#suggestion {
+  color: var(--comment);
+  z-index: 1;
+}
+
+#command-line span, .prompt-text {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--green);
+}
+
+#command-line {
+  display: inline-block;
+  width: 100%;
+}
+
+/* Hide content sections by default */
+#about,
+#achievements,
+#book-a-time,
+#connect,
+#contact,
+#download,
+#education,
+#error,
+#experience,
+#help,
+#ls,
+#projects,
+#skills {
+  display: none;
+}
+
+#resume-container {
+  padding: 0; /* Reset padding as it is now inside terminal-body */
+  margin: 0 auto;
+}
+
+/* Specific text colors matching Dracula */
+.text-green { color: var(--green) !important; }
+.text-pink { color: var(--pink) !important; }
+.text-yellow { color: var(--yellow) !important; }
+.text-cyan { color: var(--cyan) !important; }
+.text-purple { color: var(--purple) !important; }
+.text-orange { color: var(--orange) !important; }
+.text-comment { color: var(--comment) !important; }
+.text-red { color: var(--red) !important; }
+
+/* Utility Classes */
+.bold { font-weight: bold; }
+.italic { font-style: italic; }
+.no-margin { margin: 0; }
+.hidden { display: none; }
+
+/* ASCII Art */
+pre.ascii {
+  color: var(--purple);
+  font-weight: bold;
+}
+
+pre.ascii-error {
+  color: var(--red);
+  font-weight: bold;
+  font-size: 0.7rem; /* Reduce font size to fit */
+  line-height: 1.1;
+  overflow-x: auto; /* Scroll if still too wide */
+  white-space: pre;
+}
+
+/* Sections */
+.welcome {
+  margin-left: 0;
+  margin-bottom: 20px;
+  color: var(--fg-color);
+}
+
+.table {
+  color: var(--fg-color);
+}
+
+.borderless td,
+.borderless th {
+  border: none;
+  color: var(--fg-color);
+  padding: 5px 10px;
+}
+
+.proj_name a,
+.proj_name strong {
+  color: var(--cyan);
+}
+
+.proj_name a:hover {
+  color: var(--pink);
+}
+
+.proj_name span {
+  color: var(--orange);
+  font-size: 0.9em;
+}
+
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+li::marker {
+    color: var(--pink);
+}
+
+/* Beautified Experience & Projects */
+#experience > div > ul,
+#projects > div > ul > li { /* Projects uses li as the main block wrapper inside a single ul */
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-left: 3px solid var(--comment);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 0 8px 8px 0;
+  list-style-type: none; /* Remove default bullet for the block wrapper */
+}
+
+/* Fix structure for nested lists in Experience */
+#experience > div > ul > li:first-child strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+}
+
+/* Inner details list */
+#experience > div > ul > ul,
+#projects > div > ul > li > ul {
+  padding-left: 1rem;
+  list-style-type: none; /* Custom markers */
+}
+
+#experience > div > ul > ul > li,
+#projects > div > ul > li > ul > li {
+  margin-bottom: 0.3rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+#experience > div > ul > ul > li::before,
+#projects > div > ul > li > ul > li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  color: var(--pink);
+}
+
+/* Special styling for Project headers since they are inside an li */
+#projects > div > ul > li.proj_name {
+  list-style: none; /* Ensure no bullet on the container li */
+}
+
+#projects > div > ul > li.proj_name > strong {
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+#projects > div > ul > li.proj_name > span {
+  display: block;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--comment);
+  padding-bottom: 0.2rem;
+  font-family: var(--font-main);
+  color: var(--orange);
+}
+
+
+/* Mobile Responsiveness */
+@media only screen and (max-width: 768px) {
+  body {
+      padding: 0;
+      align-items: flex-start; /* Allow scroll on mobile if content is tall */
+  }
+
+  .terminal-container {
+      padding: 10px;
+      height: 100vh; /* Full height on mobile */
+  }
+
+  .terminal-window {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .terminal-body {
+      flex: 1;
+      min-height: 0; /* Allow flex shrink */
+  }
+
+  pre.ascii {
+    font-size: 2vw;
+    line-height: 1.2;
+    overflow-x: hidden;
+  }
+
+  #achievements pre {
+    font-size: 10px;
+    overflow-x: auto;
+  }
+
+  #error pre {
+    font-size: 0.8vw;
+    line-height: 1.2;
+    overflow-x: hidden;
+  }
+
+  .welcome {
+    font-size: 14px;
+  }
+
+  #command-line span, .prompt-text {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  #input-container {
+      width: 100%;
+  }
+
+  #command {
+    width: 100%;
+    font-size: 16px !important;
+  }
+}
