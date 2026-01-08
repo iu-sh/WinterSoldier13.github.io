@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Loading...</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0d1117">
+
+    <link rel="shortcut icon" type="image" href="favicon.ico" />
+    <link rel="stylesheet" href="terminal.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-108428662-2');
+    </script>
+</head>
+
+<body class="terminal-mode">
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="window-controls">
+                <div class="control close"></div>
+                <div class="control minimize"></div>
+                <div class="control maximize"></div>
+            </div>
+            <div class="terminal-title" id="terminal-title">Loading...</div>
+        </div>
+
+        <div class="terminal-body">
+            <div id="executed_commands">
+                <div class="welcome-section">
+                    <pre class="ascii-art" id="intro-ascii">Loading...</pre>
+                    <p class="welcome-message" id="welcome-message">
+                        Loading...
+                    </p>
+                </div>
+            </div>
+
+            <div class="input-line">
+                <span class="prompt text-green" id="prompt-symbol">➜</span>
+                <span class="prompt text-blue" id="prompt-directory">~</span>
+                <div class="command-input-container">
+                    <input type="text" id="suggestion" disabled />
+                    <input type="text" id="command" autofocus autocomplete="off" spellcheck="false" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Content Templates - Populated by JavaScript -->
+    <div class="template">
+        <div id="about"></div>
+        <div id="education"></div>
+        <div id="projects"></div>
+        <div id="experience"></div>
+        <div id="ls"></div>
+        <div id="skills"></div>
+        <div id="achievements"></div>
+        <div id="contact"></div>
+        <div id="book-a-time"></div>
+        <div id="error"></div>
+        <div id="help"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="terminal.js"></script>
+</body>
+
+</html>

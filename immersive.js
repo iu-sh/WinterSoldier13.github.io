@@ -1,40 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initModeSelection();
+    // Mode selection is now handled by index.html (landing page)
+    // and we are already in the immersive/normal page here.
+    switchToImmersive();
 });
 
 let activeTab = 'home';
-
-function initModeSelection() {
-    // Create Popup HTML
-    const popupHtml = `
-    <div id="mode-popup" class="fixed inset-0 bg-[#282a36]/95 z-[9999] flex flex-col justify-center items-center font-sans backdrop-blur-sm">
-        <div class="bg-[#282a36] p-8 rounded-3xl text-center max-w-md w-[90%] border border-[#bd93f9]/30 shadow-[0_0_50px_rgba(189,147,249,0.2)]">
-            <h2 class="text-3xl font-bold text-[#f8f8f2] mb-8 font-display">Select Interface</h2>
-            <button id="btn-terminal" class="w-full py-4 px-6 mb-4 rounded-full border-2 border-[#50fa7b] text-[#50fa7b] font-mono hover:bg-[#50fa7b]/10 transition-all font-bold tracking-wide">
-                > Terminal_Mode
-            </button>
-            <button id="btn-immersive" class="w-full py-4 px-6 rounded-full bg-[#bd93f9] text-[#282a36] font-bold hover:bg-[#ff79c6] transition-all shadow-lg shadow-[#bd93f9]/20 tracking-wide">
-                Immersive UI (Gui)
-            </button>
-        </div>
-    </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', popupHtml);
-
-    // Event Listeners
-    document.getElementById('btn-terminal').addEventListener('click', () => {
-        document.getElementById('mode-popup').remove();
-        // Focus on terminal input
-        const cmdInput = document.getElementById('command');
-        if (cmdInput) cmdInput.focus();
-    });
-
-    document.getElementById('btn-immersive').addEventListener('click', () => {
-        document.getElementById('mode-popup').remove();
-        switchToImmersive();
-    });
-}
 
 function switchToImmersive() {
     document.body.classList.add('immersive-mode');
@@ -42,10 +12,10 @@ function switchToImmersive() {
     // 1. Inject Fonts and Tailwind Config
     injectDependencies();
 
-    // 2. Parse Data
-    const data = parseData();
+    // 2. Parse Data from CONFIG
+    const data = parseDataFromConfig();
 
-    // 3. Create Main Container (overlaying everything)
+    // 3. Create Main Container
     const container = document.createElement('div');
     container.id = 'immersive-view';
     // Use the class list from the prompt
@@ -61,24 +31,6 @@ function switchToImmersive() {
     `;
     container.appendChild(bgContainer);
 
-    // Clear body content (hide terminal) but keep scripts
-    // Actually, safer to just append and let it cover with high z-index or hide the other elements
-    // But to prevent scroll interactions with terminal, let's hide the terminal container
-    const terminalContainer = document.querySelector('#resume-container')?.parentElement; // div wrapping resume-container
-    if (terminalContainer) {
-        // We can't easily remove it because we need the data.
-        // We extracted data already.
-        // We'll just style the container to hide the old stuff.
-        const style = document.createElement('style');
-        style.textContent = `
-            body > div:not(#immersive-view):not(#mode-popup):not(#booking-popup) { display: none !important; }
-            body { background-color: #282a36 !important; overflow: auto !important; }
-            /* Custom scrollbar hiding */
-            .no-scrollbar::-webkit-scrollbar { display: none; }
-            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        `;
-        document.head.appendChild(style);
-    }
     document.body.appendChild(container);
 
     // 4. Render Content
@@ -98,7 +50,9 @@ function switchToImmersive() {
 
     // 5. Initialize Interactions
     initInteractions();
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
     initScrollSpy();
 }
 
@@ -370,7 +324,7 @@ function renderProjects(data) {
                     const textClass = idx % 2 === 0 ? 'text-white' : 'text-md-sys-on-secondary-container';
 
                     return `
-                    <div class="group relative ${colClass} ${bgClass} rounded-[2rem] overflow-hidden border border-md-sys-outline-variant hover:border-md-sys-primary transition-colors cursor-pointer p-8 flex flex-col justify-between">
+                    <div class="group relative ${colClass} ${bgClass} rounded-[2rem] overflow-hidden border border-md-sys-outline-variant hover:border-md-sys-primary transition-colors cursor-pointer p-8 flex flex-col justify-between" onclick="window.open('${project.link}', '_blank')">
 
                         <div class="relative z-20">
                             <div class="flex flex-wrap gap-2 mb-4">
@@ -404,7 +358,7 @@ function renderProjects(data) {
 }
 
 function renderFooter(data) {
-    const resumeLink = "https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing";
+    const resumeLink = data.resume || "#";
     return `
     <footer id="immersive-contact" class="px-6 lg:px-24 py-20 relative bg-md-sys-surface">
         <div class="max-w-4xl mx-auto text-center">
@@ -486,7 +440,9 @@ function initInteractions() {
             </div>
             `;
             document.body.insertAdjacentHTML('beforeend', popupHtml);
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
             document.getElementById('btn-cancel-booking').addEventListener('click', () => {
                 document.getElementById('booking-popup').remove();
@@ -515,15 +471,6 @@ function initScrollSpy() {
                 navLinks.forEach(link => {
                     link.classList.remove('bg-md-sys-primary', 'text-md-sys-on-primary', 'shadow-lg');
                     link.classList.add('text-md-sys-on-surface-variant', 'hover:bg-md-sys-surface-container');
-                    if (link.getAttribute('href') === '#immersive-contact') {
-                         // Keep special styling for contact but reset if needed
-                         // actually the original code had contact always highlighted?
-                         // The original code was:
-                         // <a href="#immersive-contact" class="p-3 rounded-full bg-md-sys-primary text-md-sys-on-primary hover:opacity-90 transition-opacity shadow-lg">
-                         // We should treat contact same as others for scroll spy or keep it special?
-                         // Request: "The pill shaped menu list that lives on the website does not highlight the section that the user is currently viewing."
-                         // So we should probably standardize them.
-                    }
                 });
 
                 // Add active class to current
@@ -542,113 +489,96 @@ function initScrollSpy() {
     });
 }
 
-function parseData() {
+function parseDataFromConfig() {
+    // This function maps the structure from CONFIG to what Immersive UI expects
+
     // 1. SKILLS
-    const skillsUl = document.querySelector('#skills ul');
-    let skills = ["TypeScript", "Python", "Go", "C++", "Java", "Distributed System", "GoogleCloudPlatform", "Linux", "Distributed Storage", "Backend Development"];
-
-    // 2. PROJECTS
-    const projects = [];
-    const projContainer = document.querySelector('#projects > div > ul');
-    if (projContainer) {
-        const projLis = projContainer.querySelectorAll('li.proj_name');
-        projLis.forEach(li => {
-            const anchor = li.querySelector('a');
-            const span = li.querySelector('span');
-            const detailsUl = li.querySelector('ul');
-
-            const title = anchor ? anchor.innerText : "Project";
-            const link = anchor ? anchor.href : "#";
-
-            let tags = [];
-            if (span) {
-                tags = span.innerText.split('|').map(s => s.trim()).filter(s => s !== "");
+    // CONFIG.skills is [{category, items}, ...]
+    let skills = [];
+    if (CONFIG.skills) {
+        CONFIG.skills.forEach(s => {
+            if (s.items) {
+                // items is a string "TypeScript, C++, ..."
+                const items = s.items.split(',').map(item => item.trim());
+                skills = skills.concat(items);
             }
-
-            let details = [];
-            if (detailsUl) {
-                detailsUl.querySelectorAll('li').forEach(d => details.push(d.innerText));
-            }
-
-            projects.push({ title, link, tags, details });
         });
     }
 
-    // 3. ABOUT
-    const aboutDiv = document.querySelector('#about > div');
-    let intro = "";
-    let status = "";
-    let fullBio = "";
-    if (aboutDiv) {
-        intro = "I am a Software Engineer, currently trading code for money at Google.";
-        status = "SWE-III @ Google, Munich";
-        fullBio = "TL;DR : Swiss Army Knife. Currently diving deep into Distributed Systems and building scalable solutions. Always down to chat about Physics, Algorithms, or high-throughput architecture. ";
+    // 2. PROJECTS
+    // CONFIG.projects is [{name, url, tags, description: []}, ...]
+    let projects = [];
+    if (CONFIG.projects) {
+        projects = CONFIG.projects.map(p => ({
+            title: p.name,
+            link: p.url || "#",
+            tags: p.tags,
+            details: p.description // array of strings
+        }));
     }
 
+    // 3. ABOUT
+    // CONFIG.about has name, role, team, tagline, bio, currentStatus
+    let about = {
+        intro: CONFIG.about.tagline,
+        status: `${CONFIG.about.currentStatus.role} @ ${CONFIG.about.currentStatus.location}`,
+        fullBio: CONFIG.about.bio
+    };
+
     // 4. EXPERIENCE
-    const experience = [];
-    const expDiv = document.querySelector('#experience > div');
-    if (expDiv) {
-        const expUls = expDiv.querySelectorAll('ul');
-        expUls.forEach(ul => {
-            if (ul.parentElement === expDiv) { // Direct children ULs
-                const roleLi = ul.querySelector('li strong');
-                const innerUl = ul.querySelector('ul');
-
-                let roleStr = roleLi ? roleLi.innerText : "";
-                let company = "";
-                let role = roleStr;
-
-                // Try to split Role - Company
-                if (roleStr.includes('-')) {
-                    const parts = roleStr.split('-');
-                    // Heuristic: "Google, Munich - Software Engineer"
-                    if (parts.length >= 2) {
-                        company = parts[0].trim();
-                        role = parts.slice(1).join('-').trim();
-                    }
+    // CONFIG.experience is [{title, period, department, highlights: [{detail}, ...]}, ...]
+    let experience = [];
+    if (CONFIG.experience) {
+        experience = CONFIG.experience.map(exp => {
+            // title: "Google, Munich - Software Engineer"
+            let role = exp.title;
+            let company = "";
+            if (exp.title.includes('-')) {
+                const parts = exp.title.split('-');
+                if (parts.length >= 2) {
+                     // Heuristic: "Company, Location - Role"
+                     company = parts[0].trim();
+                     role = parts.slice(1).join('-').trim();
                 }
-
-                let duration = "";
-                let tech = "";
-                let details = [];
-
-                if (innerUl) {
-                    const listItems = innerUl.querySelectorAll('li');
-                    listItems.forEach((li, idx) => {
-                        if (idx === 0) duration = li.innerText;
-                        else if (idx === 1 && li.innerText.includes('TechStack')) tech = li.innerText.replace('TechStack:', '').trim();
-                        else details.push(li.innerText);
-                    });
-                }
-
-                experience.push({ role, company, duration, tech, details });
             }
+
+            // Tech stack is not explicitly separate in CONFIG, usually in highlights or just implied.
+            // But we can try to find a highlight that says "TechStack" or leave it blank
+            let tech = "";
+            // We can also check if any highlight starts with TechStack
+            const details = [];
+            if (exp.highlights) {
+                exp.highlights.forEach(h => {
+                    if (h.detail.startsWith('TechStack:')) {
+                        tech = h.detail.replace('TechStack:', '').trim();
+                    } else {
+                        details.push(h.detail);
+                    }
+                });
+            }
+
+            return {
+                role,
+                company,
+                duration: exp.period,
+                tech,
+                details
+            };
         });
     }
 
     // 5. CONTACT
-    const contactDiv = document.querySelector('#contact p');
-    let email = "mailto:ayushsingh1315@gmail.com";
-    let linkedin = "#";
-    let github = "#";
+    let contact = {
+        email: CONFIG.contact.email ? `mailto:${CONFIG.contact.email.address}` : "#",
+        linkedin: CONFIG.contact.social && CONFIG.contact.social.linkedin ? CONFIG.contact.social.linkedin.url : "#",
+        github: CONFIG.contact.social && CONFIG.contact.social.github ? CONFIG.contact.social.github.url : "#"
+    };
 
-    if (contactDiv) {
-        const links = contactDiv.querySelectorAll('a');
-        links.forEach(a => {
-            if(a.href.includes('mailto')) email = a.href;
-            if(a.innerText.includes('LinkedIn')) linkedin = a.href;
-            if(a.innerText.includes('Github')) github = a.href;
-        });
-    }
+    // 6. BOOK TIME
+    let bookTime = CONFIG.bookATime ? CONFIG.bookATime.url : "#";
 
-    // 6. BOOK A TIME
-    const bookDiv = document.querySelector('#book-a-time');
-    let bookTime = "#";
-    if (bookDiv) {
-        const a = bookDiv.querySelector('a');
-        if(a) bookTime = a.href;
-    }
+    // 7. RESUME
+    let resume = CONFIG.resumeDownloadUrl;
 
-    return { skills, projects, about: { intro, status, fullBio }, experience, contact: { email, linkedin, github }, bookTime };
+    return { skills, projects, about, experience, contact, bookTime, resume };
 }
