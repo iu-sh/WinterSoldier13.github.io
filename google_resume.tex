@@ -1,0 +1,327 @@
+\documentclass[letterpaper,9pt]{article}
+
+% ============================================
+% PACKAGES
+% ============================================
+\usepackage[empty]{fullpage}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{montserrat}  % Google Product Sans alternative
+\usepackage{opensans}    % Clean body font
+\usepackage{graphicx}
+
+\usetikzlibrary{shapes.geometric, shadows.blur, calc}
+
+% ============================================
+% GEOMETRY
+% ============================================
+\geometry{
+    left=0.5in,
+    right=0.4in,
+    top=0.28in,
+    bottom=0.2in
+}
+
+% Google Colors
+\definecolor{GoogleBlue}{HTML}{4285F4}
+\definecolor{GoogleRed}{HTML}{EA4335}
+\definecolor{GoogleYellow}{HTML}{FBBC05}
+\definecolor{GoogleGreen}{HTML}{34A853}
+\definecolor{GoogleGray}{HTML}{5F6368}
+\definecolor{GoogleLightGray}{HTML}{DADCE0}
+\definecolor{LinkBlue}{HTML}{1A0DAB}
+\definecolor{UrlGreen}{HTML}{1E8E3E}
+\definecolor{TextBlack}{HTML}{202124}
+\definecolor{SubtleGray}{HTML}{70757A}
+\definecolor{PanelBorder}{HTML}{DFE1E5}
+\definecolor{AIOverviewBg}{HTML}{F0F4F9}
+\definecolor{AIOverviewBorder}{HTML}{C2E7FF}
+\definecolor{AIPurple}{HTML}{7B61FF}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+% Use Open Sans for body text
+\renewcommand{\familydefault}{\sfdefault}
+
+% ============================================
+% CUSTOM COMMANDS
+% ============================================
+
+% Google Logo - Using Montserrat Bold (closest to Product Sans)
+\newcommand{\GoogleLogoSmall}{%
+    \begingroup
+    \fontfamily{Montserrat-TOsF}\selectfont
+    \fontsize{20}{22}\selectfont\bfseries%
+    {\color{GoogleBlue}G}%
+    {\color{GoogleRed}o}%
+    {\color{GoogleYellow}o}%
+    {\color{GoogleBlue}g}%
+    {\color{GoogleGreen}l}%
+    {\color{GoogleRed}e}%
+    \endgroup
+}
+
+% ============================================
+% DOCUMENT
+% ============================================
+\begin{document}
+
+% ============================================
+% HEADER
+% ============================================
+\begin{tabular}{@{}l@{\hspace{14pt}}l@{}}
+\GoogleLogoSmall &
+\begin{tikzpicture}[baseline=-3pt]
+    \node[
+        draw=GoogleLightGray,
+        rounded corners=18pt,
+        minimum height=30pt,
+        text width=4.4in,
+        inner xsep=10pt,
+        inner ysep=0pt,
+        fill=white,
+        line width=0.6pt
+    ] {%
+        {\small\color{GoogleGray}\faSearch}~~%
+        {\fontfamily{fos}\selectfont\small Ayush Singh - Distributed Systems Jedi}%
+        \hfill%
+        {\small\color{GoogleGray}\faTimes}~~%
+        {\small\color{GoogleBlue}\faMicrophone}%
+    };
+\end{tikzpicture}
+\end{tabular}
+
+\vspace{5pt}
+
+% Navigation Bar with contact links
+{\fontfamily{fos}\selectfont\footnotesize\color{SubtleGray}%
+{\color{GoogleBlue}\underline{All}}%
+\hspace{14pt}%
+\href{https://linkedin.com/in/iu-sh}{{\color{SubtleGray}\faLinkedin}~LinkedIn}%
+\hspace{14pt}%
+\href{https://github.com/WinterSoldier13}{{\color{SubtleGray}\faGithub}~GitHub}%
+\hspace{14pt}%
+\href{https://ayushsingh.is-a.dev}{{\color{SubtleGray}\faGlobe}~Website}%
+\hspace{14pt}%
+\href{mailto:ayushsingh1315@gmail.com}{{\color{SubtleGray}\faEnvelope}~Email}%
+}
+
+\vspace{2pt}
+{\color{GoogleLightGray}\hrule height 0.4pt}
+\vspace{6pt}
+
+% ============================================
+% MAIN CONTENT - TWO COLUMNS
+% ============================================
+\begin{minipage}[t]{0.58\textwidth}
+
+% AI Overview Section (new Google style)
+\begin{tikzpicture}
+\node[
+    fill=AIOverviewBg,
+    draw=AIOverviewBorder,
+    rounded corners=12pt,
+    inner sep=8pt,
+    text width=0.95\linewidth,
+    line width=0.5pt
+] {%
+    {\color{AIPurple}\faRobot}~~{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}AI Overview}\\[4pt]
+    {\fontfamily{fos}\selectfont\footnotesize\color{TextBlack}%
+    \textbf{TL;DR: Swiss Army Knife} -- Versatile engineer specializing in Privacy \& Compliance, Distributed Systems, and Full-Stack Development. Currently at Google Munich building consent systems that protect user data across all Google products. Led UK's Online Safety Act implementation. \textbf{Promoted within 1.2 years} for significant impact. Awarded \textbf{spot bonus from VP of Engineering}.%
+    }%
+};
+\end{tikzpicture}
+
+\vspace{6pt}
+
+% Experience Section
+{\fontfamily{Montserrat-TOsF}\selectfont\normalsize\bfseries\color{TextBlack}Experience}
+\vspace{4pt}
+
+% Google Munich
+{\fontfamily{fos}\selectfont%
+{\footnotesize\color{UrlGreen}careers.google.com › munich › swe-iii}\\[-2pt]
+{\color{LinkBlue}\bfseries Software Engineer III} · Google, Munich\\[1pt]
+{\footnotesize\color{SubtleGray}November 2024 -- Present}\\[2pt]
+{\footnotesize\color{TextBlack}%
+\textbullet~Working in SignedOut Consent team, managing user data privacy across all Google Products.\\[0pt]
+\textbullet~Led \textbf{UK's Online Safety Act} implementation across web, Android, iOS. \textbf{Spot bonus from VP}.\\[0pt]
+\textbullet~Drove US AppStore Age Verification---saving Google from millions in fines.\\[0pt]
+\textbullet~Revamped backend for privacy signals, significantly simplifying infrastructure.%
+}%
+}
+
+\vspace{5pt}
+
+% Google India
+{\fontfamily{fos}\selectfont%
+{\footnotesize\color{UrlGreen}careers.google.com › india › swe-iii}\\[-2pt]
+{\color{LinkBlue}\bfseries Software Engineer III} · Google, India\\[1pt]
+{\footnotesize\color{SubtleGray}July 2022 -- November 2024}\\[2pt]
+{\footnotesize\color{TextBlack}%
+\textbullet~Built BinaryFileSystem---scalable file system for critical binary assets deployment.\\[0pt]
+\textbullet~Led Chrome's cookie deprecation impact tool. \textbf{CEO's go-ahead}. \textbf{Promoted in 1.2 years}.\\[0pt]
+\textbullet~SLA/SLO enforcement system, saving Google \textbf{\$2.5M/quarter}.\\[0pt]
+\textbullet~Telemetry extraction from distributed systems; highly available aggregation backend.\\[0pt]
+\textbullet~Co-authored 3 Technical Design Documents.%
+}%
+}
+
+\vspace{5pt}
+
+% Komprise
+{\fontfamily{fos}\selectfont%
+{\footnotesize\color{UrlGreen}komprise.com › careers}\\[-2pt]
+{\color{LinkBlue}\bfseries Software Engineer Intern} · Komprise~{\footnotesize\color{SubtleGray}| Jan -- Jun 2022}\\[1pt]
+{\footnotesize\color{TextBlack}%
+Automation Engine for parallelizing operations. BVT suite optimization---\textbf{87.5\% faster}.%
+}%
+}
+
+\vspace{4pt}
+
+% Accenture
+{\fontfamily{fos}\selectfont%
+{\footnotesize\color{UrlGreen}accenture.com › careers}\\[-2pt]
+{\color{LinkBlue}\bfseries Data Engineer Intern} · Accenture~{\footnotesize\color{SubtleGray}| May -- Jul 2021}\\[1pt]
+{\footnotesize\color{TextBlack}%
+BI Dashboard with AWS S3 → Snowflake pipeline. NLP chatbot for data insights.%
+}%
+}
+
+\vspace{4pt}
+
+% Tookitaki
+{\fontfamily{fos}\selectfont%
+{\footnotesize\color{UrlGreen}tookitaki.com › careers}\\[-2pt]
+{\color{LinkBlue}\bfseries Software Engineer Intern} · Tookitaki, Singapore~{\footnotesize\color{SubtleGray}| Oct 2020 -- Jan 2021}\\[1pt]
+{\footnotesize\color{TextBlack}%
+Spark Structured-Streaming + ActiveMQ. Reduced latency \textbf{0.85s → <0.05s}.%
+}%
+}
+
+\vspace{6pt}
+
+% People also ask - Projects
+{\fontfamily{Montserrat-TOsF}\selectfont\normalsize\bfseries\color{TextBlack}People also ask about my projects}~~{\footnotesize\color{SubtleGray}:}
+\vspace{3pt}
+
+{\fontfamily{fos}\selectfont%
+\fbox{\parbox{0.94\linewidth}{\vspace{2pt}{\footnotesize\color{TextBlack}\bfseries \href{https://github.com/iu-sh/ytm_ai_host}{What is YTM AI Host?}}\hfill{\color{GoogleGray}\scriptsize\faChevronDown}\\[-2pt]{\scriptsize\color{SubtleGray} AI Radio Jockey for YouTube Music. Uses Gemini API + WebLLM for text generation. Multiple TTS engines (Chrome TTS, Kokoro JS, XTTS v2). Smart caching \& pre-fetching for seamless playback.}\vspace{2pt}}}\\[2pt]
+\fbox{\parbox{0.94\linewidth}{\vspace{2pt}{\footnotesize\color{TextBlack}\bfseries \href{https://youtu.be/0Fff2ncdbPo}{What is Pika Autonomous Robot?}}\hfill{\color{GoogleGray}\scriptsize\faChevronDown}\\[-2pt]{\scriptsize\color{SubtleGray} Autonomous robot using Computer Vision for navigation. TensorFlow + OpenCV on Raspberry Pi. Processes sensor data on-board for real-time decision making.}\vspace{2pt}}}\\[2pt]
+\fbox{\parbox{0.94\linewidth}{\vspace{2pt}{\footnotesize\color{TextBlack}\bfseries \href{https://github.com/WinterSoldier13/linkinJMS}{What is LinkinJMS?}}\hfill{\color{GoogleGray}\scriptsize\faChevronDown}\\[-2pt]{\scriptsize\color{SubtleGray} Low-latency ActiveMQ connector built from scratch. Spark + Scala. <0.05s latency with enhanced AMQP security. Supports read/write to topics \& queues.}\vspace{2pt}}}\\[2pt]
+\fbox{\parbox{0.94\linewidth}{\vspace{2pt}{\footnotesize\color{TextBlack}\bfseries \href{https://github.com/WinterSoldier13/professorMirror}{What is Professor-Mirror?}}\hfill{\color{GoogleGray}\scriptsize\faChevronDown}\\[-2pt]{\scriptsize\color{SubtleGray} Professor rating platform. Node.js + Firebase + MongoDB. Rate professors on Research, Course Material, Student Interaction.}\vspace{2pt}}}%
+}
+
+\end{minipage}%
+\hfill%
+% ============================================
+% RIGHT COLUMN - KNOWLEDGE PANEL
+% ============================================
+\begin{minipage}[t]{0.38\textwidth}
+
+\fboxsep=7pt
+\fboxrule=0.5pt
+\fcolorbox{PanelBorder}{white}{%
+\begin{minipage}[t]{0.88\linewidth}
+
+{\fontfamily{Montserrat-TOsF}\selectfont\Large\bfseries\color{TextBlack}Ayush Singh}\\[1pt]
+{\fontfamily{fos}\selectfont\small\color{SubtleGray}Software Engineer - III @ Google, Munich}
+
+\vspace{4pt}
+{\color{GoogleLightGray}\rule{\linewidth}{0.3pt}}
+\vspace{4pt}
+
+{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}About}\\[2pt]
+{\fontfamily{fos}\selectfont\scriptsize\color{TextBlack}%
+Software Engineer at Google Munich specializing in privacy systems and distributed architecture. Expert in full-stack development.%
+}
+
+\vspace{4pt}
+
+{\fontfamily{fos}\selectfont\scriptsize%
+\textbf{\color{SubtleGray}Location:}~{\color{TextBlack}Munich, Germany}\\[1pt]
+\textbf{\color{SubtleGray}Experience:}~{\color{TextBlack}4+ years}\\[1pt]
+\textbf{\color{SubtleGray}Current:}~{\color{TextBlack}SWE III @ Google}\\[1pt]
+\textbf{\color{SubtleGray}Education:}~{\color{LinkBlue}\href{https://www.nita.ac.in/}{NIT Agartala}}\\[1pt]
+\textbf{\color{SubtleGray}Degree:}~{\color{TextBlack}B.Tech (EE)}\\[1pt]
+\textbf{\color{SubtleGray}CGPA:}~{\color{TextBlack}9.32/10}%
+}
+
+\vspace{4pt}
+{\color{GoogleLightGray}\rule{\linewidth}{0.3pt}}
+\vspace{4pt}
+
+{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}Contact}\\[2pt]
+{\fontfamily{fos}\selectfont\scriptsize%
+\faPhone*~{\color{TextBlack}+91-7766942620}\\[1pt]
+\faEnvelope~{\color{LinkBlue}\href{mailto:ayushsingh1315@gmail.com}{ayushsingh1315@gmail.com}}\\[1pt]
+\faLinkedin~{\color{LinkBlue}\href{https://linkedin.com/in/iu-sh}{linkedin.com/in/iu-sh}}\\[1pt]
+\faGlobe~{\color{LinkBlue}\href{https://ayushsingh.is-a.dev}{ayushsingh.is-a.dev}}%
+}
+
+\vspace{4pt}
+{\color{GoogleLightGray}\rule{\linewidth}{0.3pt}}
+\vspace{4pt}
+
+{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}Skills}\\[2pt]
+{\fontfamily{fos}\selectfont\scriptsize\color{TextBlack}%
+TypeScript · C++ · Java · Scala · Python · Kotlin · Spark · Kafka · React · Node.js · Docker · TensorFlow · PyTorch%
+}
+
+\vspace{4pt}
+{\color{GoogleLightGray}\rule{\linewidth}{0.3pt}}
+\vspace{4pt}
+
+{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}Achievements}\\[2pt]
+{\fontfamily{fos}\selectfont\scriptsize\color{TextBlack}%
+{\color{GoogleBlue}\faTrophy}~7 Peer Bonuses at Google\\[0pt]
+{\color{GoogleBlue}\faTrophy}~3 Spot Bonuses at Google\\[0pt]
+{\color{GoogleGreen}\faMedal}~Rank 1 GFG at NIT-A\\[0pt]
+{\color{GoogleRed}\faGraduationCap}~1 of 50: Google ExploreML\\[0pt]
+{\color{GoogleBlue}\faAward}~IAS Fellowship 2021 (1/11)\\[0pt]
+{\color{GoogleGreen}\faUsers}~Founded DSC @ NIT-A%
+}
+
+\end{minipage}%
+}
+
+\vspace{4pt}
+
+% Profiles
+\fcolorbox{PanelBorder}{white}{%
+\begin{minipage}[t]{0.88\linewidth}
+\vspace{3pt}
+{\fontfamily{Montserrat-TOsF}\selectfont\small\bfseries\color{TextBlack}Profiles}\\[3pt]
+{\fontfamily{fos}\selectfont\scriptsize%
+{\color{GoogleBlue}\faLinkedin}~{\color{LinkBlue}\href{https://linkedin.com/in/iu-sh}{LinkedIn}}%
+\hspace{6pt}%
+{\color{TextBlack}\faGithub}~{\color{LinkBlue}\href{https://github.com/WinterSoldier13}{GitHub}}%
+\hspace{6pt}%
+{\color{GoogleBlue}\faGlobe}~{\color{LinkBlue}\href{https://ayushsingh.is-a.dev}{Portfolio}}%
+}
+\vspace{3pt}
+\end{minipage}%
+}
+
+\vspace{4pt}
+
+% Related searches
+{\fontfamily{fos}\selectfont\scriptsize\color{SubtleGray}Related searches}\\[2pt]
+{\fontfamily{fos}\selectfont\scriptsize%
+{\color{GoogleGray}\faSearch}~{\color{LinkBlue}\href{https://www.google.com/search?q=ayush+singh+google+engineer}{ayush singh google engineer}}\\[0pt]
+{\color{GoogleGray}\faSearch}~{\color{LinkBlue}\href{https://github.com/WinterSoldier13}{ayush singh github projects}}\\[0pt]
+{\color{GoogleGray}\faSearch}~{\color{LinkBlue}\href{https://ayushsingh.is-a.dev}{ayush singh portfolio}}%
+}
+
+\end{minipage}
+
+\end{document}
