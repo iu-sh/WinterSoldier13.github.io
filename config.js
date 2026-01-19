@@ -27,7 +27,7 @@ const CONFIG = {
         label: "Listen to two experts discuss my resume"
     },
 
-    resumeDownloadUrl: "https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing",
+    resumeDownloadUrl: "https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view",
 
     about: {
         name: "Ayush Singh",

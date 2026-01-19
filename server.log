@@ -1,0 +1,12 @@
+127.0.0.1 - - [19/Jan/2026 17:38:32] "GET /terminal.html HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:32] "GET /config.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:32] "GET /terminal.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:32] "GET /terminal.css HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:32] "GET /js/audio_player.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:33] "GET /ayush_resume.mp3 HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /normal.html HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /immersive.css HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /config.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /js/audio_player.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /immersive.js HTTP/1.1" 200 -
+127.0.0.1 - - [19/Jan/2026 17:38:50] "GET /ayush_resume.mp3 HTTP/1.1" 200 -
