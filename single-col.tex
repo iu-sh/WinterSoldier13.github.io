@@ -1,0 +1,214 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+\usepackage[T1]{fontenc}
+
+%----------FONT OPTIONS----------
+\usepackage{newtxtext,newtxmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generated pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+% ATS-friendly PDF metadata
+\hypersetup{
+    pdftitle={Ayush Singh - Software Engineer III Resume},
+    pdfauthor={Ayush Singh},
+    pdfsubject={Software Engineer III (L4) at Google specializing in Distributed Systems, Core Infrastructure, and Distributed Storage},
+    pdfkeywords={Software Engineer, Google, Distributed Systems, Backend Development, System Design, Technical Leadership, C++, Java, Go, TypeScript, Python, Scala, Kotlin, gRPC, Protobuf, HDFS, FUSE, Paxos, OpenTelemetry, Spark, Kafka, Kubernetes, Docker, AWS, GCP, CI/CD, Microservices}
+}
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Ayush Singh} \\ 
+    \small +49 1735 34 8915 $|$ \href{mailto:apparently.ayush@google.com}{apparently.ayush@google.com} $|$ 
+    \href{https://linkedin.com/in/iu-sh}{linkedin.com/in/iu-sh} $|$
+    \href{https://ayushsingh.is-a.dev}{ayushsingh.is-a.dev}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Software Engineer III (L4) at Google (Munich) with 4+ years of experience architecting planet-scale distributed systems, low-latency C++/Java RPC frameworks, fault-tolerant distributed file systems (100K+ services), and real-time streaming pipelines. Proven track record of high-velocity technical leadership: defaulted microservice architecture across $\sim$5,200 production nodes, delivered \$2.5M+ quarterly cost savings, awarded a VP of Engineering Spot Bonus, earned fast-track promotion to L4 in 15 months, and certified with 3$\times$ Google Readability (C++, TypeScript, API Design; 1,040+ code reviews).}
+
+%-----------EXPERIENCE-----------
+\section{Professional Experience}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+      {Software Engineer III}{November 2024 -- Present}
+      {Google, Munich, Germany}{Distributed Systems, Core C++/Java Infrastructure, System Design}
+      \resumeItemListStart
+        \resumeItem{Engineered high-throughput, low-latency request-path processors within \textbf{Google's core Java backend framework} (powering all Google products) and \textbf{core C++ Search serving engine}, operating on the critical serving path for billions of daily users.}
+        \resumeItem{Authored and standardized the organization-wide microservice architecture defaulted across \textbf{$\sim$5,200 production server nodes} (210+ modules across Search, YouTube, and Maps), reducing signal-processing complexity by \textbf{40\%} and retiring \textbf{1,300+ lines of legacy code}.}
+        \resumeItem{Built a parallel stream shadow-diffing framework across \textbf{YouTube, Google Play, Search, and Payments} achieving \textbf{100\% live cut-over parity} across billions of RPCs, and migrated \textbf{7 mission-critical identity pipelines} to distributed batch compute infrastructure.}
+        \resumeItem{Spearheaded end-to-end \textbf{UK Online Safety Act} and \textbf{US AppStore Age Verification} distributed backend rollouts across Web, Android, and iOS under an aggressive 4-week timeline across 5+ engineering and legal teams, mitigating multi-million dollar regulatory exposure and earning a \textbf{VP of Engineering Spot Bonus}.}
+    \resumeItemListEnd
+    
+  \resumeSubheading
+      {Software Engineer II $\rightarrow$ III}{July 2022 -- November 2024}
+      {Google, India}{Distributed Storage Systems, Observability, Backend Infrastructure}
+      \resumeItemListStart
+        \resumeItem{Engineered fault-tolerant storage and replication for \textbf{Google's internal HDFS-like distributed file system}, optimizing deployment and distribution of mission-critical binary assets across \textbf{100,000+ internal production services}.}
+        \resumeItem{Hardened distributed storage reliability by shipping server-side admission control and load-shedding, bounded semaphore RPC concurrency limiting in the \textbf{FUSE client daemon}, and migrating distributed snapshot locks off centralized \textbf{Paxos lock services} to eliminate lock contention.}
+        \resumeItem{Architected a highly available observability and \textbf{automated SLA/SLO compliance enforcement platform} correlating distributed traces and time-series metrics across third-party and internal systems, delivering \textbf{\$2.5M+ in quarterly cost savings}.}
+        \resumeItem{Co-architected a real-time \textbf{OpenTelemetry} distributed trace collector over \textbf{gRPC-Web} and an end-to-end encrypted \textbf{Go static asset gateway} for automated cross-cluster storage migration.}
+        \resumeItem{Led development of Google-wide Chrome third-party cookie deprecation impact analysis infrastructure securing \textbf{CEO/executive approval}, co-authored 3 org-wide Technical Design Documents (TDDs), and earned \textbf{fast-track promotion to SWE III (L4) within 15 months}.}
+      \resumeItemListEnd
+  
+  \resumeSubheading
+      {Software Engineer Intern}{January 2022 -- June 2022}
+      {Komprise, India}{Automation, Python, CI/CD}
+      \resumeItemListStart
+        \resumeItem{Developed automated testing framework enabling parallel test execution across distributed infrastructure, improving bug detection coverage by 60\%.}
+        \resumeItem{Optimized Build Verification Test (BVT) suite through multi-threading implementation, achieving \textbf{87.5\% reduction} in execution time and accelerating CI/CD pipeline throughput.}
+    \resumeItemListEnd
+  
+    \resumeSubheading
+      {Data Engineer Intern}{May 2021 -- July 2021}
+      {Accenture, India}{Data Engineering, Cloud, Business Intelligence}
+      \resumeItemListStart
+        \resumeItem{Architected end-to-end Business Intelligence dashboard for E-Commerce analytics with real-time data visualization serving 50+ stakeholders.}
+        \resumeItem{Designed optimized ETL data pipeline for high-volume data transfer (10TB+) from AWS S3 staging to Snowflake Data Warehouse.}
+        \resumeItem{Developed NLP-powered conversational AI chatbot using Rasa for automated data insights extraction, reducing manual reporting time by 70\%.}
+      \resumeItemListEnd
+      
+    \resumeSubheading
+      {Software Engineer Intern}{October 2020 -- January 2021}
+      {Tookitaki, Singapore}{Real-time Data Processing, Distributed Systems}
+      \resumeItemListStart
+        \resumeItem{Engineered real-time streaming data pipeline using Apache Spark Structured-Streaming with ActiveMQ integration for high-throughput message processing.}
+        \resumeItem{Achieved \textbf{94\% latency reduction} (850ms to <50ms) through custom JMS-Client implementation with optimized connection pooling.}
+        \resumeItem{Implemented fault-tolerant message recovery mechanism ensuring exactly-once delivery semantics in distributed streaming application.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {National Institute of Technology, Agartala}{August 2018 -- May 2022}
+      {Bachelor of Technology in Electrical Engineering}{CGPA: 9.32/10}
+  \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Programming Languages}{: C++, Java, Go, TypeScript, Python, Scala, Kotlin, JavaScript, SQL} \\
+     \textbf{Distributed Systems \& Backend}{: gRPC, Protobuf, Distributed File Systems (HDFS, FUSE), Paxos/Raft Consensus, Apache Spark, Apache Kafka, ActiveMQ, OpenTelemetry, Node.js, FastAPI} \\
+     \textbf{Databases \& Storage}{: Spanner, Snowflake, PostgreSQL, MongoDB, MySQL, Redis, HDFS} \\
+     \textbf{Cloud \& DevOps}{: Google Cloud Platform (GCP), AWS (S3, EC2), Docker, Kubernetes, Git, CI/CD, Jenkins, Terraform} \\
+     \textbf{Machine Learning \& AI Systems}{: Gemini API, WebLLM, WebGPU, Multi-Agent Systems, TensorFlow, PyTorch, NLP}
+    }}
+ \end{itemize}
+
+%-----------ACHIEVEMENTS-----------
+\section{Achievements \& Recognition}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbullet~Certified with \textbf{3$\times$ Google Readability} (C++, TypeScript, and API Design) with \textbf{1,040+ production code reviews}, a \textbf{VP of Engineering Spot Bonus}, and \textbf{7 peer bonuses} across Google engineering teams. \\
+     \textbullet~Institute \textbf{Rank 1} on GeeksForGeeks (among 1,180+ students) with worldwide \textbf{Rank 72} (among 100,000+) in Data Structures \& Algorithms. \\
+     \textbullet~Selected as \textbf{1 of 50 students} across India for \textbf{Google ExploreML 2019} machine learning program. \\
+     \textbullet~Selected as \textbf{1 of 11 students} for the prestigious \textbf{Indian Academy of Sciences FASTSF Fellowship 2021}. \\
+     \textbullet~Established first Google Developer Student Club at NIT Agartala as Google-appointed Lead (1 of 179 leads selected across India).
+    }}
+ \end{itemize}
+
+%-----------PROJECTS-----------
+\section{Technical Projects}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {YTM AI Host -- AI-Powered Music Radio Jockey}{\href{https://github.com/iu-sh/ytm_ai_host}{GitHub}}
+      {TypeScript, Gemini API, WebLLM, WebGPU, Python, Chrome Extensions}{}
+      \resumeItemListStart
+      \resumeItem{Developed AI-powered Radio Jockey Chrome extension for YouTube Music, delivering dynamic real-time introductions using large language models.}
+      \resumeItem{Integrated Google Gemini API and WebLLM for on-device LLM inference with multiple Text-to-Speech engines (Chrome TTS, Kokoro JS, XTTS v2).}
+      \resumeItem{Implemented intelligent caching and pre-fetching algorithms achieving sub-100ms response times for seamless audio.}
+      \resumeItem{Built modular local server architecture supporting YouTube Music and Spotify integration with privacy-first on-device AI processing.}
+      \resumeItemListEnd
+
+      \resumeSubheading
+      {LinkinJMS -- High-Performance Message Queue Connector}{\href{https://github.com/iu-sh/linkinJMS}{GitHub}}
+      {Apache Spark, Scala, JMS, ActiveMQ, AMQP}{}
+      \resumeItemListStart
+      \resumeItem{Engineered high-performance ActiveMQ connector achieving sub-50ms message latency with enhanced AMQP security and TLS encryption.}
+      \resumeItem{Implemented bidirectional message streaming for ActiveMQ topics and queues with exactly-once delivery guarantees and automatic failover.}
+      \resumeItemListEnd
+      
+  \resumeSubHeadingListEnd
+
+\end{document}
