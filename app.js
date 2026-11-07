@@ -229,7 +229,7 @@ const PORTFOLIO_DATA = {
     },
     {
       q: "How can recruiters or engineering managers schedule a conversation with Ayush?",
-      a: "You can click 'Book 1:1 Call' in the top bar or Knowledge Panel (https://calendar.app.google/kgawrPecMeeKW68P8), open his resume on Google Drive, or email apparently.ayush@gmail.com / ayushsingh1315@gmail.com directly."
+      a: "You can click 'Book 1:1 Call' in the top bar or Knowledge Panel (https://calendar.app.google/kgawrPecMeeKW68P8), open his resume on Google Drive, or email apparently.ayush@gmail.com directly."
     }
   ],
 
@@ -264,7 +264,7 @@ const PORTFOLIO_DATA = {
     "hire": "3 reasons to hire Ayush for a Distributed Systems role:\n1. Proven Production Scale: Shipped C++/Java/Go infrastructure across 100K+ services and ~5,200 microservice nodes at Google.\n2. Extreme Velocity & Code Quality: Promoted L3 → L4 in 15 months, VP Spot Bonus recipient, 3× Google Readability (C++, TS, API), and 1,040+ reviews.\n3. Measurable Bottom-Line Impact: $2.5M+/quarter saved via SLA/SLO observability automation and 94% streaming latency reduction (850ms → <50ms).",
     "ytm": "YTM AI Host (github.com/iu-sh/ytm_ai_host) is Ayush's #1 featured open-source project: a real-time (<100ms) AI Radio Jockey & audio streaming engine for YouTube Music and Spotify. It combines on-device WebGPU/WebLLM inference, Gemini API, multi-engine neural TTS (Kokoro JS, XTTS v2), and lookahead pre-fetching for seamless <100ms transitions.",
     "storage": "At Google (2022–2024) and Komprise (2022), Ayush specialized in Distributed Storage Infrastructure: he built replication, FUSE client semaphore RPC concurrency limiting, server-side admission control, and lock-free snapshot migrations off Paxos lock services for a distributed file system backing 100,000+ services.",
-    "contact": "You can reach Ayush directly at apparently.ayush@gmail.com or ayushsingh1315@gmail.com, connect on LinkedIn (linkedin.com/in/iu-sh), check his code on GitHub (github.com/iu-sh), or schedule a 1:1 call via https://calendar.app.google/kgawrPecMeeKW68P8."
+    "contact": "You can reach Ayush directly at apparently.ayush@gmail.com, connect on LinkedIn (linkedin.com/in/iu-sh), check his code on GitHub (github.com/iu-sh), or schedule a 1:1 call via https://calendar.app.google/kgawrPecMeeKW68P8."
   }
 };
 
@@ -933,7 +933,7 @@ function runTerminalCommand(rawCmd) {
   } else if (cmd === "full-terminal") {
     window.location.href = "terminal.html";
   } else if (cmd === "contact") {
-    resp.innerHTML = `Email: apparently.ayush@gmail.com / ayushsingh1315@gmail.com | GitHub: github.com/iu-sh | LinkedIn: linkedin.com/in/iu-sh`;
+    resp.innerHTML = `Email: apparently.ayush@gmail.com | GitHub: github.com/iu-sh | LinkedIn: linkedin.com/in/iu-sh`;
   } else if (cmd === "sudo hire ayush") {
     resp.innerHTML = `<span style="color:#50fa7b;">[OK] Offer packet initialized! Opening Recruiter Connect Modal... May the Force be with you ✨</span>`;
     setTimeout(() => {

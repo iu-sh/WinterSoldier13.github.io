@@ -214,8 +214,8 @@ I pick up new tech stacks faster than I finish my coffee. Outside of work, I cha
 
     contact: {
         email: {
-            address: "ayushsingh1315@gmail.com",
-            label: "ayushsingh1315@gmail.com"
+            address: "apparently.ayush@gmail.com",
+            label: "apparently.ayush@gmail.com"
         },
         social: {
             linkedin: {
