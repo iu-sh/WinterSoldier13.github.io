@@ -9,7 +9,7 @@ const PORTFOLIO_DATA = {
     title: "Software Engineer III (L4) · Distributed Systems & Core Infrastructure",
     company: "Google",
     location: "Munich, Germany 🇩🇪",
-    email: "apparently.ayush@google.com",
+    email: "apparently.ayush@gmail.com",
     altEmail: "apparently.ayush@gmail.com",
     phone: "+49 1735 34 8915",
     portfolioUrl: "https://ayushsingh.is-a.dev",
