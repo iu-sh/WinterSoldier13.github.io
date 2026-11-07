@@ -19,10 +19,10 @@
 % ============================================================================
 \geometry{
     letterpaper,
-    top=0.34in,
-    bottom=0.26in,
+    top=0.22in,
+    bottom=0.18in,
     left=0.26in,
-    right=0.36in
+    right=0.26in
 }
 
 \pagestyle{empty}
@@ -34,7 +34,7 @@
 % COLOR PALETTE — Exact Enhancv "Elegant" Petrol Teal & Crisp Charcoal
 % ============================================================================
 \definecolor{SidebarTeal}{HTML}{0E5A57}      % Deep Petrol Teal sidebar background
-\definecolor{SidebarCap}{HTML}{083E3C}       % Top 16px darker accent strip
+\definecolor{SidebarCap}{HTML}{083E3C}       % Top 14pt darker accent strip
 \definecolor{SidebarRule}{HTML}{4A8784}      % Subtle white/teal section rule in sidebar
 \definecolor{SidebarMuted}{HTML}{D1E7E6}     % Soft white-teal body text in sidebar
 \definecolor{RightHeading}{HTML}{2D3639}     % Dark slate-charcoal for titles & section headers
@@ -59,57 +59,57 @@
 % SIDEBAR & MAIN COLUMN MACROS
 % ============================================================================
 \newcommand{\sidebarSection}[1]{%
-  \vspace{8pt}%
-  {\fontsize{10.0}{11.5}\selectfont\bfseries\color{white}\MakeUppercase{#1}}\\[-4pt]
-  {\color{SidebarRule}\rule{\linewidth}{0.7pt}}\\[4pt]
+  \vspace{7.5pt}%
+  {\fontsize{9.8}{11.2}\selectfont\bfseries\color{white}\MakeUppercase{#1}}\\[-4pt]
+  {\color{SidebarRule}\rule{\linewidth}{0.7pt}}\\[3.5pt]
 }
 
 \newcommand{\sidebarSkillGroup}[2]{%
-  \vspace{3pt}%
-  {\fontsize{8.5}{10.0}\selectfont\bfseries\color{white}#1}\\[2pt]
-  {\fontsize{8.0}{10.5}\selectfont\color{SidebarMuted}#2}\\[3pt]
+  \vspace{2.5pt}%
+  {\fontsize{8.4}{9.8}\selectfont\bfseries\color{white}#1}\\[1.5pt]
+  {\fontsize{7.9}{10.2}\selectfont\color{SidebarMuted}#2}\\[2.5pt]
 }
 
 % Invisible comma delimiter for ATS parsers + visible middle dot for human readers
 \newcommand{\sDot}{{\fontsize{1}{1}\selectfont\color{SidebarTeal!99!white},}\ \textperiodcentered\ }
 
 \newcommand{\mainSection}[1]{%
-  \vspace{5pt}%
-  {\fontsize{10.2}{12.0}\selectfont\color{RightHeading}\MakeUppercase{#1}}\\[-4.5pt]
-  {\color{RightRule}\rule{\linewidth}{0.75pt}}\\[3.5pt]
+  \vspace{5.5pt}%
+  {\fontsize{9.4}{10.6}\selectfont\color{RightHeading}\MakeUppercase{#1}}\\[-5.5pt]
+  {\color{RightRule}\rule{\linewidth}{0.75pt}}\\[3.0pt]
 }
 
 \newcommand{\expEntry}[4]{%
-  \vspace{1.5pt}%
-  \noindent{\fontsize{9.4}{10.8}\selectfont\color{RightHeading}#1} \hfill {\fontsize{8.1}{9.6}\selectfont\color{RightMuted}#3}\\[1pt]
-  \noindent{\fontsize{8.6}{10.0}\selectfont\color{TealAccent}#2} \hfill {\fontsize{8.0}{9.6}\selectfont\color{RightMuted}#4}\vspace{1pt}%
+  \vspace{1.0pt}%
+  \noindent{\fontsize{8.9}{10.2}\selectfont\bfseries\color{RightHeading}#1} \hfill {\fontsize{7.8}{9.2}\selectfont\color{RightMuted}#3}\\[0.6pt]
+  \noindent{\fontsize{8.25}{9.6}\selectfont\bfseries\color{TealAccent}#2} \hfill {\fontsize{7.75}{9.2}\selectfont\color{RightMuted}#4}\vspace{1.2pt}%
 }
 
 \newcommand{\projEntry}[4]{%
-  \vspace{1.5pt}%
-  \noindent{\fontsize{9.2}{10.6}\selectfont\color{RightHeading}#1} \hfill {\fontsize{8.0}{9.5}\selectfont\color{RightMuted}\href{https://#3}{\faLink\hspace{2.5pt}#4}}\\[1pt]
-  \noindent{\fontsize{8.3}{9.8}\selectfont\color{TealAccent}#2}\vspace{1pt}%
+  \vspace{1.0pt}%
+  \noindent{\fontsize{8.7}{10.0}\selectfont\bfseries\color{RightHeading}#1} \hfill {\fontsize{7.65}{9.0}\selectfont\color{RightMuted}\href{https://#3}{\faLink\hspace{2.5pt}#4}}\\[0.5pt]
+  \noindent{\fontsize{7.8}{9.2}\selectfont\color{TealAccent}#2}\vspace{1.0pt}%
 }
 
 \newcommand{\itemRule}{%
-  \vspace{2pt}{\color{RowRule}\hrule height 0.5pt}\vspace{2pt}%
+  \vspace{4.5pt}%
 }
 
 \setlist[itemize]{
-  leftmargin=1.05em,
+  leftmargin=1.0em,
   topsep=0.5pt,
   partopsep=0pt,
-  itemsep=0.85pt,
+  itemsep=0.8pt,
   parsep=0pt,
   label={\color{RightHeading}\tiny$\bullet$}
 }
 
 \newcommand{\rItem}[1]{%
-  \item {\fontsize{8.05}{9.65}\selectfont\color{RightBody}#1}%
+  \item {\fontsize{7.8}{9.15}\selectfont\color{RightBody}#1}%
 }
 
 \newcommand{\sItem}[1]{%
-  \item {\fontsize{7.9}{9.5}\selectfont\color{SidebarMuted}#1}%
+  \item {\fontsize{7.85}{9.4}\selectfont\color{SidebarMuted}#1}%
 }
 
 % ============================================================================
@@ -119,7 +119,7 @@
 
 % -------------------- FULL-BLEED TEAL LEFT SIDEBAR BACKGROUND --------------------
 \begin{tikzpicture}[remember picture, overlay]
-  % Main Petrol Teal Left Sidebar (33% of paper width)
+  % Main Petrol Teal Left Sidebar (33.2% of paper width)
   \fill[SidebarTeal] (current page.north west) rectangle ([xshift=0.332\paperwidth]current page.south west);
   % Darker 14pt Top Cap Strip (matches Enhancv .coloredRightSideBackground::before)
   \fill[SidebarCap] (current page.north west) rectangle ([xshift=0.332\paperwidth, yshift=-14pt]current page.north west);
@@ -127,16 +127,16 @@
 
 % -------------------- TWO-COLUMN PARACOL LAYOUT --------------------
 \columnratio{0.312, 0.688}
-\setlength{\columnsep}{22pt}
+\setlength{\columnsep}{21pt}
 \begin{paracol}{2}
 
 % ==================== LEFT SIDEBAR (WHITE ON TEAL) ====================
-\vspace{2pt}
+\vspace{1pt}
 {\fontsize{20.5}{23.5}\selectfont\bfseries\color{white}AYUSH SINGH}
-\vspace{4pt}
+\vspace{3pt}
 
 \sidebarSection{SUMMARY}
-{\fontsize{8.05}{10.1}\selectfont\color{SidebarMuted}
+{\fontsize{7.95}{9.9}\selectfont\color{SidebarMuted}
 Software Engineer III (L4) at Google (Munich) with over \textbf{\color{white}4 years} of experience architecting planet-scale distributed systems, low-latency \textbf{\color{white}C++, Java, and Go} microservices, fault-tolerant storage systems, and real-time streaming pipelines. Standardized production architectures across \textbf{\color{white}5,200+ server nodes}, scaled internal storage backing \textbf{\color{white}100,000+ services}, and delivered \textbf{\color{white}\$2.5M+ in quarterly savings}. Earned a fast-track promotion to L4 in 15 months, a \textbf{\color{white}VP of Engineering Spot Bonus}, and \textbf{\color{white}3 Google Readability certifications} across \textbf{\color{white}1,040+ code reviews}.
 }
 
@@ -155,7 +155,7 @@ Software Engineer III (L4) at Google (Munich) with over \textbf{\color{white}4 y
 }
 
 \sidebarSection{AWARDS}
-\begin{itemize}[label={\color{white}\tiny$\bullet$}, leftmargin=0.95em, itemsep=1.5pt]
+\begin{itemize}[label={\color{white}\tiny$\bullet$}, leftmargin=0.95em, itemsep=1.4pt]
   \sItem{\textbf{\color{white}VP of Engineering Spot Bonus} \& \textbf{\color{white}7 Peer Bonuses} at Google for global launches and storage reliability.}
   \sItem{\textbf{\color{white}3 Google Readability Certifications} in C++, TypeScript, and API Design (\textbf{\color{white}1,040+ code reviews}).}
   \sItem{\textbf{\color{white}Rank \#1 in Institute \& \#72 Worldwide} on GeeksforGeeks (top \textbf{\color{white}0.07\%} of 100,000+ developers).}
@@ -163,67 +163,56 @@ Software Engineer III (L4) at Google (Munich) with over \textbf{\color{white}4 y
 \end{itemize}
 
 \sidebarSection{FIND ME ONLINE}
-{\fontsize{8.1}{10.2}\selectfont\color{white}
-  \faGithub\hspace{5pt}\textbf{GitHub}\\[1pt]
-  {\fontsize{7.8}{9.4}\selectfont\color{SidebarMuted}\href{https://github.com/iu-sh}{https://github.com/iu-sh}}\\[5pt]
-  \faGlobe\hspace{5pt}\textbf{Portfolio \& Interactive Resume}\\[1pt]
-  {\fontsize{7.8}{9.4}\selectfont\color{SidebarMuted}\href{https://ayushsingh.is-a.dev}{https://ayushsingh.is-a.dev}}\\[5pt]
-  \faLinkedin\hspace{5pt}\textbf{LinkedIn}\\[1pt]
-  {\fontsize{7.8}{9.4}\selectfont\color{SidebarMuted}\href{https://linkedin.com/in/iu-sh}{https://linkedin.com/in/iu-sh}}
+{\fontsize{8.0}{10.0}\selectfont\color{white}
+  \faGithub\hspace{5pt}\textbf{GitHub}\\[0.5pt]
+  {\fontsize{7.75}{9.2}\selectfont\color{SidebarMuted}\href{https://github.com/iu-sh}{https://github.com/iu-sh}}\\[4pt]
+  \faGlobe\hspace{5pt}\textbf{Portfolio \& Interactive Resume}\\[0.5pt]
+  {\fontsize{7.75}{9.2}\selectfont\color{SidebarMuted}\href{https://ayushsingh.is-a.dev}{https://ayushsingh.is-a.dev}}\\[4pt]
+  \faLinkedin\hspace{5pt}\textbf{LinkedIn}\\[0.5pt]
+  {\fontsize{7.75}{9.2}\selectfont\color{SidebarMuted}\href{https://linkedin.com/in/iu-sh}{https://linkedin.com/in/iu-sh}}
 }
 
 % ==================== RIGHT MAIN COLUMN (WHITE BACKGROUND) ====================
 \switchcolumn
 
-\vspace{2pt}
-{\fontsize{11.5}{13.5}\selectfont\color{TealAccent}Software Engineer III (L4) \textperiodcentered\ Distributed Systems \& Core Infrastructure}\\[4pt]
-{\fontsize{8.0}{9.8}\selectfont\color{RightBody}
+\vspace{1pt}
+{\fontsize{11.2}{13.0}\selectfont\color{TealAccent}Software Engineer III (L4) \textperiodcentered\ Distributed Systems \& Core Infrastructure}\\[3pt]
+{\fontsize{7.9}{9.5}\selectfont\color{RightBody}
   {\color{RightIcon}\faPhone*}\hspace{3.5pt}+49 1735 34 8915 \hspace{10pt}
-  {\color{RightIcon}\faAt}\hspace{3.5pt}\href{mailto:apparently.ayush@gmail.com}{apparently.ayush@gmail.com}\\[2pt]
-  {\color{RightIcon}\faLink}\hspace{3.5pt}\href{https://linkedin.com/in/iu-sh}{https://linkedin.com/in/iu-sh} \hspace{10pt}
+  {\color{RightIcon}\faAt}\hspace{3.5pt}\href{mailto:apparently.ayush@gmail.com}{apparently.ayush@gmail.com} \hspace{10pt}
+  {\color{RightIcon}\faLink}\hspace{3.5pt}\href{https://linkedin.com/in/iu-sh}{linkedin.com/in/iu-sh} \hspace{10pt}
   {\color{RightIcon}\faMapMarker*}\hspace{3.5pt}Munich, Germany
 }
-\vspace{2pt}
+\vspace{1pt}
 
 \mainSection{EXPERIENCE}
 
-\expEntry{Software Engineer III}{Google}{11/2024 - Present}{Munich, Germany}
+\expEntry{Software Engineer III (L4) --- Core Infrastructure \& Distributed Systems}{Google}{11/2024 - Present}{Munich, Germany}
 \begin{itemize}
-    \rItem{Architected high-throughput, low-latency request processors within Google's core Java backend framework and C++ Search serving engine, powering over \textbf{2 billion daily requests} at \textbf{99.99\% availability}.}
-    \rItem{Standardized the organization-wide microservice architecture defaulted across \textbf{5,200+ server nodes} and \textbf{210+ production modules} (Search, YouTube, Maps), reducing signal-processing complexity by \textbf{40\%} and eliminating \textbf{1,300+ lines of code}.}
-    \rItem{Implemented a parallel stream validation pipeline across YouTube, Play, Search, and Payments, verifying \textbf{100\% live migration parity} across \textbf{10 billion+ daily RPCs} while migrating \textbf{7 identity pipelines} to batch compute.}
-    \rItem{Spearheaded end-to-end backend launches for European Online Safety and US App Store regulatory compliance across Web, Android, and iOS within \textbf{4 weeks} across \textbf{5 engineering teams} (\textbf{VP of Engineering Spot Bonus}).}
+    \rItem{Architected high-throughput, low-latency request processors in Google's core \textbf{Java backend framework} and \textbf{C++ Search engine}, sustaining \textbf{7 billion+ daily requests} across Search, YouTube, and Maps.}
+    \rItem{Standardized the Google wide SignedOut request-processing architecture defaulted across \textbf{5,200+ server nodes} and \textbf{210+ production modules}, cutting signal-processing complexity by \textbf{8\%} and retiring \textbf{1,300+ lines of code}.}
+    \rItem{Implemented a parallel stream shadow-diffing and replay validation pipeline across \textbf{YouTube, Play, Search, and Payments}, verifying \textbf{100\% live migration parity} across \textbf{10 billion+ daily RPCs} with zero regressions.}
+    \rItem{Migrated \textbf{7 critical identity and policy evaluation pipelines} from synchronous request paths to distributed batch compute, reducing p99 serving tail latency by \textbf{12\%} and reclaiming GCUs.}
+    \rItem{Spearheaded distributed backend launches for \textbf{European Online Safety} and \textbf{US App Store regulatory compliance} across Web, Android, and iOS in \textbf{4 weeks} across \textbf{5 engineering teams} (\textbf{VP of Engineering Spot Bonus}).}
+    \rItem{Built an autonomous \textbf{multi-agent Python diagnostic system} fanning out parallel queries across rollout logs, code changes, and metrics to email root-cause reports before on-call triage; \textbf{3x Google Readability} (\textbf{1,040+ code reviews}).}
 \end{itemize}
 
 \itemRule
 
-\expEntry{Software Engineer II}{Google}{07/2022 - 11/2024}{Hyderabad, India}
+\expEntry{Software Engineer II $\rightarrow$ III (L4) --- Distributed Storage \& Observability}{Google}{07/2022 - 11/2024}{Hyderabad, India}
 \begin{itemize}
-    \rItem{Engineered fault-tolerant storage and replication components for Google's internal distributed file system, accelerating binary delivery across \textbf{100,000+ production services} and reducing tail latency by \textbf{28\%}.}
-    \rItem{Deployed server-side admission control, bounded semaphore RPC concurrency limits in the \textbf{FUSE client daemon}, and decentralized \textbf{Paxos snapshot locks}, cutting lock contention by \textbf{65\%} during peak cluster load.}
-    \rItem{Designed an automated service-level compliance and observability platform correlating traces and time-series metrics across \textbf{40+ product teams}, generating \textbf{\$2.5M+ in quarterly infrastructure savings}.}
-    \rItem{Co-developed a real-time \textbf{OpenTelemetry} trace collector over gRPC and an encrypted \textbf{Go asset gateway} handling \textbf{50,000+ requests per second}, achieving a \textbf{fast-track promotion to L4 in 15 months}.}
+    \rItem{Engineered fault-tolerant storage and replication components for Google's internal \textbf{HDFS-like distributed file system}, accelerating binary delivery across \textbf{100,000+ production services}.}
+    \rItem{Deployed server-side admission control, bounded semaphore RPC concurrency limits in the \textbf{FUSE client daemon} to prevent cascading OOMs, and decentralized \textbf{Paxos snapshot locks}, cutting lock contention by \textbf{65\%}.}
+    \rItem{Designed an automated \textbf{SLA/SLO compliance and observability platform} correlating distributed traces and metrics across \textbf{40+ product teams}, eliminating manual audits and generating \textbf{\$2.5M+ in quarterly savings}.}
+    \rItem{Co-developed a real-time \textbf{OpenTelemetry} trace collector over gRPC and an encrypted \textbf{Go asset gateway} sustaining \textbf{50,000+ requests per second} with zero-downtime key rotation.}
+    \rItem{Led technical readiness and dependency analysis for Chrome third-party cookie deprecation across \textbf{120+ enterprise services} (\textbf{approved by Google CEO}) and earned a \textbf{fast-track promotion to L4 in 15 months}.}
 \end{itemize}
 
-\itemRule
-
-\expEntry{Software Engineer Intern}{Komprise}{01/2022 - 06/2022}{Bengaluru, India}
+\mainSection{INTERNSHIPS}
 \begin{itemize}
-    \rItem{Automated multi-threaded storage verification across parallel cluster nodes, cutting build verification runtime by \textbf{87.5\%} and increasing critical bug detection coverage by \textbf{60\%}.}
-\end{itemize}
-
-\itemRule
-
-\expEntry{Data Engineer Intern}{Accenture}{05/2021 - 07/2021}{Bengaluru, India}
-\begin{itemize}
-    \rItem{Constructed high-volume cloud data pipelines transferring \textbf{10TB+ datasets} from \textbf{AWS S3 to Snowflake Data Warehouse}, reducing manual analytics reporting time by \textbf{70\%}.}
-\end{itemize}
-
-\itemRule
-
-\expEntry{Software Engineer Intern}{Tookitaki}{10/2020 - 01/2021}{Singapore}
-\begin{itemize}
-    \rItem{Optimized a real-time \textbf{Apache Spark Structured Streaming and ActiveMQ} pipeline with connection pooling and fault-tolerant recovery, reducing end-to-end streaming latency by \textbf{94\%} from \textbf{850ms to 45ms}.}
+    \rItem{\textbf{Komprise} \textit{(Software Engineer Intern \textperiodcentered\ 01/2022 - 06/2022 \textperiodcentered\ Bengaluru):} Automated parallel multi-threaded cluster verification across storage nodes, cutting build verification runtime by \textbf{87.5\%} and increasing bug detection coverage by \textbf{60\%}.}
+    \rItem{\textbf{Accenture} \textit{(Data Engineer Intern \textperiodcentered\ 05/2021 - 07/2021 \textperiodcentered\ Bengaluru):} Constructed distributed cloud ETL pipelines transferring \textbf{10TB+ datasets} from \textbf{AWS S3 to Snowflake}, reducing manual analytics reporting time by \textbf{70\%}.}
+    \rItem{\textbf{Tookitaki} \textit{(Software Engineer Intern \textperiodcentered\ 10/2020 - 01/2021 \textperiodcentered\ Singapore):} Optimized a real-time \textbf{Apache Spark Structured Streaming and ActiveMQ} pipeline with connection pooling, reducing end-to-end latency by \textbf{94\%} (\textbf{850ms to 45ms}).}
 \end{itemize}
 
 \mainSection{PROJECTS}
@@ -235,9 +224,9 @@ Software Engineer III (L4) at Google (Munich) with over \textbf{\color{white}4 y
 
 \itemRule
 
-\projEntry{LinkinJMS \& Incident Triage Agents}{Scala, Apache Spark, ActiveMQ, Python}{github.com/iu-sh/linkinJMS}{github.com/iu-sh/linkinJMS}
+\projEntry{LinkinJMS (Apache Spark ActiveMQ Connector)}{Scala, Apache Spark, ActiveMQ, AMQP/TLS}{github.com/iu-sh/linkinJMS}{github.com/iu-sh/linkinJMS}
 \begin{itemize}
-    \rItem{Created an open-source bidirectional ActiveMQ streaming connector for Apache Spark sustaining \textbf{sub-50ms ingestion latency} across \textbf{100,000+ messages/sec}, plus a production multi-agent root-cause triage system.}
+    \rItem{Created an open-source bidirectional ActiveMQ streaming connector for Apache Spark with exactly-once delivery and encrypted transport, sustaining \textbf{sub-50ms ingestion latency} across \textbf{100,000+ messages/sec}.}
 \end{itemize}
 
 \mainSection{EDUCATION}
