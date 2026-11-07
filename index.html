@@ -1,99 +1,664 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Ayush Singh | Portfolio</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayush Singh - distributed systems engineer - Google Search</title>
+  <meta name="description" content="Ayush Singh (iu-sh) — Software Engineer III (L4) at Google (Munich). 4+ years building planet-scale distributed systems, C++/Java RPC frameworks, HDFS/FUSE distributed storage, and real-time streaming pipelines." />
+  <meta name="keywords" content="Ayush Singh, iu-sh, Distributed Systems Engineer, Google L4, Software Engineer III, C++, Java, Go, gRPC, HDFS, FUSE, Paxos, OpenTelemetry, Apache Spark, Munich" />
+  <meta name="author" content="Ayush Singh" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Ayush Singh — Distributed Systems Engineer (Google L4)" />
+  <meta property="og:description" content="Interactive Google Search Dark-Mode Portfolio & Resume for Ayush Singh (SWE III at Google, Munich)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ayushsingh.is-a.dev" />
+  <meta name="theme-color" content="#000000" />
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dracula: {
-                            bg: '#282a36',
-                            current: '#44475a',
-                            fg: '#f8f8f2',
-                            comment: '#6272a4',
-                            cyan: '#8be9fd',
-                            green: '#50fa7b',
-                            orange: '#ffb86c',
-                            pink: '#ff79c6',
-                            purple: '#bd93f9',
-                            red: '#ff5555',
-                            yellow: '#f1fa8c'
-                        }
-                    },
-                    fontFamily: {
-                        mono: ['Fira Code', 'monospace'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+  <link rel="icon" type="image/x-icon" href="assets/google_favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
+<body>
 
-<body class="bg-dracula-bg text-dracula-fg font-display min-h-screen flex flex-col items-center justify-center p-4">
+  <!-- ========================================================================
+       STICKY GOOGLE SEARCH HEADER
+       ======================================================================== -->
+  <header class="search-header" id="top-search-header">
+    <div class="header-top-row">
+      <div class="header-left">
+        <!-- Real Google Logo (Polled from Google & Wikimedia) -->
+        <a href="#top" class="google-logo-link" onclick="event.preventDefault(); resetAllFilters();" title="Reset Search (Google)">
+          <img src="assets/google_logo.svg" alt="Google" class="google-logo-img" onerror="this.src='assets/googlelogo_color.png'" />
+        </a>
 
-    <div class="max-w-4xl w-full text-center space-y-12">
-        <div class="space-y-4">
-            <h1 class="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-dracula-purple to-dracula-pink">
-                Ayush Singh
-            </h1>
-            <p class="text-xl md:text-2xl text-dracula-comment font-light">
-                Software Engineer | Distributed Systems | Robot Builder
-            </p>
+        <!-- Interactive Search Bar with Live Autocomplete -->
+        <div class="search-bar-wrapper">
+          <div class="search-bar" id="search-bar-box">
+            <span style="color: var(--text-muted); font-size: 14px; user-select: none;">🔍</span>
+            <input
+              type="text"
+              id="search-input"
+              class="search-input"
+              value="Ayush Singh - distributed systems engineer"
+              placeholder="Search Ayush's experience, tech stack, or type 'do a barrel roll'..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <button id="search-clear-btn" class="search-action-btn" title="Clear search">✕</button>
+            <div class="search-divider"></div>
+            <button class="search-action-btn trigger-audio-overview" title="Listen to AI Audio Overview Podcast">🎙️</button>
+            <span class="kbd-shortcut" title="Press '/' to focus search">/</span>
+          </div>
+
+          <!-- Autocomplete Suggestions Dropdown -->
+          <div class="search-dropdown" id="search-dropdown"></div>
         </div>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl mx-auto">
-            <!-- Terminal Mode Card -->
-            <a href="terminal.html" class="group relative block p-1">
-                <div class="absolute inset-0 bg-gradient-to-r from-dracula-green to-dracula-cyan rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-                <div class="relative h-full bg-dracula-current/50 backdrop-blur-sm border border-dracula-green/50 rounded-2xl p-8 flex flex-col items-center justify-center space-y-6 hover:transform hover:scale-[1.02] transition duration-300">
-                    <div class="w-16 h-16 rounded-lg bg-black/50 flex items-center justify-center border border-dracula-green/30 font-mono text-2xl text-dracula-green">
-                        >_
-                    </div>
-                    <div class="text-center">
-                        <h2 class="text-2xl font-bold text-dracula-green mb-2">Terminal UI</h2>
-                        <p class="text-dracula-fg/80 text-sm">For the geeks and command-line lovers. Navigate via shell commands.</p>
-                    </div>
-                    <span class="inline-block px-4 py-2 rounded-full border border-dracula-green text-dracula-green font-mono text-xs group-hover:bg-dracula-green group-hover:text-dracula-bg transition-colors">
-                        $ ./enter_terminal.sh
-                    </span>
-                </div>
+      <!-- Right Action Buttons (Functional Links, Download, Calendar, Terminal, Apps Menu, Hiring) -->
+      <div class="header-right">
+        <!-- Primary Resume Button -> Opens Google Drive Resume in New Tab -->
+        <a
+          href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-header btn-download-primary"
+          title="Open Resume on Google Drive (New Tab)"
+        >
+          <span>📄</span>
+          <span>Download Resume</span>
+        </a>
+
+        <!-- Visible Book 1:1 Call Button -->
+        <a
+          href="https://calendar.app.google/kgawrPecMeeKW68P8"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-header"
+          title="Book a 1:1 slot on Ayush's Google Calendar"
+        >
+          <span>📅</span>
+          <span>Book 1:1</span>
+        </a>
+
+        <!-- Quick Terminal Modal Button -->
+        <button class="btn-header open-terminal-trigger" title="Open Interactive CLI (`~` shortcut)">
+          <span style="color: #50fa7b; font-family: var(--font-mono); font-weight: 700;">&gt;_</span>
+          <span>Terminal</span>
+        </button>
+
+        <!-- Settings Gear Button (Quick Actions & Easter Eggs) -->
+        <button class="icon-btn-round" id="settings-gear-btn" title="Quick Settings & Easter Eggs">⚙</button>
+
+        <!-- Google Apps Launcher (⋮⋮⋮) -->
+        <button class="icon-btn-round" id="google-apps-btn" title="Google Apps & UI Modes">⋮⋮⋮</button>
+
+        <!-- Hiring / Recruiter Connect Pill -->
+        <button class="hiring-pill open-recruiter-modal" title="Recruiter Quick Connect & Direct Contact">
+          <span class="pulse-dot"></span>
+          <span>hiring</span>
+        </button>
+
+        <!-- POPOVER 1: Settings Gear Menu -->
+        <div class="popover-menu" id="settings-gear-menu">
+          <div class="popover-title">Quick Actions & Easter Eggs</div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <a href="Ayush_Singh_Distributed_Systems_Resume.pdf" download="Ayush_Singh_Distributed_Systems_Resume.pdf" class="social-chip">
+              <span>⬇️</span>
+              <span>Direct Download PDF (Local Copy)</span>
             </a>
-
-            <!-- Normal/Immersive Mode Card -->
-            <a href="normal.html" class="group relative block p-1">
-                <div class="absolute inset-0 bg-gradient-to-r from-dracula-purple to-dracula-pink rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-                <div class="relative h-full bg-dracula-current/50 backdrop-blur-sm border border-dracula-purple/50 rounded-2xl p-8 flex flex-col items-center justify-center space-y-6 hover:transform hover:scale-[1.02] transition duration-300">
-                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-dracula-purple to-dracula-pink flex items-center justify-center shadow-lg text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                        </svg>
-                    </div>
-                    <div class="text-center">
-                        <h2 class="text-2xl font-bold text-dracula-purple mb-2">Immersive UI</h2>
-                        <p class="text-dracula-fg/80 text-sm">A modern, visual interactive experience with rich animations.</p>
-                    </div>
-                    <span class="inline-block px-4 py-2 rounded-full border border-dracula-purple text-dracula-purple font-display font-bold text-xs group-hover:bg-dracula-purple group-hover:text-dracula-bg transition-colors">
-                        Enter Immersive Experience
-                    </span>
-                </div>
+            <a href="https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>📋</span>
+              <span>Single-Column ATS Resume (Drive)</span>
             </a>
+            <a href="https://docs.google.com/document/d/18QXfAEK2MknT8VAtaSQgQZC8v5S36Nyr-UvcPY-zf2I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>📝</span>
+              <span>Open Live Google Doc Source</span>
+            </a>
+            <button onclick="triggerBarrelRoll()" class="social-chip" style="text-align: left;">
+              <span>🎡</span>
+              <span>Easter Egg: Do a Barrel Roll</span>
+            </button>
+            <button onclick="triggerAskew()" class="social-chip" style="text-align: left;">
+              <span>📐</span>
+              <span>Easter Egg: Toggle Askew Mode</span>
+            </button>
+          </div>
         </div>
 
-        <div class="pt-8 text-dracula-comment text-sm font-mono">
-            Choose your interface to begin...
+        <!-- POPOVER 2: Google Apps (⋮⋮⋮) Menu -->
+        <div class="popover-menu" id="google-apps-menu">
+          <div class="popover-title">Ayush's Ecosystem & UI Modes</div>
+          <div class="apps-grid">
+            <a href="terminal.html" class="app-tile" title="Full-Screen Dracula Terminal UI">
+              <div class="app-tile-icon" style="color: #50fa7b; font-family: var(--font-mono);">&gt;_</div>
+              <span>Terminal UI</span>
+            </a>
+            <a href="normal.html" class="app-tile" title="Immersive Visual UI">
+              <div class="app-tile-icon" style="color: #bd93f9;">✨</div>
+              <span>Immersive UI</span>
+            </a>
+            <a href="modes.html" class="app-tile" title="Classic Mode Switcher">
+              <div class="app-tile-icon" style="color: #ff79c6;">🎛️</div>
+              <span>All Modes</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="app-tile">
+              <div class="app-tile-icon" style="color: #4285f4;">📄</div>
+              <span>Drive PDF</span>
+            </a>
+            <a href="https://docs.google.com/document/d/18QXfAEK2MknT8VAtaSQgQZC8v5S36Nyr-UvcPY-zf2I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="app-tile">
+              <div class="app-tile-icon" style="color: #34a853;">📘</div>
+              <span>Google Doc</span>
+            </a>
+            <a href="https://calendar.app.google/kgawrPecMeeKW68P8" target="_blank" rel="noopener noreferrer" class="app-tile">
+              <div class="app-tile-icon" style="color: #fbbc05;">📅</div>
+              <span>Calendar</span>
+            </a>
+            <a href="https://github.com/iu-sh" target="_blank" rel="noopener noreferrer" class="app-tile">
+              <div class="app-tile-icon">🐙</div>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/iu-sh/" target="_blank" rel="noopener noreferrer" class="app-tile">
+              <div class="app-tile-icon" style="color: #8ab4f8;">💼</div>
+              <span>LinkedIn</span>
+            </a>
+            <button onclick="copyToClipboard('apparently.ayush@gmail.com', 'Email')" class="app-tile">
+              <div class="app-tile-icon" style="color: #ea4335;">✉️</div>
+              <span>Copy Email</span>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
-</body>
+    <!-- Navigation Tabs Bar -->
+    <div class="nav-tabs-container">
+      <nav class="nav-tabs" aria-label="Search Modes">
+        <button class="nav-tab active" data-tab="all">All</button>
+        <button class="nav-tab" data-tab="experience">Experience</button>
+        <button class="nav-tab" data-tab="projects">Projects</button>
+        <button class="nav-tab" data-tab="ai"><span style="color: var(--google-blue);">✦</span> AI Mode</button>
+        <button class="nav-tab" data-tab="skills">Skills</button>
+        <a href="terminal.html" class="nav-tab" style="text-decoration: none;">Terminal UI ↗</a>
+        <a href="normal.html" class="nav-tab" style="text-decoration: none;">Immersive UI ↗</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="nav-tab" onclick="resetAllFilters()" title="Reset all active filters">Reset Filters</button>
+      </div>
+    </div>
+  </header>
 
+  <!-- ========================================================================
+       MAIN GOOGLE SEARCH SERP CONTAINER
+       ======================================================================== -->
+  <main class="serp-container" id="top">
+    <!-- Breadcrumb & Search Stats -->
+    <div class="breadcrumb-row">
+      <a href="https://ayushsingh.is-a.dev" style="color: var(--text-primary); text-decoration: underline; font-weight: 500;">ayushsingh.is-a.dev</a>
+      <span>›</span>
+      <span>work-experience</span>
+      <span>›</span>
+      <span style="color: var(--google-blue);">distributed-systems-engineer</span>
+      <span style="margin-left: auto; font-size: 12px; color: var(--text-muted);">About 1,040+ code reviews &amp; 5,200+ prod nodes (0.04 seconds)</span>
+    </div>
+
+    <div class="serp-grid">
+      <!-- ====================================================================
+           LEFT COLUMN: AI OVERVIEW, TOP STATS, EXPERIENCE, PROJECTS, PAA
+           ==================================================================== -->
+      <div class="serp-left-col">
+
+        <!-- 1. INTERACTIVE AI MODE DRAWER (Shown when '✦ AI Mode' tab is clicked) -->
+        <section id="section-ai-interactive" class="ai-chat-box" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <div class="ai-sparkle-title">
+              <span class="sparkle-icon">✦</span>
+              <span>Ask Google AI about Ayush Singh</span>
+            </div>
+            <button onclick="switchTab('all')" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px;">Close ✕</button>
+          </div>
+
+          <div class="ai-chat-messages" id="ai-chat-messages">
+            <div class="ai-msg bot">
+              Hi! I'm trained on Ayush's internal &amp; external engineering portfolio. Click a prompt below or ask a question about his distributed systems scale, promotions, or open-source systems:
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+            <button class="skill-chip ai-prompt-chip" data-topic="hire">Why hire Ayush for Distributed Systems?</button>
+            <button class="skill-chip ai-prompt-chip" data-topic="scale">What scale does he operate at Google?</button>
+            <button class="skill-chip ai-prompt-chip" data-topic="ytm">Tell me about YTM AI Host (#1 Open Source)</button>
+            <button class="skill-chip ai-prompt-chip" data-topic="storage">Explain his Distributed File System work</button>
+            <button class="skill-chip ai-prompt-chip" data-topic="contact">How to book a 1:1 or contact him?</button>
+          </div>
+
+          <form id="ai-custom-form" style="display: flex; gap: 8px;">
+            <input
+              type="text"
+              id="ai-custom-input"
+              placeholder="Ask anything (e.g., 'What is his C++ / Java scale at Google?')..."
+              style="flex: 1; background: var(--bg-pill); border: 1px solid var(--border-card); border-radius: 999px; padding: 8px 14px; color: var(--text-primary); font-size: 13px; outline: none;"
+            />
+            <button type="submit" class="btn-header btn-download-primary" style="padding: 7px 16px;">Ask ✦</button>
+          </form>
+        </section>
+
+        <!-- 2. AI OVERVIEW CARD + EMBEDDED PODCAST AUDIO PLAYER -->
+        <section class="ai-overview-card" id="section-ai-overview">
+          <div class="ai-overview-header">
+            <div class="ai-sparkle-title">
+              <span class="sparkle-icon">✦</span>
+              <span>AI Overview</span>
+              <span style="font-size: 12.5px; color: var(--text-muted); font-weight: 400;">· Executive Summary</span>
+            </div>
+
+            <!-- Podcast Audio Overview Trigger -->
+            <button class="audio-overview-pill trigger-audio-overview" id="audio-overview-btn">
+              <span>🎧</span>
+              <span>Listen to AI Audio Overview (Podcast)</span>
+            </button>
+          </div>
+
+          <p style="font-size: 14.2px; line-height: 1.6; color: var(--text-secondary); margin-bottom: 12px;">
+            <strong style="color: var(--text-primary);">Software Engineer III (L4) at Google (Munich)</strong> with 4+ years building planet-scale <strong style="color: var(--text-primary);">distributed systems, low-latency C++/Java RPC frameworks, fault-tolerant distributed file systems, and real-time streaming pipelines</strong> across <span style="color: var(--google-blue); font-weight: 600;">Google, Komprise, Accenture, and Tookitaki</span>.
+          </p>
+
+          <ul class="result-bullets">
+            <li>
+              <strong>Planet-Scale Core Infra:</strong> Defaulted architecture across <strong>~5,200 microservice nodes</strong> (Search, YouTube, Maps) &amp; built distributed storage serving <strong>100,000+ services</strong>.
+            </li>
+            <li>
+              <strong>High-Impact Systems ROI:</strong> Delivered <strong>$2.5M+/quarter savings</strong> (SLA platform) and <strong>94% streaming latency reduction (850ms → &lt;50ms)</strong>.
+            </li>
+            <li>
+              <strong>Fast Track Record:</strong> Promoted <strong>L3 → L4 in 15 months</strong>; <span class="badge-inline">VP Spot Bonus</span>; 3× Readability (C++, TS, API) &amp; <strong>1,040+ PRs/CLs reviewed</strong>.
+            </li>
+          </ul>
+
+          <!-- Collapsible Audio Player Drawer -->
+          <div class="audio-Drawer" id="audio-drawer">
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--google-blue); font-weight: 600;">
+              <span>🎙️ Deep-Dive Audio Overview: Two Engineers Discuss Ayush's Resume</span>
+              <button class="trigger-audio-overview" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">Minimize ✕</button>
+            </div>
+            <audio id="resume-audio-element" controls preload="none" style="width: 100%; height: 36px; margin-top: 4px;">
+              <source src="ayush_resume.mp3" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </section>
+
+        <!-- 3. TOP STATS 4-CARD GRID -->
+        <section id="section-top-stats">
+          <div style="font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;">Top stats</div>
+          <div class="top-stats-grid">
+            <div class="stat-card" onclick="scrollToElement('google-munich')" title="Click to view Google Munich role">
+              <div class="stat-number" data-counter-target="5200" data-prefix="~" data- decimals="0">~5,200</div>
+              <div class="stat-desc">Prod microservice nodes running my default design</div>
+            </div>
+            <div class="stat-card" onclick="scrollToElement('google-india')" title="Click to view Google Distributed Storage role">
+              <div class="stat-number" data-counter-target="100" data-suffix="K+" data-decimals="0">100K+</div>
+              <div class="stat-desc">Google services backed by my distributed FileSystem</div>
+            </div>
+            <div class="stat-card" onclick="scrollToElement('google-india')" title="Click to view SLA/SLO platform impact">
+              <div class="stat-number" data-counter-target="2.5" data-prefix="$" data-suffix="M+" data-decimals="1">$2.5M+</div>
+              <div class="stat-desc">Quarterly savings via SLA/SLO platform</div>
+            </div>
+            <div class="stat-card" onclick="scrollToElement('tookitaki')" title="Click to view Spark Streaming latency cut">
+              <div class="stat-number" data-counter-target="94" data-suffix="%" data-decimals="0">94%</div>
+              <div class="stat-desc">Streaming latency cut (850ms → &lt;50ms)</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. WORK EXPERIENCE SECTION -->
+        <section id="section-experience">
+          <div class="section-heading">
+            <h2>Work Experience</h2>
+            <span>4+ Years in Distributed Systems, Storage &amp; Backend Infrastructure</span>
+          </div>
+          <div id="experience-list"></div>
+        </section>
+
+        <!-- 5. SELECTED OPEN-SOURCE & AGENTIC SYSTEMS SECTION -->
+        <section id="section-projects" style="margin-top: 32px;">
+          <div class="section-heading">
+            <h2><span style="color: var(--google-blue);">✦</span> Selected Open-Source &amp; Agentic Systems</h2>
+            <span>Featured #1: YTM AI Host (&lt;100ms Streaming AI RJ)</span>
+          </div>
+          <div id="projects-list"></div>
+        </section>
+
+        <!-- 6. PEOPLE ALSO ASK (ACCORDION) -->
+        <section id="section-paa" style="margin-top: 32px;">
+          <div style="font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px;">People also ask</div>
+          <div class="paa-container" id="paa-list"></div>
+        </section>
+
+        <!-- 7. PEOPLE ALSO SEARCH FOR (FILTER PILLS) -->
+        <section style="margin-top: 24px;">
+          <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">People also search for</div>
+          <div class="pasf-grid">
+            <button class="pasf-pill" onclick="filterBySkill('Distributed FS (HDFS / FUSE)')">
+              <span>🔍</span>
+              <span>Distributed File Systems (HDFS/FUSE)</span>
+            </button>
+            <button class="pasf-pill" onclick="filterBySkill('High-Throughput gRPC')">
+              <span>🔍</span>
+              <span>High-Throughput gRPC</span>
+            </button>
+            <button class="pasf-pill" onclick="filterBySkill('Apache Spark Streaming')">
+              <span>🔍</span>
+              <span>Apache Spark Streaming</span>
+            </button>
+            <button class="pasf-pill" onclick="filterBySkill('OpenTelemetry')">
+              <span>🔍</span>
+              <span>OpenTelemetry</span>
+            </button>
+            <button class="pasf-pill" onclick="filterBySkill('Paxos & Consensus')">
+              <span>🔍</span>
+              <span>Paxos &amp; Consensus</span>
+            </button>
+            <button class="pasf-pill" onclick="filterBySkill('WebGPU / LLM Agents')">
+              <span>🔍</span>
+              <span>WebGPU / On-Device LLM</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 8. GOOOOOOOGLE PAGINATION -->
+        <div class="google-pagination">
+          <div class="gooooogle-word">
+            <span style="color: #4285f4;">G</span><span style="color: #ea4335;">o</span><span style="color: #fbbc05;">o</span><span style="color: #fbbc05;">o</span><span style="color: #fbbc05;">o</span><span style="color: #fbbc05;">o</span><span style="color: #fbbc05;">o</span><span style="color: #fbbc05;">o</span><span style="color: #4285f4;">g</span><span style="color: #34a853;">l</span><span style="color: #ea4335;">e</span>
+            <span style="color: var(--google-blue); font-size: 20px; margin-left: 4px;">›</span>
+          </div>
+          <div class="page-numbers">
+            <button class="current" onclick="switchTab('all')">1</button>
+            <button onclick="switchTab('experience')">2</button>
+            <button onclick="switchTab('projects')">3</button>
+            <button onclick="switchTab('ai')">4</button>
+            <button onclick="switchTab('skills')">5</button>
+            <button onclick="openTerminalModal()">6</button>
+            <button onclick="switchTab('experience')">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           RIGHT COLUMN: KNOWLEDGE PANEL
+           ==================================================================== -->
+      <aside class="knowledge-panel" aria-label="Knowledge Panel">
+        <!-- Cell 1: Profile Photo + Name + Quick Mode Pills + Visible Recruiter CTAs -->
+        <div class="kp-section">
+          <div class="kp-photo-frame">
+            <img
+              id="kp-profile-img"
+              src="assets/doggo.gif"
+              alt="Ayush Singh with doggos"
+            />
+          </div>
+
+          <h1 class="kp-name">Ayush Singh</h1>
+          <div class="kp-subtitle">Distributed Systems Engineer · Google L4</div>
+
+          <div class="kp-pills-row">
+            <button class="kp-pill-btn active" data-kp-tab="overview" onclick="switchTab('all')">Overview</button>
+            <button class="kp-pill-btn" data-kp-tab="experience" onclick="switchTab('experience')">Experience</button>
+            <button class="kp-pill-btn" data-kp-tab="projects" onclick="switchTab('projects')">Projects</button>
+            <button class="kp-pill-btn" data-kp-tab="skills" onclick="switchTab('skills')">Skills</button>
+          </div>
+
+          <!-- Always-Visible Recruiter & Contact Actions (Not Hidden!) -->
+          <div class="recruiter-cta-grid">
+            <a
+              href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-action-btn primary"
+            >
+              <span>📄</span>
+              <span>Resume (Drive)</span>
+            </a>
+            <a
+              href="https://calendar.app.google/kgawrPecMeeKW68P8"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-action-btn primary"
+            >
+              <span>📅</span>
+              <span>Book 1:1 Call</span>
+            </a>
+            <button onclick="copyToClipboard('apparently.ayush@gmail.com', 'Email')" class="cta-action-btn">
+              <span>📋</span>
+              <span>Copy Email</span>
+            </button>
+            <a href="mailto:apparently.ayush@gmail.com?cc=ayushsingh1315@gmail.com&subject=Distributed%20Systems%20Engineering%20Role%20%E2%80%94%20Ayush%20Singh" class="cta-action-btn">
+              <span>✉️</span>
+              <span>Send Email</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cell 2: Key Facts -->
+        <div class="kp-section">
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Current: </span>
+            <span style="color: var(--google-blue); font-weight: 600;">SWE III (L4) at Google</span>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Experience: </span>
+            <span>4+ Years (Google, Komprise, Accenture, Tookitaki)</span>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Location: </span>
+            <span>Munich, Germany 🇩🇪</span>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Email: </span>
+            <a href="mailto:apparently.ayush@gmail.com" class="kp-fact-link">apparently.ayush@gmail.com</a>
+            <button class="copy-mini-btn" onclick="copyToClipboard('apparently.ayush@gmail.com', 'Primary Email')" title="Copy email">Copy</button>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Alt Email: </span>
+            <a href="mailto:ayushsingh1315@gmail.com" class="kp-fact-link">ayushsingh1315@gmail.com</a>
+            <button class="copy-mini-btn" onclick="copyToClipboard('ayushsingh1315@gmail.com', 'Alt Email')" title="Copy email">Copy</button>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Phone: </span>
+            <a href="tel:+917766942620" class="kp-fact-link" style="color: var(--text-secondary);">+91-7766942620</a>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Education: </span>
+            <span>NIT Agartala · B.Tech EE (CGPA: 9.32 / 10)</span>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Code Authority: </span>
+            <span>3× Google Readability (C++, TS, API) · 1,040+ Reviews</span>
+          </div>
+          <div class="kp-fact-row">
+            <span class="kp-fact-label">Honors: </span>
+            <span class="badge-inline">VP Spot Bonus</span>
+            <span> · 7× Peer Bonuses · GFG Rank #72</span>
+          </div>
+        </div>
+
+        <!-- Cell 3: Profiles & Direct Links -->
+        <div class="kp-section">
+          <div style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Profiles &amp; Links</div>
+          <div class="social-grid">
+            <a href="https://www.linkedin.com/in/iu-sh/" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>💼</span>
+              <span>LinkedIn ↗</span>
+            </a>
+            <a href="https://github.com/iu-sh" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>🐙</span>
+              <span>GitHub ↗</span>
+            </a>
+            <a href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>📄</span>
+              <span>Google Drive PDF</span>
+            </a>
+            <a href="https://docs.google.com/document/d/18QXfAEK2MknT8VAtaSQgQZC8v5S36Nyr-UvcPY-zf2I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="social-chip">
+              <span>📘</span>
+              <span>Live Google Doc</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cell 4: Technical Skills (Click any chip to filter SERP!) -->
+        <div class="kp-section" id="kp-skills-section">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 14px; font-weight: 600; color: var(--text-primary);">Technical skills</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Click chip to filter</span>
+          </div>
+
+          <div class="skill-group-label">Languages</div>
+          <div class="skill-chips-wrap" id="kp-skills-languages"></div>
+
+          <div class="skill-group-label">Distributed Systems &amp; Storage</div>
+          <div class="skill-chips-wrap" id="kp-skills-distributed"></div>
+
+          <div class="skill-group-label">Cloud, Observability &amp; AI Infra</div>
+          <div class="skill-chips-wrap" id="kp-skills-cloud"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       GOOGLE SEARCH FOOTER
+       ======================================================================== -->
+  <footer class="serp-footer">
+    <div class="serp-footer-inner">
+      <div>
+        <span style="color: #34a853;">●</span>
+        <strong style="color: var(--text-secondary);">Munich, Germany</strong>
+        <span> · </span>
+        <a href="mailto:apparently.ayush@gmail.com" style="color: var(--google-blue); text-decoration: none;">apparently.ayush@gmail.com</a>
+        <span> · </span>
+        <a href="mailto:ayushsingh1315@gmail.com" style="color: var(--text-muted); text-decoration: none;">ayushsingh1315@gmail.com</a>
+        <span> · </span>
+        <span>+91-7766942620</span>
+      </div>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing" target="_blank" rel="noopener noreferrer" style="color: var(--google-blue); text-decoration: none;">Resume PDF (Drive)</a>
+        <a href="https://calendar.app.google/kgawrPecMeeKW68P8" target="_blank" rel="noopener noreferrer" style="color: var(--google-blue); text-decoration: none;">Book 1:1 Call</a>
+        <a href="terminal.html" style="color: var(--text-muted); text-decoration: none;">Terminal UI</a>
+        <a href="normal.html" style="color: var(--text-muted); text-decoration: none;">Immersive UI</a>
+        <a href="https://www.linkedin.com/in/iu-sh/" target="_blank" rel="noopener noreferrer" style="color: var(--google-blue); text-decoration: none;">linkedin.com/in/iu-sh</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODAL 1: RECRUITER CONNECT & HIRING HUB (Triggered by `hiring` pill)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="recruiter-modal">
+    <div class="recruiter-modal-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="pulse-dot"></span>
+          <h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary);">Recruiter &amp; Hiring Manager Hub</h3>
+        </div>
+        <button id="close-recruiter-modal" style="background: none; border: none; color: var(--text-muted); font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+
+      <p style="font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); margin-bottom: 16px;">
+        Ayush is a <strong style="color: var(--text-primary);">Software Engineer III (L4) at Google, Munich</strong> specializing in <strong style="color: var(--google-blue);">Distributed Systems, Core C++/Java/Go Infrastructure, and Distributed Storage</strong>.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <a
+          href="https://calendar.app.google/kgawrPecMeeKW68P8"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-action-btn primary"
+          style="padding: 12px; font-size: 13.5px;"
+        >
+          <span>📅</span>
+          <span>Book a 1:1 Intro Call on Google Calendar ↗</span>
+        </a>
+
+        <a
+          href="https://drive.google.com/file/d/1BzaW9LoAIPa2qqFkLLwmWN2A_2eejs80/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-action-btn"
+          style="padding: 12px; font-size: 13.5px;"
+        >
+          <span>📄</span>
+          <span>Open Google-Search-Styled Resume on Drive ↗</span>
+        </a>
+
+        <a
+          href="https://drive.google.com/file/d/18WSvCUixoKOrkHoTGbKKNCbnNQ75WrQk/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cta-action-btn"
+          style="padding: 12px; font-size: 13.5px;"
+        >
+          <span>📋</span>
+          <span>Open Classic Single-Column ATS Resume on Drive ↗</span>
+        </a>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <button onclick="copyToClipboard('apparently.ayush@gmail.com', 'Email')" class="cta-action-btn" style="padding: 10px;">
+            <span>📋</span>
+            <span>Copy apparently.ayush@</span>
+          </button>
+          <button onclick="copyToClipboard('ayushsingh1315@gmail.com', 'Email')" class="cta-action-btn" style="padding: 10px;">
+            <span>📋</span>
+            <span>Copy ayushsingh1315@</span>
+          </button>
+        </div>
+
+        <a
+          href="mailto:apparently.ayush@gmail.com?cc=ayushsingh1315@gmail.com&subject=Distributed%20Systems%20SWE%20Opportunity%20for%20Ayush%20Singh"
+          class="cta-action-btn"
+          style="padding: 11px; font-size: 13px;"
+        >
+          <span>✉️</span>
+          <span>Launch Email Client Directly</span>
+        </a>
+      </div>
+
+      <div style="margin-top: 14px; font-size: 11.5px; color: var(--text-muted); text-align: center;">
+        Note: If reserving a 1:1 Calendar slot, please send a quick email note 48h in advance :)
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: INTERACTIVE TERMINAL MODAL (`~` Shortcut or Terminal Button)
+       ======================================================================== -->
+  <div class="modal-backdrop" id="terminal-modal">
+    <div class="terminal-window">
+      <div class="terminal-titlebar">
+        <div class="terminal-dots">
+          <div class="terminal-dot" style="background: #ff5f56;" onclick="closeTerminalModal()" title="Close"></div>
+          <div class="terminal-dot" style="background: #ffbd2e;" onclick="closeTerminalModal()"></div>
+          <div class="terminal-dot" style="background: #27c93f;" onclick="window.location.href='terminal.html'" title="Maximize to Full Terminal UI"></div>
+        </div>
+        <div style="font-size: 12px; color: #8b949e;">guest@TheFlyingDutchman: ~ (Press ESC to close)</div>
+        <a href="terminal.html" style="font-size: 11.5px; color: #58a6ff; text-decoration: none;">Full Screen ↗</a>
+      </div>
+
+      <div class="terminal-body" id="terminal-scroll-body">
+        <div style="color: #8be9fd; margin-bottom: 10px;">
+          Welcome to Ayush Singh's Quick Shell! Type <strong style="color: #f1fa8c;">help</strong> to list commands, or <strong style="color: #50fa7b;">sudo hire ayush</strong>.
+        </div>
+        <div id="terminal-output"></div>
+        <div class="terminal-input-line">
+          <span style="color: #50fa7b;">guest@TheFlyingDutchman</span>:<span style="color: #8be9fd;">~</span>$
+          <input type="text" id="terminal-cli-input" class="terminal-input" placeholder="type 'help', 'experience', 'projects', 'sudo hire ayush'..." autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>

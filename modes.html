@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Ayush Singh | Portfolio</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dracula: {
+                            bg: '#282a36',
+                            current: '#44475a',
+                            fg: '#f8f8f2',
+                            comment: '#6272a4',
+                            cyan: '#8be9fd',
+                            green: '#50fa7b',
+                            orange: '#ffb86c',
+                            pink: '#ff79c6',
+                            purple: '#bd93f9',
+                            red: '#ff5555',
+                            yellow: '#f1fa8c'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['Fira Code', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-dracula-bg text-dracula-fg font-display min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-4xl w-full text-center space-y-12">
+        <div class="space-y-4">
+            <h1 class="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-dracula-purple to-dracula-pink">
+                Ayush Singh
+            </h1>
+            <p class="text-xl md:text-2xl text-dracula-comment font-light">
+                Software Engineer | Distributed Systems | Robot Builder
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
+            <!-- Google Search Mode Card -->
+            <a href="index.html" class="group relative block p-1">
+                <div class="absolute inset-0 bg-gradient-to-r from-dracula-cyan to-dracula-purple rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                <div class="relative h-full bg-dracula-current/50 backdrop-blur-sm border border-dracula-cyan/50 rounded-2xl p-8 flex flex-col items-center justify-center space-y-6 hover:transform hover:scale-[1.02] transition duration-300">
+                    <div class="w-16 h-16 rounded-lg bg-black/70 flex items-center justify-center border border-dracula-cyan/30 font-display text-2xl font-bold text-dracula-cyan">
+                        G
+                    </div>
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-dracula-cyan mb-2">Google Search UI</h2>
+                        <p class="text-dracula-fg/80 text-sm">Dark-mode Google Search SERP &amp; Knowledge Panel interactive resume.</p>
+                    </div>
+                    <span class="inline-block px-4 py-2 rounded-full border border-dracula-cyan text-dracula-cyan font-mono text-xs group-hover:bg-dracula-cyan group-hover:text-dracula-bg transition-colors">
+                        🔍 Search Ayush Singh
+                    </span>
+                </div>
+            </a>
+
+            <!-- Terminal Mode Card -->
+            <a href="terminal.html" class="group relative block p-1">
+                <div class="absolute inset-0 bg-gradient-to-r from-dracula-green to-dracula-cyan rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                <div class="relative h-full bg-dracula-current/50 backdrop-blur-sm border border-dracula-green/50 rounded-2xl p-8 flex flex-col items-center justify-center space-y-6 hover:transform hover:scale-[1.02] transition duration-300">
+                    <div class="w-16 h-16 rounded-lg bg-black/50 flex items-center justify-center border border-dracula-green/30 font-mono text-2xl text-dracula-green">
+                        >_
+                    </div>
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-dracula-green mb-2">Terminal UI</h2>
+                        <p class="text-dracula-fg/80 text-sm">For the geeks and command-line lovers. Navigate via shell commands.</p>
+                    </div>
+                    <span class="inline-block px-4 py-2 rounded-full border border-dracula-green text-dracula-green font-mono text-xs group-hover:bg-dracula-green group-hover:text-dracula-bg transition-colors">
+                        $ ./enter_terminal.sh
+                    </span>
+                </div>
+            </a>
+
+            <!-- Normal/Immersive Mode Card -->
+            <a href="normal.html" class="group relative block p-1">
+                <div class="absolute inset-0 bg-gradient-to-r from-dracula-purple to-dracula-pink rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                <div class="relative h-full bg-dracula-current/50 backdrop-blur-sm border border-dracula-purple/50 rounded-2xl p-8 flex flex-col items-center justify-center space-y-6 hover:transform hover:scale-[1.02] transition duration-300">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-dracula-purple to-dracula-pink flex items-center justify-center shadow-lg text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                    </div>
+                    <div class="text-center">
+                        <h2 class="text-2xl font-bold text-dracula-purple mb-2">Immersive UI</h2>
+                        <p class="text-dracula-fg/80 text-sm">A modern, visual interactive experience with rich animations.</p>
+                    </div>
+                    <span class="inline-block px-4 py-2 rounded-full border border-dracula-purple text-dracula-purple font-display font-bold text-xs group-hover:bg-dracula-purple group-hover:text-dracula-bg transition-colors">
+                        Enter Immersive Experience
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        <div class="pt-8 text-dracula-comment text-sm font-mono">
+            Choose your interface to begin...
+        </div>
+    </div>
+
+</body>
+
+</html>
