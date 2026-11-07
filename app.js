@@ -224,7 +224,7 @@ const PORTFOLIO_DATA = {
     },
     {
       q: "What measurable systems ROI and latency wins has Ayush delivered?",
-      a: "• $2.5M+ per quarter saved via an automated SLA/SLO observability & compliance enforcement platform.\n• 94% streaming latency reduction (850ms → <50ms) in Apache Spark + ActiveMQ pipelines.\n• 40% reduction in RPC signal-processing complexity across ~5,200 microservice nodes.\n• 87.5% faster distributed storage build-verification runtime via multi-threaded parallel test execution."
+      a: "• $2.5M+ per quarter saved via an automated SLA/SLO observability & compliance enforcement platform.\n• 94% streaming latency reduction (850ms → <50ms) in Apache Spark + ActiveMQ pipelines.\n• 8% reduction in RPC signal-processing complexity across 5,200+ server nodes & 12% lower p99 serving tail latency.\n• 65% lock contention reduction on FUSE/Paxos distributed storage & 87.5% faster parallel build verification."
     },
     {
       q: "Where did Ayush study and what are his algorithmic & leadership credentials?",
